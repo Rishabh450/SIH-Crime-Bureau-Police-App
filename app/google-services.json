@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "921956751866-kvqjcgkoiph88ajuqhnqshude569lflo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sih.policeapp",
+            "certificate_hash": "8d7a6bd319f5d994dca060aeaf36a3335c8de3c6"
+          }
+        },
+        {
+          "client_id": "921956751866-l2av346b7rbl5tf18smcaoegrj1u8dlq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sih.policeapp",
+            "certificate_hash": "aa2ec7d77d90664b6cb5efbcb8d1903a04b609c7"
+          }
+        },
+        {
           "client_id": "921956751866-dqrujci09koe0ec3p3c769nialud8chl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
