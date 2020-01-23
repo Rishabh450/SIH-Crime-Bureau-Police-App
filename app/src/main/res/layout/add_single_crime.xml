@@ -119,6 +119,15 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_crime"
+                android:text="Add Crime"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="#F35F92"
+                android:layout_gravity="center_horizontal"
+                />
 
 
 

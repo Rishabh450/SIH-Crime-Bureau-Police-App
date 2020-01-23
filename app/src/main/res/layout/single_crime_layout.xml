@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         app:cardCornerRadius="30dp"
         android:layout_marginStart="7dp"
-        android:backgroundTint="#E3E5E7"
         android:layout_marginEnd="7dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="5dp"
@@ -50,27 +49,38 @@
 
 
             </LinearLayout>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:hint="Display Name"
-                android:id="@+id/crime_name"
+                android:hint="Crime eg fraud,rape,murder etc"
+                android:id="@+id/crime_type"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 />
 
-            <EditText
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/body_mark"
+                android:id="@+id/state"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:hint="Body Mark"
+                android:hint="Select Crime State"
+                />
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/district"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:hint="Select Crime District"
                 />
 
 
@@ -82,7 +92,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Date Of Birth"
+                    android:hint="Date Of Crime"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:paddingStart="5dp"
@@ -96,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_today_black_24dp"
-                    android:id="@+id/img_DOB"
+                    android:id="@+id/img_DOC"
                     />
 
 
@@ -111,7 +121,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Full Address of criminal"
+                    android:hint="Full Address of crime"
                     android:gravity="top"
                     android:id="@+id/crime_full_adress"
                     android:background="#F7F7F7"
@@ -130,11 +140,38 @@
                 android:hint="Rating of crime out of 5"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:id="@+id/crime_rating"
+                android:id="@+id/rating_of_crime"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginBottom="5dp"
                 />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Case Status"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:focusable="false"
+                    android:id="@+id/case_status"
+                    android:layout_marginEnd="5dp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_edit_black_24dp"
+                    android:id="@+id/img_case_status"
+                    />
+
+
+
+            </LinearLayout>
 
 
         </LinearLayout>

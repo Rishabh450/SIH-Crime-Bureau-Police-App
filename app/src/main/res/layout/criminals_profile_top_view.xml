@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         app:cardCornerRadius="30dp"
         android:layout_marginStart="7dp"
-
+        android:backgroundTint="#E3E5E7"
         android:layout_marginEnd="7dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="5dp"
@@ -42,7 +42,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:id="@+id/crime_count"
-                        android:text="Criminal Details"
+                        android:text="Crime Number"
                         android:textSize="22dp" />
 
 
@@ -50,44 +50,34 @@
 
 
             </LinearLayout>
-
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
-                android:layout_margin="5dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="15dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
-                />
+                android:id="@+id/criminal_profile_pic" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:hint="Crime eg fraud,rape,murder etc"
-                android:id="@+id/crime_name"
+                android:hint="Display Name"
+                android:id="@+id/criminal_name"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 />
 
-            <AutoCompleteTextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/state"
+                android:id="@+id/body_mark"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:hint="Select Crime State"
-                />
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/district"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:hint="Select Crime District"
+                android:hint="Body Mark"
                 />
 
 
@@ -99,13 +89,13 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Date Of Crime"
+                    android:hint="Date Of Birth"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:focusable="false"
-                    android:id="@+id/DOC"
+                    android:id="@+id/DOB"
                     android:layout_marginEnd="5dp"
                     />
 
@@ -113,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_today_black_24dp"
-                    android:id="@+id/img_DOC"
+                    android:id="@+id/img_DOB"
                     />
 
 
@@ -128,9 +118,9 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Full Address of crime"
+                    android:hint="Full Address of criminal"
                     android:gravity="top"
-                    android:id="@+id/criminal_full_adress"
+                    android:id="@+id/address_of_criminal"
                     android:background="#F7F7F7"
                     android:padding="5dp"
                     android:layout_margin="5dp"
@@ -147,11 +137,13 @@
                 android:hint="Rating of crime out of 5"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:id="@+id/rating_of_criminal"
+                android:id="@+id/criminals_rating"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginBottom="5dp"
                 />
+
+
 
 
         </LinearLayout>

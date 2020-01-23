@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Criminal's Name"
+                android:id="@+id/criminal_name"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
@@ -70,6 +71,7 @@
                     android:layout_height="180dp"
                     android:hint="Criminal's Address"
                     android:gravity="top"
+                    android:id="@+id/address_of_criminal"
                     android:background="#F7F7F7"
                     android:padding="5dp"
                     android:layout_margin="5dp"
@@ -83,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Body Mark"
+                android:id="@+id/body_mark"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
@@ -92,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Crime eg fraud,rape,murder etc"
-                android:id="@+id/crime_name"
+                android:id="@+id/crime_type"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
@@ -159,6 +162,7 @@
                     android:layout_height="180dp"
                     android:hint="Full Address of crime"
                     android:gravity="top"
+                    android:id="@+id/crime_address"
                     android:background="#F7F7F7"
                     android:padding="5dp"
                     android:layout_margin="5dp"
@@ -176,6 +180,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:paddingStart="5dp"
+                android:id="@+id/rating_of_crime"
                 android:paddingEnd="5dp"
                 />
 
@@ -183,13 +188,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add Criminal"
+                android:id="@+id/add_criminal"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="#F35F92"
                 android:layout_gravity="center_horizontal"
                 />
-
-
-
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
