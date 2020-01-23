@@ -80,9 +80,9 @@ public class MyService extends Service {
         lastKnown=getLastKnownLocation();
         myref1.setValue(lastKnown.getLatitude()+"||"+lastKnown.getLongitude());
 
-        //final Handler handler = new Handler();
+        final Handler handler = new Handler();
 
-      /*  final Runnable r = new Runnable() {
+      final Runnable r = new Runnable() {
             public void run() {
                 // tv.append("Hello World");
                myref.setValue(System.currentTimeMillis());
@@ -92,7 +92,7 @@ public class MyService extends Service {
             }
         };
 
-        handler.postDelayed(r, 2000);*/
+        handler.postDelayed(r, 2000);
        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             @Override
