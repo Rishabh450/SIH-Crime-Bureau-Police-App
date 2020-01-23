@@ -8,12 +8,65 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:921956751866:android:1ff9b512f7430c43daac43",
+        "android_client_info": {
+          "package_name": "com.example.userapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "921956751866-pejbqj3qi5moibb1m391g00mrudh1tjc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.userapp",
+            "certificate_hash": "ab14130c3e74179685f911b97930ce3b3a91eca0"
+          }
+        },
+        {
+          "client_id": "921956751866-jg40qt8pf61p1sn8luifhfg4711i9jfp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0KlznsNGz4YPaefocL6HnQUFSL7HhSx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "921956751866-2gmkgtbemg0ib361o28dip9nkaum3tme.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:921956751866:android:849cdb09a5c8c702daac43",
         "android_client_info": {
           "package_name": "com.sih.policeapp"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "921956751866-kvqjcgkoiph88ajuqhnqshude569lflo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sih.policeapp",
+            "certificate_hash": "8d7a6bd319f5d994dca060aeaf36a3335c8de3c6"
+          }
+        },
+        {
+          "client_id": "921956751866-l2av346b7rbl5tf18smcaoegrj1u8dlq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sih.policeapp",
+            "certificate_hash": "aa2ec7d77d90664b6cb5efbcb8d1903a04b609c7"
+          }
+        },
         {
           "client_id": "921956751866-dqrujci09koe0ec3p3c769nialud8chl.apps.googleusercontent.com",
           "client_type": 1,
@@ -36,7 +89,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "921956751866-jg40qt8pf61p1sn8luifhfg4711i9jfp.apps.googleusercontent.com",
+              "client_id": "921956751866-2gmkgtbemg0ib361o28dip9nkaum3tme.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
