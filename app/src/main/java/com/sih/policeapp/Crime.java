@@ -3,8 +3,39 @@ package com.sih.policeapp;
 public class Crime {
     String crime_id,criminal_id,crime_adder_authority_Id,district_of_crime,
             state_of_crime,date_of_crime,case_status,crime_type,address_of_crime
-            ,rating_of_crime ;
+            ,rating_of_crime ,main_crime_type ;
     String time_when_crime_added;
+
+    public Crime(String crime_id, String criminal_id, String crime_adder_authority_Id, String district_of_crime, String state_of_crime, String date_of_crime, String case_status, String crime_type, String address_of_crime, String rating_of_crime, String main_crime_type, String time_when_crime_added) {
+        this.crime_id = crime_id;
+        this.criminal_id = criminal_id;
+        this.crime_adder_authority_Id = crime_adder_authority_Id;
+        this.district_of_crime = district_of_crime;
+        this.state_of_crime = state_of_crime;
+        this.date_of_crime = date_of_crime;
+        this.case_status = case_status;
+        this.crime_type = crime_type;
+        this.address_of_crime = address_of_crime;
+        this.rating_of_crime = rating_of_crime;
+        this.main_crime_type = main_crime_type;
+        this.time_when_crime_added = time_when_crime_added;
+    }
+
+    public String getMain_crime_type() {
+        return main_crime_type;
+    }
+
+    public void setMain_crime_type(String main_crime_type) {
+        this.main_crime_type = main_crime_type;
+    }
+
+    public String getTime_when_crime_added() {
+        return time_when_crime_added;
+    }
+
+    public void setTime_when_crime_added(String time_when_crime_added) {
+        this.time_when_crime_added = time_when_crime_added;
+    }
 
     public Crime() {
 

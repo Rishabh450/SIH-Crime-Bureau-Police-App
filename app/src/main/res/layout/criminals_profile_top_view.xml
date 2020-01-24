@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         app:cardCornerRadius="30dp"
         android:layout_marginStart="7dp"
-        android:backgroundTint="#E3E5E7"
         android:layout_marginEnd="7dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="5dp"
@@ -134,7 +133,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Rating of crime out of 5"
+                android:hint="Rating of criminal out of 5"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:id="@+id/criminals_rating"

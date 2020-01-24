@@ -1,9 +1,7 @@
 package com.sih.policeapp;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -25,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -41,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -69,17 +67,20 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
     ArrayList<String> listCity=new ArrayList<String>();
     // access all auto complete text views
 
+    ArrayList<String> MainCrimesType = new ArrayList<>();
+
     Map<String , ArrayList<String>> stateDistrict;
     Map<String , ArrayList<String>> districtLocality = new HashMap<>();
     Map<String , Long > localityPincode = new HashMap<>();
     private ImageView img_DOB,img_DOC;
+
+    ArrayAdapter<CharSequence> adapter;
 
     AutoCompleteTextView act,state,dist;
     Spinner spinner;
     private Button addCriminal;
     private TextView criminalAddress,crimeAddress,criminalName,bodyMark,crimeRating,crimeType;
     private ProgressDialog mProgressDialog;
-    private int flag=1;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,11 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
         crimeRating = findViewById(R.id.rating_of_crime);
         crimeType = findViewById(R.id.crime_type);
         addCriminal =findViewById(R.id.add_criminal);
+        spinner = findViewById(R.id.main_crime_type);
 
+        adapter = ArrayAdapter.createFromResource(this,R.array.MainCrimeTypes,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
 
 
@@ -142,29 +147,75 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
                 final String criminal_id,criminal_name,criminal_address,criminals_DOB,criminal_BodyMark ,criminal_rating;
                 final String crime_id,crime_adder_authority_Id,district_of_crime,
                         state_of_crime,date_of_crime,case_status,crime_type,address_of_crime ,rating_of_crime;
-                final String time_when_crime_added;
+                final String time_when_crime_added , main_crime_type;
 
                 final DatabaseReference mRootRef , mCrime_Ref , mCriminalRef ;
                 mRootRef = FirebaseDatabase.getInstance().getReference();
                 mCrime_Ref = mRootRef.child("crime_ref");
                 mCriminalRef = mRootRef.child("criminal_ref");
 
-                criminal_id = mRootRef.child("creiminal_id_creation").push().getKey();
-                criminal_address = criminalAddress.getText().toString();
-                criminals_DOB = DOB.getText().toString();
-                criminal_BodyMark = bodyMark.getText().toString();
-                criminal_name = criminalName.getText().toString();
+                criminal_id = mRootRef.child("criminal_id_creation").push().getKey();
+                criminal_address = criminalAddress.getText().toString().trim();
+                criminals_DOB = DOB.getText().toString().trim();
+                criminal_BodyMark = bodyMark.getText().toString().trim();
+                criminal_name = criminalName.getText().toString().trim();
                 criminal_rating = "2";
+                main_crime_type = spinner.getSelectedItem().toString().trim();
+                int flag = 0;
+                int temp=0;
+
+                if(main_crime_type.equals("Select Crime Type"))
+                {
+                    ((TextView)spinner.getSelectedView()).setError("Please Select Crime Type");
+                    flag=1;
+                }else{
+                    ((TextView)spinner.getSelectedView()).setError(null);
+                }
+
+                if(criminal_address.equals("") || criminal_address.length()<10)
+                {
+                    criminalAddress.setError("Plz enter full address of criminal");
+                    flag = 1;
+                }else{
+                    criminalAddress.setError(null);
+
+                }
+                if(criminals_DOB.equals(""))
+                {
+                    DOB.setError("Plz enter full address of criminal");
+                    flag = 1;
+                }else{
+                    DOB.setError(null);
+
+                }
+                if(criminal_BodyMark.equals(""))
+                {
+                    bodyMark.setError("Plz enter criminal's body mark");
+                    flag = 1;
+
+                }else{
+                    bodyMark.setError(null);
+
+                }
+                if(criminal_name.equals(""))
+                {
+                    criminalName.setError("Plz enter criminal's name");
+                    flag = 1;
+                }else{
+                    criminalName.setError(null);
+
+                }
+
 
                 final StorageReference storageRef;
 
                 crime_id = mRootRef.child("crime_id_creation").push().getKey();
-                date_of_crime = DOC.getText().toString();
-                state_of_crime = state.getText().toString();
-                district_of_crime = dist.getText().toString();
-                address_of_crime = crimeAddress.getText().toString();
+                date_of_crime = DOC.getText().toString().trim();
+                state_of_crime = state.getText().toString().trim();
+                district_of_crime = dist.getText().toString().trim();
+                address_of_crime = crimeAddress.getText().toString().trim();
                 time_when_crime_added = String.valueOf(System.currentTimeMillis());
-                rating_of_crime = crimeRating.getText().toString();
+                rating_of_crime = crimeRating.getText().toString().trim();
                 if(FirebaseAuth.getInstance().getCurrentUser() != null)
                 {
                     crime_adder_authority_Id = FirebaseAuth.getInstance().getUid();
@@ -173,73 +224,132 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
                     crime_adder_authority_Id = "NULL";
                 }
                 case_status = "Pending";
-                crime_type = crimeType.getText().toString();
+                crime_type = crimeType.getText().toString().trim();
 
 
 
-                mProgressDialog.setTitle("Uploading");
-                mProgressDialog.setMessage("Please wait while we upload your data.");
-                mProgressDialog.setCanceledOnTouchOutside(false);
-                mProgressDialog.show();
+
+                if(crime_type.equals(""))
+                {
+                    crimeType.setError("Plz enter type of crime or name of crime");
+                    flag = 1;
+                }else{
+                    crimeType.setError(null);
+
+                }
+                if(address_of_crime.equals("") || address_of_crime.length()<10)
+                {
+                    crimeAddress.setError("Plz enter full address of crime");
+                    flag = 1;
+                }else{
+                    crimeAddress.setError(null);
+
+                }
+                if(date_of_crime.equals(""))
+                {
+                    DOC.setError("Plz enter date of crime"); flag = 1;
+                }else{
+                    DOC.setError(null);
+
+                }
+                if(rating_of_crime.equals("1") ||rating_of_crime.equals("2") ||rating_of_crime.equals("3") ||rating_of_crime.equals("4") ||rating_of_crime.equals("5"))
+                {
+                    crimeRating.setError(null);
+
+                }else{
+                    crimeRating.setError("Enter rating between 1 to 5"); flag = 1;
+                }
+                if(!listState.contains(state_of_crime))
+                {
+                    state.setError("Plz enter valid State");
+                    temp=1; flag = 1;
+                }else{
+                    state.setError(null);
+
+                }
+                dist_list(state_of_crime);
+                if(!listCity.contains(district_of_crime))
+                {
+                   if(temp==1) dist.setError("Plz enter valid District");
+                   else dist.setError("District entered is Invalid or does not lie in " + state_of_crime);
+                    flag = 1;
+                }else{
+                    dist.setError(null);
+
+                }
 
 
 
-                assert criminal_id != null;
-                storageRef = FirebaseStorage.getInstance().getReference().child(criminal_id).child("profile_pic.jpg");
-                storageRef.putFile(Uri.parse(imageUri)).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if(task.isSuccessful())
-                        {
-                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    String profile_pic_url;
-                                    profile_pic_url = uri.toString();
-                                    HashMap<String, String> CriminalMap = new HashMap<>();
-                                    CriminalMap.put("criminal_id",criminal_id);
-                                    CriminalMap.put("criminal_name",criminal_name);
-                                    CriminalMap.put("criminal_address",criminal_address);
-                                    CriminalMap.put("criminals_DOB",criminals_DOB);
-                                    CriminalMap.put("criminal_BodyMark",criminal_BodyMark);
-                                    CriminalMap.put("criminal_rating",criminal_rating);
-                                    CriminalMap.put("profile_pic_url",profile_pic_url);
-                                    mCriminalRef.child(criminal_id).setValue(CriminalMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
+                if(flag==0)
+                {
 
-                                            HashMap<String, String> CrimeMap = new HashMap<>();
-                                            CrimeMap.put("crime_id",crime_id);
-                                            CrimeMap.put("criminal_id",criminal_id);
-                                            CrimeMap.put("crime_adder_authority_Id",crime_adder_authority_Id);
-                                            CrimeMap.put("district_of_crime",district_of_crime);
-                                            CrimeMap.put("state_of_crime",state_of_crime);
-                                            CrimeMap.put("date_of_crime",date_of_crime);
-                                            CrimeMap.put("case_status",case_status);
-                                            CrimeMap.put("crime_type",crime_type);
-                                            CrimeMap.put("address_of_crime",address_of_crime);
-                                            CrimeMap.put("rating_of_crime",rating_of_crime);
-                                            CrimeMap.put("time_when_crime_added",time_when_crime_added);
-                                            assert crime_id != null;
-                                            mCrime_Ref.child(crime_id).setValue(CrimeMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(AddNewCriminalDetails.this, "Successfully Added!", Toast.LENGTH_SHORT).show();
-                                                    mProgressDialog.hide();
+                    mProgressDialog.setTitle("Uploading");
+                    mProgressDialog.setMessage("Please wait while we upload your data.");
+                    mProgressDialog.setCanceledOnTouchOutside(false);
+                    mProgressDialog.show();
+
+                    assert criminal_id != null;
+                    storageRef = FirebaseStorage.getInstance().getReference().child(criminal_id).child("profile_pic.jpg");
+                    storageRef.putFile(Uri.parse(imageUri)).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if(task.isSuccessful())
+                            {
+                                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String profile_pic_url;
+                                        profile_pic_url = uri.toString();
+                                        String res = main_crime_type + "( " + crime_type + "in" + district_of_crime + "," + state_of_crime + " )" ;
+                                        HashMap<String, String> CriminalMap = new HashMap<>();
+                                        CriminalMap.put("criminal_id",criminal_id);
+                                        CriminalMap.put("criminal_name",criminal_name);
+                                        CriminalMap.put("criminal_address",criminal_address);
+                                        CriminalMap.put("criminals_DOB",criminals_DOB);
+                                        CriminalMap.put("criminal_BodyMark",criminal_BodyMark);
+                                        CriminalMap.put("criminal_rating",criminal_rating);
+                                        CriminalMap.put("profile_pic_url",profile_pic_url);
+                                        CriminalMap.put("last_crime",res);
+                                        mCriminalRef.child(criminal_id).setValue(CriminalMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+
+                                                HashMap<String, String> CrimeMap = new HashMap<>();
+                                                CrimeMap.put("crime_id",crime_id);
+                                                CrimeMap.put("criminal_id",criminal_id);
+                                                CrimeMap.put("crime_adder_authority_Id",crime_adder_authority_Id);
+                                                CrimeMap.put("district_of_crime",district_of_crime);
+                                                CrimeMap.put("state_of_crime",state_of_crime);
+                                                CrimeMap.put("date_of_crime",date_of_crime);
+                                                CrimeMap.put("case_status",case_status);
+                                                CrimeMap.put("crime_type",crime_type);
+                                                CrimeMap.put("address_of_crime",address_of_crime);
+                                                CrimeMap.put("rating_of_crime",rating_of_crime);
+                                                CrimeMap.put("time_when_crime_added",time_when_crime_added);
+                                                CrimeMap.put("main_crime_type",main_crime_type);
+                                                assert crime_id != null;
+                                                mCrime_Ref.child(crime_id).setValue(CrimeMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Toast.makeText(AddNewCriminalDetails.this, "Successfully Added!", Toast.LENGTH_SHORT).show();
+                                                        mProgressDialog.hide();
 //                                                Intent intent = new Intent(AddNewCriminalDetails.this , AddCriminalActivity.class);
 //                                            startActivity(intent);
 //                                            finish();
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
-                    }
-                });
+                    });
 
 
+
+
+                }
 
 
 
