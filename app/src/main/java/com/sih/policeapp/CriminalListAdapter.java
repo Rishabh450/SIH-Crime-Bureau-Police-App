@@ -2,6 +2,7 @@ package com.sih.policeapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,16 +40,16 @@ public class CriminalListAdapter extends RecyclerView.Adapter<CriminalListAdapte
 
     @SuppressLint("ResourceAsColor")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         CircleImageView circleImageView;
-        TextView name,rating,lastCrime;
+        TextView name,rating,lastCrime,viewProfile;
 
         circleImageView = holder.mView.findViewById(R.id.criminal_profile_pic);
         name = holder.mView.findViewById(R.id.criminal_name);
         rating = holder.mView.findViewById(R.id.criminals_rating);
         lastCrime = holder.mView.findViewById(R.id.last_crime);
-
-        Criminals currCriminal = shortlistedCriminals.get(position);
+        viewProfile = holder.mView.findViewById(R.id.view_profile);
+        final Criminals currCriminal = shortlistedCriminals.get(position);
 
         Picasso.with(ctx)
                 .load(currCriminal.getProfile_pic_url())
@@ -64,6 +65,17 @@ public class CriminalListAdapter extends RecyclerView.Adapter<CriminalListAdapte
         String ans = "Criminal Rating: " + currCriminal.getCriminal_rating();
         rating.setText(ans);
        // lastCrime
+
+        viewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currCriminalID;
+                Intent intent = new Intent(ctx,CriminalProfile.class);
+                intent.putExtra("curr_criminal",currCriminal.getCriminal_id());
+                ctx.startActivity(intent);
+            }
+        });
+
 
 
 

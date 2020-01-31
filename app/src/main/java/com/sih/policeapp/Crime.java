@@ -6,6 +6,8 @@ public class Crime {
             ,rating_of_crime ,main_crime_type ;
     String time_when_crime_added;
 
+
+
     public Crime(String crime_id, String criminal_id, String crime_adder_authority_Id, String district_of_crime, String state_of_crime, String date_of_crime, String case_status, String crime_type, String address_of_crime, String rating_of_crime, String main_crime_type, String time_when_crime_added) {
         this.crime_id = crime_id;
         this.criminal_id = criminal_id;
@@ -127,13 +129,7 @@ public class Crime {
         this.address_of_crime = address_of_crime;
     }
 
-    public String gettime_when_crime_added() {
-        return time_when_crime_added;
-    }
 
-    public void setTime_of_crime(String time_of_crime) {
-        this.time_when_crime_added = time_when_crime_added;
-    }
 
     public String getRating_of_crime() {
         return rating_of_crime;

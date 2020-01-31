@@ -198,6 +198,7 @@
                 android:id="@+id/add_criminal"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="#F35F92"
+                android:layout_marginBottom="40dp"
                 android:layout_gravity="center_horizontal"
                 />
 

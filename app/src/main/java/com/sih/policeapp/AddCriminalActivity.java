@@ -153,6 +153,7 @@ public class AddCriminalActivity extends AppCompatActivity {
                 // Crop image activity api uses....
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
+                        .setAspectRatio(1,1)
                         .start(AddCriminalActivity.this);
             }
         });

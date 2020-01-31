@@ -273,14 +273,14 @@
     </string-array>
 
     <string-array name="MainCrimeTypes">
-    <item>Select Crime Type</item>
-    <item>Women Related Crime</item>
-    <item>Children Related Crime</item>
-    <item>Business Related Crime</item>
-    <item>Property Related Crime</item>
-    <item>Illegal Trafficking</item>
-    <item>Specific Person Related Crime</item>
-    <item>Others</item>
+        <item>Select Crime Type</item>
+        <item>Women Related Crime</item>
+        <item>Children Related Crime</item>
+        <item>Business Related Crime</item>
+        <item>Property Related Crime</item>
+        <item>Illegal Trafficking</item>
+        <item>Specific Person Related Crime</item>
+        <item>Others</item>
     </string-array>
 
     <string-array name="SortBy">
@@ -291,7 +291,6 @@
         <item>Wanted Level</item>
         <item>Random</item>
     </string-array>
-
 
 
     <string-array name="india_banks">
@@ -461,5 +460,6 @@
         <item>YES BANK LTD</item>
         <item>ZILA SAHKARI BANK LTD GHAZIABAD</item>
     </string-array>
+    <string name="title_activity_add_single_crime">AddSingleCrime</string>
 
 </resources>
