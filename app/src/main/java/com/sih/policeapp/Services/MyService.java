@@ -76,6 +76,7 @@ public class MyService extends Service {
         // Just do any operations you need in this method.
         Log.d("serviceStared","gun");
         vehicle= FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        if(vehicle.contains(" "))
         vehicle=vehicle.substring(0,vehicle.indexOf(' '));
 
         final DatabaseReference myref= FirebaseDatabase.getInstance().getReference().child("Time").child(vehicle).child("Location");
@@ -132,7 +133,7 @@ public class MyService extends Service {
         };
 
 
-        startForeground(21,new Notification());
+       // startForeground(21,new Notification());
     }
 
     @Override

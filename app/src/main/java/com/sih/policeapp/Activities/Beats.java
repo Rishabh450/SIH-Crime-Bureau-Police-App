@@ -34,11 +34,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sih.policeapp.MainActivity;
 import com.sih.policeapp.R;
 import com.sih.policeapp.Services.MyService;
 
@@ -71,6 +73,18 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beats);
+        if(FirebaseAuth.getInstance().getCurrentUser()==null) {
+            Log.e("ak47", "user null");
+            Intent intent = new Intent(Beats.this, Login.class);
+            startActivity(intent);
+        }
+        else{
+            Log.e("ak47", "not null");
+        vehicle=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+           // vehicle= FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            if(vehicle.contains(" "))
+            vehicle=vehicle.substring(0,vehicle.indexOf(' '));}
+
         patrol = findViewById(R.id.patrol);
         emergency=findViewById(R.id.emergency);
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -97,7 +111,7 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                         startService(mServiceIntent);
                     }
 
-                    final DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Beats").child(vehicle).child("Location");
+             /*       final DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Beats").child(vehicle).child("Location");
                     LocationManager locationManager = (LocationManager) Beats.this.getSystemService(Context.LOCATION_SERVICE);
                     LocationListener locationListener = new LocationListener() {
                         @Override
@@ -146,7 +160,7 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
 
 
                         }
-                    }
+                    }*/
                 }
             }
         });
@@ -156,7 +170,7 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
 
     @Override
     protected void onDestroy() {
-        stopService(mServiceIntent);
+      //  stopService(mServiceIntent);
         super.onDestroy();
     }
 
