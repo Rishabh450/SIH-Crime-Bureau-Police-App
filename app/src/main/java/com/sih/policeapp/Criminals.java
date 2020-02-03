@@ -3,9 +3,32 @@ package com.sih.policeapp;
 import java.util.ArrayList;
 
 public class Criminals {
-    String criminal_id,criminal_name,criminal_address,criminals_DOB,criminal_BodyMark , profile_pic_url ,criminal_rating;
+    String criminal_id,criminal_name,criminal_address,criminals_DOB,criminal_BodyMark , profile_pic_url ,criminal_rating,last_crime;
+
+
+    // last crime record format
+    // Last Crime : Fraud (in Patna,Bihar)
 
     public Criminals() {
+    }
+
+    public Criminals(String criminal_id, String criminal_name, String criminal_address, String criminals_DOB, String criminal_BodyMark, String profile_pic_url, String criminal_rating, String last_crime) {
+        this.criminal_id = criminal_id;
+        this.criminal_name = criminal_name;
+        this.criminal_address = criminal_address;
+        this.criminals_DOB = criminals_DOB;
+        this.criminal_BodyMark = criminal_BodyMark;
+        this.profile_pic_url = profile_pic_url;
+        this.criminal_rating = criminal_rating;
+        this.last_crime = last_crime;
+    }
+
+    public String getLast_crime() {
+        return last_crime;
+    }
+
+    public void setLast_crime(String last_crime) {
+        this.last_crime = last_crime;
     }
 
     public Criminals(String criminal_id, String criminal_name, String criminal_address, String criminals_DOB, String criminal_BodyMark, String profile_pic_url, String criminal_rating) {

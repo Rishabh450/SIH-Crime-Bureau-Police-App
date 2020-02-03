@@ -91,6 +91,13 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 />
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_crime_type"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -191,6 +198,7 @@
                 android:id="@+id/add_criminal"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="#F35F92"
+                android:layout_marginBottom="40dp"
                 android:layout_gravity="center_horizontal"
                 />
 

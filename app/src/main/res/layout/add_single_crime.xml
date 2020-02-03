@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    tools:context=".AddSingleCrime"
     android:layout_height="match_parent">
-    <ScrollView
+     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
@@ -17,23 +20,32 @@
                 android:layout_marginBottom="15dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/new_criminal_pic" />
-            <EditText
+                android:id="@+id/criminal_profile_pic" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Criminal's Name"
                 android:id="@+id/name"
                 android:focusable="false"
+                android:textSize="22sp"
+                android:layout_marginBottom="20dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 />
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_crime_type"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Crime eg fraud,rape,murder etc"
-                android:id="@+id/crime_name"
+                android:id="@+id/crime_type"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
@@ -101,6 +113,7 @@
                     android:hint="Full Address of crime"
                     android:gravity="top"
                     android:background="#F7F7F7"
+                    android:id="@+id/crime_address"
                     android:padding="5dp"
                     android:layout_margin="5dp"
                     />
@@ -115,6 +128,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Rating of crime out of 5"
                 android:paddingStart="5dp"
+                android:id="@+id/rating_of_crime"
                 android:paddingEnd="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
@@ -126,6 +140,7 @@
                 android:text="Add Crime"
                 android:layout_marginTop="15dp"
                 android:backgroundTint="#F35F92"
+                android:layout_marginBottom="20dp"
                 android:layout_gravity="center_horizontal"
                 />
 

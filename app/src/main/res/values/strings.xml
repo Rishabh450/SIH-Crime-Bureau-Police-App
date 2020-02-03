@@ -272,6 +272,27 @@
         <item>Zanskar</item>
     </string-array>
 
+    <string-array name="MainCrimeTypes">
+        <item>Select Crime Type</item>
+        <item>Women Related Crime</item>
+        <item>Children Related Crime</item>
+        <item>Business Related Crime</item>
+        <item>Property Related Crime</item>
+        <item>Illegal Trafficking</item>
+        <item>Specific Person Related Crime</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="SortBy">
+        <item>Time of crime</item>
+        <item>Crime Type</item>
+        <item>Criminal Rating</item>
+        <item>State of crime</item>
+        <item>Wanted Level</item>
+        <item>Random</item>
+    </string-array>
+
+
     <string-array name="india_banks">
         <item>ABHYUDAYA CO-OP BANK LTD</item>
         <item>ABU DHABI COMMERCIAL BANK</item>
@@ -439,5 +460,6 @@
         <item>YES BANK LTD</item>
         <item>ZILA SAHKARI BANK LTD GHAZIABAD</item>
     </string-array>
+    <string name="title_activity_add_single_crime">AddSingleCrime</string>
 
 </resources>
