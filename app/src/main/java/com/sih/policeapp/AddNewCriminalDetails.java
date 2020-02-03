@@ -106,9 +106,10 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
 
 
         imageUri = getIntent().getStringExtra("image");
-        Picasso.with(getApplicationContext())
-                .load(imageUri)
-                .into(circleImageView);
+//        Picasso.get(getApplicationContext())
+//                .load(imageUri)
+//                .into(circleImageView);
+        Picasso.get().load(imageUri).into(circleImageView);
        // spinner=findViewById(R.id.spCity);
         callAll();
         setOnClicks();

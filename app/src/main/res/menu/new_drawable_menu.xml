@@ -3,4 +3,5 @@
    <item android:id="@+id/fir" android:title="FIR" />
     <item android:id="@+id/add_crime" android:title="ADD CRIMINAL" />
     <item android:id="@+id/profile" android:title="Profile" />
+    <item android:id="@+id/wanted_list" android:title="WANTED"/>
 </menu>
