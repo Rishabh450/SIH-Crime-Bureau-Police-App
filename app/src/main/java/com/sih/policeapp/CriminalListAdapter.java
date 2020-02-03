@@ -13,6 +13,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,13 +47,14 @@ public class CriminalListAdapter extends RecyclerView.Adapter<CriminalListAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         CircleImageView circleImageView;
-        TextView name,rating,lastCrime,viewProfile;
+        final TextView name,rating,lastCrime,viewProfile;
 
         circleImageView = holder.mView.findViewById(R.id.criminal_profile_pic);
         name = holder.mView.findViewById(R.id.criminal_name);
         rating = holder.mView.findViewById(R.id.criminals_rating);
         lastCrime = holder.mView.findViewById(R.id.last_crime);
         viewProfile = holder.mView.findViewById(R.id.view_profile);
+        final DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();
         final Criminals currCriminal = shortlistedCriminals.get(position);
 
         Picasso.with(ctx)
@@ -65,6 +71,41 @@ public class CriminalListAdapter extends RecyclerView.Adapter<CriminalListAdapte
         String ans = "Criminal Rating: " + currCriminal.getCriminal_rating();
         rating.setText(ans);
        // lastCrime
+
+        mRootRef.child("criminal_ref").child(currCriminal.getCriminal_id()).child("last_crime").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists())
+                {
+                    String req = dataSnapshot.getValue(String.class);
+                    mRootRef.child("crime_ref").child(req).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.exists())
+                            {
+                                Crime currCrime = dataSnapshot.getValue(Crime.class);
+                                String res = currCrime.getMain_crime_type() + "( " + currCrime.getCrime_type() + "," + " " + "in " + currCrime.getDistrict_of_crime() + "," +currCrime.getState_of_crime() +" )";
+                                lastCrime.setText(res);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
