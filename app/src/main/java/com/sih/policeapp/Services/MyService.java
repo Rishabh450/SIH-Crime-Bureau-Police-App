@@ -22,11 +22,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sih.policeapp.Broadcasters.Restarter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyService extends Service {
     SupportMapFragment mapFragment;
@@ -72,13 +75,20 @@ public class MyService extends Service {
         // This will be called when your Service is created for the first time
         // Just do any operations you need in this method.
         Log.d("serviceStared","gun");
+        vehicle= FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        vehicle=vehicle.substring(0,vehicle.indexOf(' '));
 
         final DatabaseReference myref= FirebaseDatabase.getInstance().getReference().child("Time").child(vehicle).child("Location");
-        final DatabaseReference myref1= FirebaseDatabase.getInstance().getReference().child("Beats").child(vehicle).child("Location");
-
-
+        final DatabaseReference myref1= FirebaseDatabase.getInstance().getReference().child("Beats").child(vehicle);
+        Map<String,String> mp=new HashMap<>();
         lastKnown=getLastKnownLocation();
-        myref1.setValue(lastKnown.getLatitude()+"||"+lastKnown.getLongitude());
+        mp.put("Location",lastKnown.getLatitude()+"||"+lastKnown.getLongitude());
+        mp.put("Emergency","No");
+
+
+
+        myref1.setValue(mp);
+        mp.clear();
 
         final Handler handler = new Handler();
 
@@ -99,7 +109,7 @@ public class MyService extends Service {
             public void onLocationChanged(Location location) {
                 Log.d("locationchangednow","yess");
                 Toast.makeText(MyService.this,"Location changed",Toast.LENGTH_LONG);
-                myref1.setValue(location.getLatitude()+"||"+location.getLongitude());
+                myref1.child("Location"). setValue(location.getLatitude()+"||"+location.getLongitude());
 
 
 
