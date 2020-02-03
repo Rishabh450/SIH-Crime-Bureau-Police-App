@@ -82,6 +82,7 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
             Log.e("ak47", "not null");
         vehicle=FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
            // vehicle= FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            if(vehicle.contains(" "))
             vehicle=vehicle.substring(0,vehicle.indexOf(' '));}
 
         patrol = findViewById(R.id.patrol);
