@@ -156,7 +156,7 @@ public class CriminalProfileAdapter extends RecyclerView.Adapter<CriminalProfile
                         String f = currCrime.getAddress_of_crime();
                         String g = "Rating of Crime :  " + currCrime.getRating_of_crime();
                         String h = "Crime Status :  " + currCrime.getCase_status();
-                       crimeType.setText(a);
+                        crimeType.setText(a);
                         crime.setText(b);
                         state.setText(c);
                         district.setText(d);

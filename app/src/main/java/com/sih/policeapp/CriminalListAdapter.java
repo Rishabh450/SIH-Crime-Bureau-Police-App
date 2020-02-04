@@ -112,6 +112,8 @@ public class CriminalListAdapter extends RecyclerView.Adapter<CriminalListAdapte
             public void onClick(View view) {
                 String currCriminalID;
                 Intent intent = new Intent(ctx,CriminalProfile.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                 intent.putExtra("curr_criminal",currCriminal.getCriminal_id());
                 ctx.startActivity(intent);
             }

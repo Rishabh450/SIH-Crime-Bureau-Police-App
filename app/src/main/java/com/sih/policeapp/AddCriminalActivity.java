@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -18,19 +21,30 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.face.FirebaseVisionFace;
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector;
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import dmax.dialog.SpotsDialog;
 
 public class AddCriminalActivity extends AppCompatActivity {
 
@@ -53,6 +67,10 @@ public class AddCriminalActivity extends AppCompatActivity {
     private ArrayList<Criminals> shortlistedCriminals;
     private Context ctx;
     private DatabaseReference mRootRef,mCriminalRef;
+    private int error = 0;
+    private  String getImageUri="";
+    private AlertDialog alertDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +87,11 @@ public class AddCriminalActivity extends AppCompatActivity {
         ctx = getApplicationContext();
         mRootRef = FirebaseDatabase.getInstance().getReference();
         mCriminalRef = mRootRef.child("criminal_ref");
+        alertDialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .setCancelable(false)
+                .setMessage("Checking Face in Image....Please Wait.....")
+                .build();
 
         mCriminalRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -165,18 +188,78 @@ public class AddCriminalActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            Bitmap bitmap;
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
-//                Log.i("asdfg1","i am here");
-//                Log.i("asdfg1",resultUri.toString());
-//
-                Intent intent = new Intent(AddCriminalActivity.this, AddNewCriminalDetails.class);
-                intent.putExtra("image", resultUri.toString());
-                startActivity(intent);
+                Uri imageUri = data.getData();
+                try {
+                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+                    alertDialog.show();
+                     processFaceDetection(bitmap);
+                     getImageUri = resultUri.toString();
+
+                } catch (IOException e) {
+                    Toast.makeText(this, "Something Went Wrong...", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+                if(error==1)
+                {
+
+                }
+
+
+
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
+        }
+    }
+
+    private void processFaceDetection(Bitmap bitmap) {
+        FirebaseVisionImage firebaseVisionImage  = FirebaseVisionImage.fromBitmap(bitmap);
+
+        FirebaseVisionFaceDetectorOptions firebaseVisionFaceDetectorOptions = new FirebaseVisionFaceDetectorOptions.Builder().build();
+
+        FirebaseVisionFaceDetector firebaseVisionFaceDetector = FirebaseVision.getInstance().getVisionFaceDetector(firebaseVisionFaceDetectorOptions);
+
+        firebaseVisionFaceDetector.detectInImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionFace>>() {
+            @Override
+            public void onSuccess(List<FirebaseVisionFace> firebaseVisionFaces) {
+                getFaceResults(firebaseVisionFaces);
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AddCriminalActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void getFaceResults(List<FirebaseVisionFace> firebaseVisionFaces) {
+        int counter = 0;
+        for( FirebaseVisionFace face : firebaseVisionFaces)
+        {
+            counter = counter + 1;
+        }
+        alertDialog.dismiss();
+        if(counter==0)
+        {
+            error = 1;
+            Toast.makeText(this, "Face Not Detected Take a clear pic", Toast.LENGTH_SHORT).show();
+        }
+        else if(counter>1)
+        {
+            error = 1;
+            Toast.makeText(this, "More Than One Face" +
+                    " Detected !!", Toast.LENGTH_SHORT).show();
+        }
+        else{
+
+            Intent intent = new Intent(AddCriminalActivity.this, AddNewCriminalDetails.class);
+            intent.putExtra("image", getImageUri);
+            startActivity(intent);
         }
     }
 
