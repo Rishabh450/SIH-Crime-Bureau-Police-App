@@ -19,8 +19,6 @@
             android:layout_height="55dp"
             android:background="@color/colorPrimaryDark"
             >
-
-
         </androidx.appcompat.widget.Toolbar>
 
     </LinearLayout>
@@ -28,7 +26,6 @@
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
-        android:layout_marginTop="55dp"
         android:layout_height="match_parent"
         android:id="@+id/clickable_menu"
         android:background="@color/white"

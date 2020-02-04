@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity {
         constraintLayout.setVisibility(View.GONE);
 
         startActivity(new Intent(Login.this, MainActivity.class));
-
+        finish();
 
 
 

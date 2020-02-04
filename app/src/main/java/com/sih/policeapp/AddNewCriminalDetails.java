@@ -6,10 +6,11 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -81,6 +83,8 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
     private Button addCriminal;
     private TextView criminalAddress,crimeAddress,criminalName,bodyMark,crimeRating,crimeType;
     private ProgressDialog mProgressDialog;
+    private Bitmap bitmap;
+    private int error=0;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +120,12 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
                 .placeholder(R.drawable.avtar)
                 .into(circleImageView);
        // spinner=findViewById(R.id.spCity);
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(imageUri));
+        } catch (IOException e) {
+            error = 1;
+            e.printStackTrace();
+        }
         callAll();
         setOnClicks();
 
@@ -177,6 +187,7 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
                 main_crime_type = spinner.getSelectedItem().toString().trim();
                 int flag = 0;
                 int temp=0;
+
 
                 if(main_crime_type.equals("Select Crime Type"))
                 {
@@ -380,6 +391,7 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
             }
         });
     }
+
 
     // Get the content of cities.json from assets directory and store it as string
     public String getJson()
