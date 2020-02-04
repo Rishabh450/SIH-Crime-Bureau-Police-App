@@ -8,6 +8,10 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -27,16 +31,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sih.policeapp.Broadcasters.Restarter;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MyService extends Service {
+public class MyService extends Service implements SensorEventListener {
     SupportMapFragment mapFragment;
     GoogleMap mMap;
     Switch patrol;
     Intent mServiceIntent;
     Location lastKnown;
+    SensorManager sensorManager;
     String vehicle="rishabhKaGaadi";
 
     @Override
@@ -75,6 +81,8 @@ public class MyService extends Service {
         // This will be called when your Service is created for the first time
         // Just do any operations you need in this method.
         Log.d("serviceStared","gun");
+        sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
         vehicle= FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         if(vehicle.contains(" "))
         vehicle=vehicle.substring(0,vehicle.indexOf(' '));
@@ -133,7 +141,7 @@ public class MyService extends Service {
         };
 
 
-       // startForeground(21,new Notification());
+       startForeground(10,new Notification());
     }
 
     @Override
@@ -171,5 +179,84 @@ public class MyService extends Service {
             }
         }
         return bestLocation;
+    }
+    int index=0;
+    String TAG ="Hey there";
+    @Override
+    public void onSensorChanged(SensorEvent foEvent) {
+
+        if (foEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+
+            double loX = foEvent.values[0];
+            double loY = foEvent.values[1];
+            double loZ = foEvent.values[2];
+
+            double loAccelerationReader = Math.sqrt(Math.pow(loX, 2)
+                    + Math.pow(loY, 2)
+                    + Math.pow(loZ, 2));
+            long mlPreviousTime = System.currentTimeMillis();
+            Log.i(TAG, "loX : " + loX + " loY : " + loY + " loZ : " + loZ);
+            boolean moIsMin=false;
+            if (loAccelerationReader <= 6.0) {
+                moIsMin = true;
+                Log.i(TAG, "min");
+            }
+
+            int i=0;
+            boolean moIsMax = false;
+            if (moIsMin) {
+                i++;
+                Log.i(TAG, " loAcceleration : " + loAccelerationReader);
+                if (loAccelerationReader >= 30) {
+                    long llCurrentTime = System.currentTimeMillis();
+                    long llTimeDiff = llCurrentTime - mlPreviousTime;
+                    Log.i(TAG, "loTime :" + llTimeDiff);
+                    if (llTimeDiff >= 10) {
+                        moIsMax = true;
+                        Log.i(TAG, "max");
+                    }
+                }
+
+            }
+            if (foEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+
+                loX = foEvent.values[0];
+                loY = foEvent.values[1];
+                loZ = foEvent.values[2];
+
+                loAccelerationReader = Math.sqrt(Math.pow(loX, 2)
+                        + Math.pow(loY, 2)
+                        + Math.pow(loZ, 2));
+
+                DecimalFormat precision = new DecimalFormat("0.00");
+                double ldAccRound = Double.parseDouble(precision.format(loAccelerationReader));
+
+                if (ldAccRound > 0.3d && ldAccRound < 0.5d) {
+                    //Do your stuff
+                    Toast.makeText(this, "FALL DETECTED", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            if (moIsMin && moIsMax) {
+                Log.i(TAG, "loX : " + loX + " loY : " + loY + " loZ : " + loZ);
+                Log.i(TAG, "FALL DETECTED!!!!!");
+                Toast.makeText(this, "FALL DETECTED!!!!!", Toast.LENGTH_LONG).show();
+                i = 0;
+                moIsMin = false;
+                moIsMax = false;
+            }
+
+            if (i > 5) {
+                i = 0;
+                moIsMin = false;
+                moIsMax = false;
+            }
+        }
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }

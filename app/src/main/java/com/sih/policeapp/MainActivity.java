@@ -8,6 +8,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -27,6 +31,10 @@ import com.onesignal.OneSignal;
 import com.sih.policeapp.Activities.Beats;
 import com.sih.policeapp.Activities.Login;
 
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -37,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     NavigationView navigationView;
     DatabaseReference mRootRef;
-    String policeid;
+    String policeid;private SensorManager sensorManager;
     TextView name,email;
 
     @Override
@@ -92,6 +100,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
     }
 };
 
+
         OneSignal.startInit(this)
 
 
@@ -103,8 +112,13 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
             @Override
             public void idsAvailable(String userId, String registrationId) {
-                FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(policeid).child("Notification").setValue(userId);
-                FirebaseDatabase.getInstance().getReference().child("PoliceNotif").child(userId).setValue(userId);
+                Map<String,String> mp=new HashMap<>() ;
+                mp.put("Notification",userId);
+                mp.put("Name",FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+
+
+                FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(policeid).setValue(mp);
+                FirebaseDatabase.getInstance().getReference().child("PoliceNotif").child(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()).setValue(userId);
 
             }
         });
@@ -154,6 +168,9 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
         }
 
     }
+    int index=0;
+
+
 
     public void setUpToolBar()
     {
@@ -165,4 +182,6 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
         mToggle.syncState();
 
     }
+
+
 }

@@ -40,6 +40,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sih.Utils.SendNotification;
 import com.sih.policeapp.MainActivity;
 import com.sih.policeapp.R;
 import com.sih.policeapp.Services.MyService;
@@ -94,6 +95,24 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
             @Override
             public void onClick(View v) {
                 FirebaseDatabase.getInstance().getReference().child("Beats").child(vehicle).child("Emergency").setValue("Yes");
+                DatabaseReference myref=FirebaseDatabase.getInstance().getReference().child("PoliceNotif");
+                myref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot ds :dataSnapshot.getChildren())
+                        {
+                            String key=ds.getValue(String.class);
+                            SendNotification sendNotification=new SendNotification("Under Emergency",vehicle,key);
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
         mapFragment.getMapAsync(this);

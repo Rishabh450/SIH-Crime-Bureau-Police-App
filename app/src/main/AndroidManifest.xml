@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
 
 
     <!--
@@ -51,16 +52,13 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <activity android:name=".Activities.Beats" />
         <activity
             android:name=".AddNewCriminalDetails"
             android:parentActivityName=".AddCriminalActivity" />
         <activity
             android:name=".AddCriminalActivity"
             android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".AddCriminalActivity"
-            android:parentActivityName=".MainActivity" />
+
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
