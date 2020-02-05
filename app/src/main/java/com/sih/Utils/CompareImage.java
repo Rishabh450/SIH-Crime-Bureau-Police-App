@@ -32,12 +32,15 @@ public class CompareImage extends AsyncTask<Void, Void, Void>
 {
     Context context;
     File file,file2;
+    long fileno,curr;
 
-    public CompareImage(Context context, File file, File file2) {
+    public CompareImage(Context context, File file, File file2,long fileno) {
         this.context = context;
         this.file = file;
         this.file2 = file2;
         pdLoading = new ProgressDialog(context);
+        this.fileno=fileno;
+
     }
 
     double confidence=0.0;
@@ -147,7 +150,7 @@ public class CompareImage extends AsyncTask<Void, Void, Void>
         super.onPreExecute();
         Log.d("confidencekitna"," loading" );
         //this method will be running on UI thread
-        pdLoading.setMessage("\tComparing...");
+        pdLoading.setMessage("\tSearching...");
         pdLoading.show();
     }
     @Override
@@ -213,10 +216,14 @@ public class CompareImage extends AsyncTask<Void, Void, Void>
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
         Log.d("confidencekitna"," "+confidence);
-        if(confidence>0.0)
-            Toast.makeText(context,"Match:"+confidence,Toast.LENGTH_LONG).show();
+        if(confidence>0.0&&confidence<70)
+            Toast.makeText(context,"Match:"+confidence+"%",Toast.LENGTH_SHORT).show();
+        else if(confidence<75)
+            Toast.makeText(context,"Probable close relative found",Toast.LENGTH_SHORT).show();
+        else if(confidence>=75)
+            Toast.makeText(context,"You are found",Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(context,"Timeout,Check your Internet connection also ensure file size <2 mb",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Timeout",Toast.LENGTH_SHORT).show();
         //            //this method will be running on UI thread
 
         pdLoading.dismiss();

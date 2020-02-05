@@ -4,5 +4,6 @@
     <item android:id="@+id/add_crime" android:title="Add Criminal" />
     <item android:id="@+id/profile" android:title="Profile" />
     <item android:id="@+id/search" android:title="Image search" />
+    <item android:id="@+id/updatewantedfiles" android:title="Update Wanted Photos" />
     <item android:id="@+id/logout" android:title="Logout"/>
 </menu>
