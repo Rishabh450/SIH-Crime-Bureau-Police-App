@@ -64,7 +64,7 @@ public class CriminalListAdapter extends RecyclerView.Adapter<CriminalListAdapte
 
         name.setText(currCriminal.getCriminal_name());
         String rat = currCriminal.getCriminal_rating();
-        if(rat.equals("1")||rat.equals("2")) ;
+        if(rat.equals("1")||rat.equals("2")) rating.setTextColor(Color.parseColor("#6c6c6c"));
         else if(rat.equals("3")) rating.setTextColor(Color.parseColor("#6c6c6c"));  //darkGrey
         else if(rat.equals("5")) rating.setTextColor(Color.parseColor("#E01010"));  //Red
         else if(rat.equals("4")) rating.setTextColor(Color.parseColor("#F57C00"));  //Orange
@@ -88,6 +88,9 @@ public class CriminalListAdapter extends RecyclerView.Adapter<CriminalListAdapte
                                 String res = currCrime.getMain_crime_type() + "( " + currCrime.getCrime_type() + "," + " " + "in " + currCrime.getDistrict_of_crime() + "," +currCrime.getState_of_crime() +" )";
                                 lastCrime.setText(res);
                             }
+                            else{
+                                lastCrime.setText("No Crime Yet");
+                            }
                         }
 
                         @Override
@@ -96,6 +99,9 @@ public class CriminalListAdapter extends RecyclerView.Adapter<CriminalListAdapte
                         }
                     });
 
+                }
+                else{
+                    lastCrime.setText("No Crime Yet");
                 }
 
             }
