@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/darker_gray"
+    app:cardCornerRadius="5dp"
+    app:contentPadding="6dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/nameofcriminal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="23dp"
+        android:padding="5dp"
+        />
+        <ImageView
+            android:id="@+id/criminalphoto"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            
+            android:backgroundTint="@android:color/holo_orange_dark"
+/>
+        <TextView
+            android:id="@+id/criminalid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+android:text="Criminal id :"
+            android:textSize="23dp"/>
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/black"/>
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>
