@@ -26,4 +26,5 @@
         app:srcCompat="@drawable/ic_add_black_24dp"
         tools:ignore="VectorDrawableCompat"
         android:focusable="true" />
+
 </RelativeLayout>
