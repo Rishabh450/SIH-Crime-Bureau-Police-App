@@ -14,7 +14,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:elevation="4dp"
+            android:elevation="20dp"
             >
 
             <TextView
@@ -154,7 +154,6 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_margin="10dp"
-
          android:text="No Mathes Found......"
          />
 
@@ -173,5 +172,4 @@
         app:srcCompat="@drawable/ic_add_black_24dp"
         tools:ignore="VectorDrawableCompat"
         android:focusable="true" />
-
 </RelativeLayout>

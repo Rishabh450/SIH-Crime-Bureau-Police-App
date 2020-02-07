@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +86,7 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
     private ProgressDialog mProgressDialog;
     private Bitmap bitmap;
     private int error=0;
+    private RatingBar ratingBar;
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,10 +105,14 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
         crimeAddress = findViewById(R.id.crime_address);
         criminalName =findViewById(R.id.criminal_name);
         bodyMark = findViewById(R.id.body_mark);
-        crimeRating = findViewById(R.id.rating_of_crime);
         crimeType = findViewById(R.id.crime_type);
         addCriminal =findViewById(R.id.add_criminal);
         spinner = findViewById(R.id.main_crime_type);
+        ratingBar = findViewById(R.id.rating_of_crime2);
+
+        ratingBar.setRating(2.0f);
+
+
 
         adapter = ArrayAdapter.createFromResource(this,R.array.MainCrimeTypes,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -234,13 +240,17 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
 
                 final StorageReference storageRef;
 
+
                 crime_id = mRootRef.child("crime_id_creation").push().getKey();
                 date_of_crime = DOC.getText().toString().trim();
                 state_of_crime = state.getText().toString().trim();
                 district_of_crime = dist.getText().toString().trim();
                 address_of_crime = crimeAddress.getText().toString().trim();
                 time_when_crime_added = String.valueOf(System.currentTimeMillis());
-                rating_of_crime = crimeRating.getText().toString().trim();
+                float rat = ratingBar.getRating();
+                rating_of_crime = String.valueOf(rat).trim();
+
+               // Toast.makeText(AddNewCriminalDetails.this,  rating_of_crime, Toast.LENGTH_SHORT).show();
 
                 criminal_rating = rating_of_crime;
                 if(FirebaseAuth.getInstance().getCurrentUser() != null)
@@ -279,12 +289,14 @@ public class AddNewCriminalDetails extends AppCompatActivity implements DatePick
                     DOC.setError(null);
 
                 }
-                if(rating_of_crime.equals("1") ||rating_of_crime.equals("2") ||rating_of_crime.equals("3") ||rating_of_crime.equals("4") ||rating_of_crime.equals("5"))
+                if(rating_of_crime.equals(String.valueOf(1.0f)) ||rating_of_crime.equals(String.valueOf(2.0f)) ||rating_of_crime.equals(String.valueOf(3.0f))
+                        ||rating_of_crime.equals(String.valueOf(4.0f)) ||rating_of_crime.equals(String.valueOf(5.0f)))
                 {
-                    crimeRating.setError(null);
+                    // ratingBar.setError(null);
 
                 }else{
-                    crimeRating.setError("Enter rating between 1 to 5"); flag = 1;
+                    flag = 1;
+                    Toast.makeText(AddNewCriminalDetails.this, "Enter rating between 1 to 5" + rating_of_crime, Toast.LENGTH_SHORT).show();
                 }
                 if(!listState.contains(state_of_crime))
                 {

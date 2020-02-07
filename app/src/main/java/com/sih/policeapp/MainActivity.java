@@ -42,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.onesignal.OneSignal;
 import com.sih.Utils.CompareImage;
 import com.sih.policeapp.Activities.Beats;
+import com.sih.policeapp.Activities.wanted_activity;
 import com.sih.policeapp.Activities.Login;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -167,6 +168,11 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 if(menuItem.getItemId() == R.id.add_crime){
                     Intent intent = new Intent(MainActivity.this,AddCriminalActivity.class);
                     startActivity(intent);
+                }
+                if(menuItem.getItemId()==R.id.wanted_list)
+                {Intent intent = new Intent(MainActivity.this, wanted_activity.class);
+                    startActivity(intent);
+
                 }
                 if(menuItem.getItemId() == R.id.updatewantedfiles){
                     updateWanted();

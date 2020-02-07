@@ -34,6 +34,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,6 +90,7 @@ public class AddSingleCrime extends AppCompatActivity implements DatePickerDialo
 
     private String currCriminalID;
     private DatabaseReference mRootRef;
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +107,12 @@ public class AddSingleCrime extends AppCompatActivity implements DatePickerDialo
         dist = findViewById(R.id.district);
         mProgressDialog = new ProgressDialog(this);
         crimeAddress = findViewById(R.id.crime_address);
-        crimeRating = findViewById(R.id.rating_of_crime);
         crimeType = findViewById(R.id.crime_type);
         addCrime =findViewById(R.id.add_crime);
         mRootRef = FirebaseDatabase.getInstance().getReference();
+        ratingBar = findViewById(R.id.rating_of_crime2);
+
+        ratingBar.setRating(2.0f);
 
 
         spinner = findViewById(R.id.main_crime_type);
@@ -204,7 +208,8 @@ public class AddSingleCrime extends AppCompatActivity implements DatePickerDialo
                 district_of_crime = dist.getText().toString().trim();
                 address_of_crime = crimeAddress.getText().toString().trim();
                 time_when_crime_added = String.valueOf(System.currentTimeMillis());
-                rating_of_crime = crimeRating.getText().toString().trim();
+                float rat = ratingBar.getRating();
+                rating_of_crime = String.valueOf(rat).trim();
 
                 if(FirebaseAuth.getInstance().getCurrentUser() != null)
                 {
@@ -242,12 +247,14 @@ public class AddSingleCrime extends AppCompatActivity implements DatePickerDialo
                     DOC.setError(null);
 
                 }
-                if(rating_of_crime.equals("1") ||rating_of_crime.equals("2") ||rating_of_crime.equals("3") ||rating_of_crime.equals("4") ||rating_of_crime.equals("5"))
+                if(rating_of_crime.equals(String.valueOf(1.0f)) ||rating_of_crime.equals(String.valueOf(2.0f)) ||rating_of_crime.equals(String.valueOf(3.0f))
+                        ||rating_of_crime.equals(String.valueOf(4.0f)) ||rating_of_crime.equals(String.valueOf(5.0f)))
                 {
-                    crimeRating.setError(null);
+                    // ratingBar.setError(null);
 
                 }else{
-                    crimeRating.setError("Enter rating between 1 to 5"); flag = 1;
+                    flag = 1;
+                    Toast.makeText(AddSingleCrime.this, "Enter rating between 1 to 5" + rating_of_crime, Toast.LENGTH_SHORT).show();
                 }
                 if(!listState.contains(state_of_crime))
                 {
@@ -293,6 +300,7 @@ public class AddSingleCrime extends AppCompatActivity implements DatePickerDialo
                     CrimeMap.put("rating_of_crime",rating_of_crime);
                     CrimeMap.put("time_when_crime_added",time_when_crime_added);
                     CrimeMap.put("main_crime_type",main_crime_type);
+
                     assert crime_id != null;
                     mCrime_Ref.child(crime_id).setValue(CrimeMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -302,6 +310,37 @@ public class AddSingleCrime extends AppCompatActivity implements DatePickerDialo
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(AddSingleCrime.this, "Successfully Added!", Toast.LENGTH_SHORT).show();
                                     mProgressDialog.hide();
+                                    mCriminalRef.child(currCriminalID).child("criminal_rating").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            String  rating = dataSnapshot.getValue(String.class);
+                                            assert rating != null;
+                                            final Double rat = Double.parseDouble(rating);
+                                            mRootRef.child("criminal_crimes_relation_ref").child(currCriminalID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    double n = dataSnapshot.getChildrenCount();
+                                                    if(n==0) n=1;
+                                                    double ans= (Double.parseDouble(rating_of_crime)+rat*(n-1))/n;
+                                                    mCriminalRef.child(currCriminalID).child("criminal_rating").setValue(String.valueOf(ans));
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+
+
+
                                     finish();
                                 }
                             });
