@@ -78,10 +78,8 @@ dependencies {
    // testImplementation 'junit:junit:4.12'
     implementation 'com.firebaseui:firebase-ui-database:4.3.2'
    // implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
     //implementation 'de.hdodenhof:circleimageview:3.0.1'
     //api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     //noinspection GradleCompatible

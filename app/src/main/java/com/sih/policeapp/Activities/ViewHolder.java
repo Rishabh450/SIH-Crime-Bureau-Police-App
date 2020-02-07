@@ -27,7 +27,7 @@ ratingBar.setEnabled(false);
         ImageView cimg=mview.findViewById(R.id.criminalphoto);
         cid.setText(criminal_id);
         cname.setText(criminal_name);
-        Picasso.get().load(profile_pic_url).into(cimg);
+        Picasso.with(mview.getContext()).load(profile_pic_url).into(cimg);
     }
 }
 

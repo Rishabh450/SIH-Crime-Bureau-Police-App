@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -77,13 +78,14 @@ public class CriminalProfileAdapter extends RecyclerView.Adapter<CriminalProfile
         if(position==0)
         {
             final CircleImageView profile_pic;
-            final TextView displayName,BodyMark,DOB,AddressOfCriminal,Rating_of_criminal;
+            final TextView displayName,BodyMark,DOB,AddressOfCriminal;
+            final RatingBar Rating_of_criminal;
             profile_pic = holder.mView.findViewById(R.id.criminal_profile_pic);
             displayName = holder.mView.findViewById(R.id.criminal_name);
             BodyMark = holder.mView.findViewById(R.id.body_mark);
             DOB = holder.mView.findViewById(R.id.DOB);
             AddressOfCriminal = holder.mView.findViewById(R.id.address_of_criminal);
-            Rating_of_criminal = holder.mView.findViewById(R.id.criminals_rating);
+            Rating_of_criminal = holder.mView.findViewById(R.id.rating_of_criminal);
 
 
             mRootRef.child("criminal_ref").child(currCriminal).addValueEventListener(new ValueEventListener() {
@@ -102,19 +104,17 @@ public class CriminalProfileAdapter extends RecyclerView.Adapter<CriminalProfile
                         String c = "DOB               :" + currCriminal.getCriminals_DOB();
                         String d =  currCriminal.getCriminal_address();
                         String e = "Name          :" + currCriminal.getCriminal_name();
-                        String f = "Rating of Criminal  :" + currCriminal.getCriminal_rating();
+                        String f =   currCriminal.getCriminal_rating();
 
                         String rat = currCriminal.getCriminal_rating();
-                        if(rat.equals("1")||rat.equals("2")) ;
-                        else if(rat.equals("3")) Rating_of_criminal.setTextColor(Color.parseColor("#6c6c6c"));  //darkGrey
-                        else if(rat.equals("5")) Rating_of_criminal.setTextColor(Color.parseColor("#E01010"));  //Red
-                        else if(rat.equals("4")) Rating_of_criminal.setTextColor(Color.parseColor("#F57C00"));  //Orange
+
 
                         displayName.setText(a);
                         BodyMark.setText(b);
                         DOB.setText(c);
                         AddressOfCriminal.setText(d);
-                        Rating_of_criminal.setText(f);
+                        Rating_of_criminal.setRating(Float.valueOf(f));
+                        Rating_of_criminal.setEnabled(false);
 
 
 
@@ -131,7 +131,8 @@ public class CriminalProfileAdapter extends RecyclerView.Adapter<CriminalProfile
             });
         } else {
 
-            final TextView crimeType,crime,state,district,DOC,addressOfCrime,crimeRating,crimeStatus ;
+            final TextView crimeType,crime,state,district,DOC,addressOfCrime,crimeStatus ;
+            final RatingBar crimeRating;
             crimeType = holder.mView.findViewById(R.id.main_crime_type);
             crime = holder.mView.findViewById(R.id.crime_type);
             state = holder.mView.findViewById(R.id.state);
@@ -154,7 +155,7 @@ public class CriminalProfileAdapter extends RecyclerView.Adapter<CriminalProfile
                         String d = "District :  " + currCrime.getDistrict_of_crime();
                         String e = "Date Of Crime :  " + currCrime.getDate_of_crime();
                         String f = currCrime.getAddress_of_crime();
-                        String g = "Rating of Crime :  " + currCrime.getRating_of_crime();
+                        String g =   currCrime.getRating_of_crime();
                         String h = "Crime Status :  " + currCrime.getCase_status();
                         crimeType.setText(a);
                         crime.setText(b);
@@ -162,7 +163,8 @@ public class CriminalProfileAdapter extends RecyclerView.Adapter<CriminalProfile
                         district.setText(d);
                         DOC.setText(e);
                         addressOfCrime.setText(f);
-                        crimeRating.setText(g);
+                        crimeRating.setRating(Float.parseFloat(g));
+                        crimeRating.setEnabled(false);
                         crimeStatus.setText(h);
 
 

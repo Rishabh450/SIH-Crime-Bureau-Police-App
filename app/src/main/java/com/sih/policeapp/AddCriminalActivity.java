@@ -29,6 +29,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,6 +96,7 @@ public class AddCriminalActivity extends AppCompatActivity {
     private CardView sortCV,searchCV,noMatchesFoundCV;
     private ArrayAdapter<CharSequence> adapter;
     private String searchedWord="",searchType="";
+    private RatingBar ratingBar;
     ArrayList<String> listState=new ArrayList<String>();
     // for listing all cities
     ArrayList<String> listCity=new ArrayList<String>();
@@ -123,6 +125,7 @@ public class AddCriminalActivity extends AppCompatActivity {
         down = findViewById(R.id.down);
         sortCV = findViewById(R.id.sort_cv);
         sortCV.setVisibility(View.GONE);
+        ratingBar = findViewById(R.id.rating_of_crime2);
         searchCV = findViewById(R.id.searchCV);
         searchCV.setVisibility(View.GONE);
         searchEditext = findViewById(R.id.search_editText);
@@ -277,6 +280,7 @@ public class AddCriminalActivity extends AppCompatActivity {
                         mAdapter = new CriminalListAdapter(ctx,shortlistedCriminals);
                         criminalListRV.setAdapter(mAdapter);
                         //  mAdapter.notifyDataSetChanged();
+                        if(!shortlistedCriminals.contains(criminal))
                         shortlistedCriminals.add(criminal);
                         mAdapter.notifyItemInserted(0);
                     }

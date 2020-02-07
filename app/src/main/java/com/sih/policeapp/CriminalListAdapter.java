@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,10 +49,11 @@ public class CriminalListAdapter extends RecyclerView.Adapter<CriminalListAdapte
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         CircleImageView circleImageView;
         final TextView name,rating,lastCrime,viewProfile;
-
+        RatingBar ratingBar;
         circleImageView = holder.mView.findViewById(R.id.criminal_profile_pic);
         name = holder.mView.findViewById(R.id.criminal_name);
         rating = holder.mView.findViewById(R.id.criminals_rating);
+        ratingBar = holder.mView.findViewById(R.id.criminals_rating2);
         lastCrime = holder.mView.findViewById(R.id.last_crime);
         viewProfile = holder.mView.findViewById(R.id.view_profile);
         final DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();
@@ -64,12 +66,16 @@ public class CriminalListAdapter extends RecyclerView.Adapter<CriminalListAdapte
 
         name.setText(currCriminal.getCriminal_name());
         String rat = currCriminal.getCriminal_rating();
-        if(rat.equals("1")||rat.equals("2")) rating.setTextColor(Color.parseColor("#6c6c6c"));
-        else if(rat.equals("3")) rating.setTextColor(Color.parseColor("#6c6c6c"));  //darkGrey
-        else if(rat.equals("5")) rating.setTextColor(Color.parseColor("#E01010"));  //Red
-        else if(rat.equals("4")) rating.setTextColor(Color.parseColor("#F57C00"));  //Orange
-        String ans = "Criminal Rating: " + currCriminal.getCriminal_rating();
+        float f = Float.parseFloat(rat);
+        if(f<=2) rating.setTextColor(Color.parseColor("#6c6c6c"));
+        else if(f<=3) rating.setTextColor(Color.parseColor("#6c6c6c"));  //darkGrey
+        else if(f<=4) rating.setTextColor(Color.parseColor("#F57C00"));  //Orange
+        else if(f<=5) rating.setTextColor(Color.parseColor("#E01010"));  //Red
+
+        String ans = "Rating: " + currCriminal.getCriminal_rating();
         rating.setText(ans);
+        ratingBar.setRating(f);
+        ratingBar.setClickable(false);
        // lastCrime
 
         mRootRef.child("criminal_ref").child(currCriminal.getCriminal_id()).child("last_crime").addValueEventListener(new ValueEventListener() {
