@@ -52,6 +52,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "921956751866-s0rsahdjmer7vlac8rcfegefffnj0gqv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sih.policeapp",
+            "certificate_hash": "ab14130c3e74179685f911b97930ce3b3a91eca0"
+          }
+        },
+        {
           "client_id": "921956751866-kvqjcgkoiph88ajuqhnqshude569lflo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
