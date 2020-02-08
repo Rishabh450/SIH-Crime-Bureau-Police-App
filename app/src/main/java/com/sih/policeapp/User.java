@@ -2,7 +2,7 @@ package com.sih.policeapp;
 
 public class User {
 
-    private String name, email, imageURL, userId, gender, fathername, address, age, pincode, phone, fax , aadhaar,notificationId;
+    private String name, email, imageURL, userId, gender, fathername, address, age, pincode, phone, fax , aadhaar, notificationId;
 
 
     public User() {
@@ -56,6 +56,23 @@ public class User {
         this.phone = phone;
         this.fax = fax;
         this.aadhaar = aadhaar;
+    }
+
+    public User(String name, String email, String imageURL, String userId, String gender, String fathername, String address,
+                String age, String pincode, String phone, String fax, String aadhaar, String notificationId) {
+        this.name = name;
+        this.email = email;
+        this.imageURL = imageURL;
+        this.userId = userId;
+        this.gender = gender;
+        this.fathername = fathername;
+        this.address = address;
+        this.age = age;
+        this.pincode = pincode;
+        this.phone = phone;
+        this.fax = fax;
+        this.aadhaar = aadhaar;
+        this.notificationId = notificationId;
     }
 
     public String getGender() {
@@ -152,5 +169,13 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getNotificationId() {
+        return notificationId;
+    }
+
+    public void setNotificationId(String notificationId) {
+        this.notificationId = notificationId;
     }
 }
