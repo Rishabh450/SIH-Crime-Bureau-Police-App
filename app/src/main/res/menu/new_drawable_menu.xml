@@ -9,5 +9,6 @@
     <item android:id="@+id/wanted_list" android:title="WANTED"/>
     <item android:id="@+id/search" android:title="Image search" />
     <item android:id="@+id/updatewantedfiles" android:title="Update Wanted Photos" />
+    <item android:id="@+id/appointment" android:title="Appointment"/>
     <item android:id="@+id/logout" android:title="Logout"/>
 </menu>

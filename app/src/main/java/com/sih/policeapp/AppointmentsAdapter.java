@@ -1,6 +1,7 @@
 package com.sih.policeapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,12 @@ import java.util.Map;
 
 public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapter.ViewHolder> {
 
+    private static final String TAG = "AppointmentsAdapter";
+
     List<String> mAppointments;
     Context mContext;
     String string, category;
-    User user;
+    User user = null;
 
     DatabaseReference databaseReference;
 
@@ -46,9 +49,6 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        String appointment = mAppointments.get(position);
-
-
         final String string = mAppointments.get(position);
 
 
@@ -69,7 +69,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
                     map = (Map<String, String>) dataSnapshot.getValue();
 //
-                    Fir fir = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
+                    final Fir fir = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
                             map.get("subject"), map.get("details"), String.valueOf(map.get("timeStamp")), map.get("status"),
                             map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
 //
@@ -79,11 +79,18 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users")
                             .child(fir.getComplainantId());
 
-                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    Log.i(TAG, "onDataChange: "+fir.getComplainantId());
+
+                    databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             user = dataSnapshot.getValue(User.class);
+                            holder.FIRorNoc.setText("FIR");
+                            holder.name.setText(user.getName());
+                            holder.crimeType.setText(fir.getType());
+
+                            holder.crime.setText(fir.getDetails());
 
                         }
 
@@ -93,10 +100,6 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                         }
                     });
 
-                    holder.name.setText(user.getName());
-                    holder.crimeType.setText(fir.getType());
-
-                    holder.crime.setText(fir.getDetails());
 
 
                 }else if(category.equals("NOC") && dataSnapshot.exists()){
@@ -108,15 +111,35 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
                     if(dataSnapshot.getChildrenCount() == 18){
 
-                        Noc noc = new Noc(map.get("surname"), map.get("name"), map.get("presentAddress"), map.get("homeAddress"),
+                        final Noc noc = new Noc(map.get("surname"), map.get("name"), map.get("presentAddress"), map.get("homeAddress"),
                                 map.get("dateOfBirth"), map.get("placeOfBirth"), map.get("nocType"), map.get("charges"),
                                 map.get("identificationMark"), map.get("fatherName"), map.get("motherName"), map.get("spouseName"),
                                 map.get("userId"), String.valueOf(map.get("timeStamp")), map.get("status"), map.get("reportingDate"),
                                 map.get("reportingPlace"), map.get("correspondent"));
 
-                        holder.name.setText(noc.getName()+" "+noc.getSurname());
-                        holder.crimeType.setText(noc.getNocType());
-                        holder.crime.setVisibility(View.GONE);
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                                .child(noc.getUserId());
+
+                        Log.i(TAG, "onDataChange: "+ noc.getUserId());
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                user = dataSnapshot.getValue(User.class);
+                                holder.FIRorNoc.setText("NOC");
+                                holder.name.setText(user.getName());
+                                holder.crimeType.setText(noc.getNocType());
+                                holder.crime.setVisibility(View.GONE);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
 
 //                        holder.nocStatus.setText(noc.getStatus());
 
@@ -124,15 +147,33 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                     }
                     else{
 
-                        Noc noc = new Noc(map.get("surname"), map.get("name"), map.get("presentAddress"), map.get("homeAddress"),
+                        final Noc noc = new Noc(map.get("surname"), map.get("name"), map.get("presentAddress"), map.get("homeAddress"),
                                 map.get("dateOfBirth"), map.get("placeOfBirth"), map.get("nocType"), map.get("rcNumber"),
                                 map.get("icNumber"), map.get("etNumber"), map.get("userId"), String.valueOf(map.get("timeStamp")), map.get("status"),
                                 map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
 
 
-                        holder.name.setText(noc.getName()+" "+noc.getSurname());
-                        holder.crimeType.setText(noc.getNocType());
-                        holder.crime.setVisibility(View.GONE);
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                                .child(noc.getUserId());
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                user = dataSnapshot.getValue(User.class);
+                                holder.FIRorNoc.setText("NOC");
+                                holder.name.setText(user.getName());
+                                holder.crimeType.setText(noc.getNocType());
+                                holder.crime.setVisibility(View.GONE);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
 
 
                     }
@@ -156,7 +197,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mAppointments.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

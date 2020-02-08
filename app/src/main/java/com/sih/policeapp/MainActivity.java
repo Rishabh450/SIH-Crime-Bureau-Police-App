@@ -211,6 +211,15 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                             .setAspectRatio(1,1)
                             .start(MainActivity.this);
                 }
+
+                if(menuItem.getItemId() == R.id.appointment){
+
+                    Intent intent = new Intent(MainActivity.this, AppointmentsHandeling.class);
+                    intent.putExtra("user_id",FirebaseAuth.getInstance().getUid());
+                    startActivity(intent);
+
+                }
+
                 if (menuItem.getItemId() == R.id.logout) {
 
                     mAuth.signOut();
