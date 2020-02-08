@@ -221,30 +221,8 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                         Marker m= mMap.addMarker(marker);}
                     else
                     {
-                        final Handler handler = new Handler();
-
-                        final Runnable r = new Runnable() {
-                            boolean flag=true;
-                            Marker m1;
-                            public void run() {
-                                if(flag) {
-                                    if(m1!=null)
-                                    m1.remove();
-                                    Log.d("markercolor","black");
-                                    marker.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
-                                     m1= mMap.addMarker(marker);
-                                }
-                                else {
-                                    if(m1!=null)
-                                    m1.remove();
-                                    Log.d("markercolor","red");
-                                    marker.icon(BitmapDescriptorFactory.fromBitmap(bitmap1));
-                                    m1= mMap.addMarker(marker);
-                                }
-                                flag=!flag;
-                                handler.postDelayed(this, 500);
-                            }
-                        }; handler.postDelayed(r, 500);
+                        marker.icon(BitmapDescriptorFactory.fromBitmap(bitmap1));
+                        mMap.addMarker(marker);
 
                     }
 
@@ -272,7 +250,6 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                 LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
                 MarkerOptions marker = new MarkerOptions().position(sydney).title("Your current location");
                 mMap.addMarker(marker);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10));
 
 
             }
@@ -304,7 +281,7 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
             return;
         } else {
 
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             lastKnown = getLastKnownLocation();
 
                 mMap.clear();
@@ -312,7 +289,6 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                 LatLng sydney = new LatLng(lastKnown.getLatitude(), lastKnown.getLongitude());
                 MarkerOptions marker = new MarkerOptions().position(sydney).title("Your current location");
                 mMap.addMarker(marker);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10));
 
 
 
@@ -338,7 +314,9 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for Activity#requestPermissions for more details.
-                ActivityCompat.requestPermissions(Beats.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
+                ActivityCompat.requestPermissions(Beats.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+                ActivityCompat.requestPermissions(Beats.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},0);
+
 
 
             }

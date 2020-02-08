@@ -43,7 +43,7 @@ public class MyService extends Service implements SensorEventListener {
     Intent mServiceIntent;
     Location lastKnown;
     SensorManager sensorManager;
-    String vehicle="rishabhKaGaadi";
+    String vehicle = "rishabhKaGaadi";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -59,14 +59,15 @@ public class MyService extends Service implements SensorEventListener {
         PendingIntent restartServicePI = PendingIntent.getService(
                 getApplicationContext(), 1, restartService,
                 PendingIntent.FLAG_ONE_SHOT);
-        AlarmManager alarmService = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        alarmService.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() +2000, restartServicePI);
+        AlarmManager alarmService = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        alarmService.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 2000, restartServicePI);
 
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-       // stoptimertask();
+        // stoptimertask();
 
 
         Intent broadcastIntent = new Intent();
@@ -80,46 +81,44 @@ public class MyService extends Service implements SensorEventListener {
     public void onCreate() {
         // This will be called when your Service is created for the first time
         // Just do any operations you need in this method.
-        Log.d("serviceStared","gun");
-        sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
+        Log.d("serviceStared", "gun");
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-        vehicle= FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        if(vehicle.contains(" "))
-        vehicle=vehicle.substring(0,vehicle.indexOf(' '));
+        vehicle = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        if (vehicle.contains(" "))
+            vehicle = vehicle.substring(0, vehicle.indexOf(' '));
 
-        final DatabaseReference myref= FirebaseDatabase.getInstance().getReference().child("Time").child(vehicle).child("Location");
-        final DatabaseReference myref1= FirebaseDatabase.getInstance().getReference().child("Beats").child(vehicle);
-        Map<String,String> mp=new HashMap<>();
-        lastKnown=getLastKnownLocation();
-        mp.put("Location",lastKnown.getLatitude()+"||"+lastKnown.getLongitude());
-        mp.put("Emergency","No");
-
+        final DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Time").child(vehicle).child("Location");
+        final DatabaseReference myref1 = FirebaseDatabase.getInstance().getReference().child("Beats").child(vehicle);
+        Map<String, String> mp = new HashMap<>();
+        lastKnown = getLastKnownLocation();
+        mp.put("Location", lastKnown.getLatitude() + "||" + lastKnown.getLongitude());
+        mp.put("Emergency", "No");
 
 
         myref1.setValue(mp);
         mp.clear();
 
-        final Handler handler = new Handler();
+       /* final Handler handler = new Handler();
 
-      final Runnable r = new Runnable() {
+        final Runnable r = new Runnable() {
             public void run() {
                 // tv.append("Hello World");
-               myref.setValue(System.currentTimeMillis());
+                myref.setValue(System.currentTimeMillis());
 
 
                 handler.postDelayed(this, 2000);
             }
         };
 
-        handler.postDelayed(r, 2000);
-       LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        handler.postDelayed(r, 2000);*/
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                Log.d("locationchangednow","yess");
-                Toast.makeText(MyService.this,"Location changed",Toast.LENGTH_LONG);
-                myref1.child("Location"). setValue(location.getLatitude()+"||"+location.getLongitude());
-
+                Log.d("locationchangednow", "yess");
+                Toast.makeText(MyService.this, "Location changed", Toast.LENGTH_LONG);
+                myref1.child("Location").setValue(location.getLatitude() + "||" + location.getLongitude());
 
 
             }
@@ -140,7 +139,21 @@ public class MyService extends Service implements SensorEventListener {
             }
         };
 
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    Activity#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                Log.d("baahrnikla","haababa");
+                // to handle the case where the user grants the permission. See the documentation
+                // for Activity#requestPermissions for more details.
+                return;
+            }
+        }
+        else
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, locationListener);
        startForeground(10,new Notification());
     }
 

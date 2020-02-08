@@ -2,21 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sih.policeapp">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
-
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,37 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.wanted_activity"></activity>
+        <activity android:name=".Activities.Weather"></activity>
+        <activity android:name=".Activities.wanted_activity" />
 
-        <receiver
-            android:name=".Broadcasters.Restarter"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="restartservice" />
-            </intent-filter>
-        </receiver>
         <activity
             android:name=".AddSingleCrime"
             android:label="@string/title_activity_add_single_crime"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".CriminalProfile" />
-        <activity android:name=".MainActivity"></activity>
-
+        <activity android:name=".MainActivity" />
         <activity android:name=".Activities.Beats" />
+        <activity
+            android:name=".AddNewCriminalDetails"
+            android:parentActivityName=".AddCriminalActivity">
+            <meta-data
+                android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+                android:value="face" />
+            <!-- To use multiple models: android:val ue="face,model2,model3" -->
+        </activity>
 
-
-        <service
-            android:name=".Services.MyService"
-            android:enabled="true"
-            android:stopWithTask="false"
-            android:exported="true"
-            >
-            <intent-filter>
-                <action android:name="com.sih.policeapp.LONGRUNSERVICE" />
-            </intent-filter>
-        </service>
-
+        <activity
+            android:name=".AddCriminalActivity"
+            android:parentActivityName=".MainActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -63,17 +40,6 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <activity
-            android:name=".AddNewCriminalDetails"
-            android:parentActivityName=".AddCriminalActivity">
-        <meta-data
-            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-            android:value="face" />
-            <!-- To use multiple models: android:val ue="face,model2,model3" --> </activity>
-        <activity
-            android:name=".AddCriminalActivity"
-            android:parentActivityName=".MainActivity" />
-
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -86,10 +52,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <receiver
+            android:name=".Broadcasters.Restarter"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="restartservice" />
+            </intent-filter>
+        </receiver>
+
         <receiver
             android:name=".Broadcasters.Restarter"
             android:enabled="true"
@@ -108,9 +82,24 @@
                 <action android:name="com.sih.policeapp.LONGRUNSERVICE" />
             </intent-filter>
         </service>
+
+        <service
+            android:name=".Services.MyService"
+            android:enabled="true"
+            android:exported="true"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.sih.policeapp.LONGRUNSERVICE" />
+            </intent-filter>
+        </service>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 </manifest>

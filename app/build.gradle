@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        maven { url 'https://plugins.gradle.org/m2/'}
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.6'
@@ -29,6 +29,8 @@ android {
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]
+        useLibrary 'org.apache.http.legacy'
+
     }
     buildTypes {
         release {
@@ -51,6 +53,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.onesignal:OneSignal:3.12.4'
+    //implementation 'com.android.support:multidex:1.0.3'
+
+   // implementation 'com.google.android.libraries.places:places:2.0.0'
 
 
     implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
@@ -76,9 +81,9 @@ dependencies {
     //implementation 'com.google.firebase:firebase-database:16.0.4'
     //implementation 'com.google.firebase:firebase-storage:16.0.4'
     //implementation 'com.google.firebase:firebase-auth:16.0.4'
-   // testImplementation 'junit:junit:4.12'
+    // testImplementation 'junit:junit:4.12'
     implementation 'com.firebaseui:firebase-ui-database:4.3.2'
-   // implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    // implementation 'com.google.android.gms:play-services-maps:17.0.0'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     //implementation 'de.hdodenhof:circleimageview:3.0.1'
@@ -88,5 +93,3 @@ dependencies {
     //implementation 'com.google.android.gms:play-services-location:17.0.0'
 
 }
-
-

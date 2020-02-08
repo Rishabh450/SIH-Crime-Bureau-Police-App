@@ -30,6 +30,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,6 +47,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.onesignal.OneSignal;
 import com.sih.Utils.CompareImage;
 import com.sih.policeapp.Activities.Beats;
+import com.sih.policeapp.Activities.Weather;
 import com.sih.policeapp.Activities.wanted_activity;
 import com.sih.policeapp.Activities.Login;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -53,7 +59,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,13 +69,16 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    Toolbar toolbar;View headerView;
-    FirebaseAuth.AuthStateListener authStateListener;String userno;
+    Toolbar toolbar;
+    View headerView;
+    FirebaseAuth.AuthStateListener authStateListener;
+    String userno;
     FirebaseAuth mAuth;
     NavigationView navigationView;
     DatabaseReference mRootRef;
-    String policeid;private SensorManager sensorManager;
-    TextView name,email;
+    String policeid;
+    private SensorManager sensorManager;
+    TextView name, email;
 
     @Override
     protected void onStart() {
@@ -79,11 +90,11 @@ public class MainActivity extends AppCompatActivity {
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        Log.e("ak47","on Start");
+        Log.e("ak47", "on Start");
         super.onStart();
-        Log.e("ak47","on Start after super");
+        Log.e("ak47", "on Start after super");
         mAuth.addAuthStateListener(authStateListener);
-        Log.e("ak47","on Start Ends");
+        Log.e("ak47", "on Start Ends");
     }
 
     @Override
@@ -93,33 +104,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        if(FirebaseAuth.getInstance().getCurrentUser()==null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Log.e("ak47", "user null");
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivity(intent);
-        }
-        else {
-            policeid=FirebaseAuth.getInstance().getUid();
+        } else {
+            policeid = FirebaseAuth.getInstance().getUid();
             Log.e("ak47", "not null");
 
         }
-authStateListener=new FirebaseAuth.AuthStateListener() {
-    @Override
-    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-        if(FirebaseAuth.getInstance().getCurrentUser()==null) {
-            Log.e("ak47", "user null");
-            Intent intent = new Intent(MainActivity.this, Login.class);
-            startActivity(intent);
-        }
-        else {
-            policeid=FirebaseAuth.getInstance().getUid();
-            Log.e("ak47", "not null");
-        }
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                    Log.e("ak47", "user null");
+                    Intent intent = new Intent(MainActivity.this, Login.class);
+                    startActivity(intent);
+                } else {
+                    policeid = FirebaseAuth.getInstance().getUid();
+                    Log.e("ak47", "not null");
+                }
 
 
-    }
-};
+            }
+        };
 
 
         OneSignal.startInit(this)
@@ -133,9 +142,9 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
             @Override
             public void idsAvailable(String userId, String registrationId) {
-                Map<String,String> mp=new HashMap<>() ;
-                mp.put("Notification",userId);
-                mp.put("Name",FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                Map<String, String> mp = new HashMap<>();
+                mp.put("Notification", userId);
+                mp.put("Name", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
 
                 FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(policeid).setValue(mp);
@@ -146,14 +155,13 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
         OneSignal.setInFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification);
 
 
-
         setUpToolBar();
         mRootRef = FirebaseDatabase.getInstance().getReference();
-       // mRootRef.child("Anshaj").child("asdf").setValue("asdfghjkl");
+        // mRootRef.child("Anshaj").child("asdf").setValue("asdfghjkl");
         navigationView = findViewById(R.id.clickable_menu);
         headerView = navigationView.inflateHeaderView(R.layout.header);
-        name=  headerView.findViewById(R.id.polname);
-        email=headerView.findViewById(R.id.polid);
+        name = headerView.findViewById(R.id.polname);
+        email = headerView.findViewById(R.id.polid);
         name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
@@ -161,29 +169,35 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                if(menuItem.getItemId() == R.id.fir){
+                if (menuItem.getItemId() == R.id.fir) {
                     startActivity(new Intent(MainActivity.this, Beats.class));
                     Toast.makeText(MainActivity.this, "FIR", Toast.LENGTH_SHORT).show();
                 }
-                if(menuItem.getItemId() == R.id.add_crime){
-                    Intent intent = new Intent(MainActivity.this,AddCriminalActivity.class);
+                if (menuItem.getItemId() == R.id.add_crime) {
+                    Intent intent = new Intent(MainActivity.this, AddCriminalActivity.class);
                     startActivity(intent);
                 }
-                if(menuItem.getItemId()==R.id.wanted_list)
-                {Intent intent = new Intent(MainActivity.this, wanted_activity.class);
+                if (menuItem.getItemId() == R.id.wanted_list) {
+                    Intent intent = new Intent(MainActivity.this, wanted_activity.class);
                     startActivity(intent);
 
                 }
-                if(menuItem.getItemId() == R.id.updatewantedfiles){
+                if (menuItem.getItemId() == R.id.weathe) {
+                   // picker();
+                    Intent intent = new Intent(MainActivity.this, Weather.class);
+                    startActivity(intent);
+
+                }
+                if (menuItem.getItemId() == R.id.updatewantedfiles) {
                     updateWanted();
                 }
-                if(menuItem.getItemId() == R.id.search){
+                if (menuItem.getItemId() == R.id.search) {
                     CropImage.activity()
                             .setGuidelines(CropImageView.Guidelines.ON)
-                            .setAspectRatio(1,1)
+                            .setAspectRatio(1, 1)
                             .start(MainActivity.this);
                 }
-                if(menuItem.getItemId() == R.id.logout){
+                if (menuItem.getItemId() == R.id.logout) {
 
                     mAuth.signOut();
                 }
@@ -192,6 +206,33 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
         });
 
     }
+
+    private final static int AUTOCOMPLETE_REQUEST_CODE = 999;
+
+   /* public void picker() {
+        Places.initialize(getApplicationContext(), "AIzaSyBueo4gPZC7mDkWceuBzlDX19X_anAavLI");
+        List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
+        Intent intent = new Autocomplete.IntentBuilder(
+                AutocompleteActivityMode.FULLSCREEN, placeFields)
+                .build(this);
+        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+
+       *//* PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        // for activty
+
+        try {
+            startActivityForResult(builder.build(this),PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }*//*
+
+    }
+
+*/
+
     public void updateWanted()
     {
         DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("criminal_ref");
@@ -289,6 +330,18 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+       /* if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                Log.i(TAG, "Place: " + place.getName() + ", " +place.getLatLng());
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }*/
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 

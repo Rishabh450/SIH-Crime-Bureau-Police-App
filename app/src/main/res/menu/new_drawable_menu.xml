@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
    <item android:id="@+id/fir" android:title="Beats" />
-    <item android:id="@+id/add_crime" android:title="Add Criminal" />
+ <item android:id="@+id/weathe" android:title="Check Weather" />
+
+ <item android:id="@+id/add_crime" android:title="Add Criminal" />
+
     <item android:id="@+id/profile" android:title="Profile" />
     <item android:id="@+id/wanted_list" android:title="WANTED"/>
     <item android:id="@+id/search" android:title="Image search" />

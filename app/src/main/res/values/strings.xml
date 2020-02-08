@@ -2,9 +2,19 @@
     <string name="app_name">PoliceApp</string>
     <string name="title_activity_maps">Map</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBueo4gPZC7mDkWceuBzlDX19X_anAavLI</string>
-
+    <string name="direction">Direction</string>
+    <string name="speed">Speed</string>
+    <string name="pressure">Pressure</string>
+    <string name="visibility">Visibility</string>
+    <string name="humidity">Humidity</string>
+    <string name="hourly">Hourly</string>
+    <string name="future">Future</string>
+    <string name="sunriseandsunset"><![CDATA[Sunrise & Sunset]]></string>
+    <string name="wind">Wind</string>
+    <string name="details">Details</string>
     <string name="close">Close</string>
     <string name="open">Open</string>
+    <string name="title_activity_add_single_crime">AddSingleCrime</string>
     <string-array name="State_List" />
     <string-array name="india_states">
         <item>Andaman and Nicobar Islands</item>
@@ -44,6 +54,7 @@
         <item>Uttar Pradesh</item>
         <item>West Bengal</item>
     </string-array>
+
     <string-array name="india_state_codes">
         <item>AN</item>
         <item>AP</item>
@@ -282,7 +293,6 @@
         <item>Specific Person Related Crime</item>
         <item>Others</item>
     </string-array>
-
     <string-array name="SortBy">
         <item>Random</item>
         <item>Criminal Name</item>
@@ -292,13 +302,13 @@
         <item>State of crime</item>
         <item>District/City of Crime</item>
     </string-array>
+
+
     <string-array name="QueryType">
         <item>SortBy</item>
         <item>SearchBy</item>
 
     </string-array>
-
-
     <string-array name="india_banks">
         <item>ABHYUDAYA CO-OP BANK LTD</item>
         <item>ABU DHABI COMMERCIAL BANK</item>
@@ -466,6 +476,5 @@
         <item>YES BANK LTD</item>
         <item>ZILA SAHKARI BANK LTD GHAZIABAD</item>
     </string-array>
-    <string name="title_activity_add_single_crime">AddSingleCrime</string>
 
 </resources>
