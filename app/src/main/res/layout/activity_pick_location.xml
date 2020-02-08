@@ -12,6 +12,7 @@
 
        android:layout_marginTop="30dp"
        android:elevation="6dp"
+       android:clickable="true"
        android:foreground="?android:attr/selectableItemBackground"
        android:focusable="true"
        android:layout_gravity="center|top"
@@ -22,7 +23,6 @@
            android:layout_gravity="center"
            android:textAllCaps="true"
            android:textSize="12dp"
-           android:clickable="true"
 
            android:text="Get weather Updates for pin location"
            android:layout_height="wrap_content">
