@@ -189,6 +189,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                     startActivity(intent);
 
                 }
+
                 if (menuItem.getItemId() == R.id.updatewantedfiles) {
                     updateWanted();
                 }
@@ -196,6 +197,12 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 {
                     Intent intent = new Intent(MainActivity.this, PoliceProfile.class);
                     intent.putExtra("user_id",FirebaseAuth.getInstance().getUid());
+                    startActivity(intent);
+                }
+                if(menuItem.getItemId() == R.id.FIR)
+                {
+                    Intent intent = new Intent(MainActivity.this, FirDetails.class);
+                    intent.putExtra("fir_id","-M-ZDeO0AaibjMcRBTdy");
                     startActivity(intent);
                 }
                 if(menuItem.getItemId() == R.id.search){

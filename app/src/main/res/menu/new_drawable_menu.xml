@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
    <item android:id="@+id/fir" android:title="Beats" />
  <item android:id="@+id/weathe" android:title="Check Weather" />
-
+    <item android:id="@+id/FIR" android:title="FIR" />
  <item android:id="@+id/add_crime" android:title="Add Criminal" />
 
     <item android:id="@+id/profile" android:title="Profile" />
