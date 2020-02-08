@@ -41,11 +41,12 @@ public class PoliceProfile extends AppCompatActivity {
     private ArrayList<String> listCity=new ArrayList<String>();
     private ArrayAdapter<CharSequence> adapter;
     private RadioGroup radioGroup;
-    private RadioButton radioButton;
+    private RadioButton radioButton,radioButton2;
     private Button edit;
     private ProgressDialog mProgressDialog;
     private DatabaseReference mRef;
     private RatingBar ratingBar;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,10 @@ public class PoliceProfile extends AppCompatActivity {
         setContentView(R.layout.activity_police_profile);
 
         mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("Loading");
+        mProgressDialog.setMessage("Please wait....");
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.show();
         circleImageView  = findViewById(R.id.police_profile_pic);
         name = findViewById(R.id.police_name);
         EmailID = findViewById(R.id.email_ID);
@@ -62,6 +67,14 @@ public class PoliceProfile extends AppCompatActivity {
         policeStationID = findViewById(R.id.policeStation);
         ratingBar = findViewById(R.id.rating_of_police);
         edit = findViewById(R.id.edit);
+
+        userID = getIntent().getStringExtra("user_id");
+
+        if(!userID.equals(FirebaseAuth.getInstance().getUid()))
+        {
+           edit.setVisibility(View.GONE);
+        }
+
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +83,7 @@ public class PoliceProfile extends AppCompatActivity {
             }
         });
         if(FirebaseAuth.getInstance().getCurrentUser()!=null)
-        mRef = FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(FirebaseAuth.getInstance().getUid());
+        mRef = FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(userID);
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -90,14 +103,20 @@ public class PoliceProfile extends AppCompatActivity {
                     String radio;
 
                     radio = police.getPsHead();
+                    radioButton = findViewById(R.id.YES);
+                    radioButton2 = findViewById(R.id.NO);
                     if(radio.equals("YES"))
                     {
-                        radioButton = findViewById(R.id.YES);
+
                         radioButton.setChecked(true);
+                        radioButton2.setEnabled(false);
+
                     }else{
-                        radioButton = findViewById(R.id.NO);
-                        radioButton.setChecked(true);
+
+                        radioButton2.setChecked(true);
+                        radioButton.setEnabled(false);
                     }
+
 
                     name.setText(nam);
                     designation.setText(deg);
@@ -106,7 +125,7 @@ public class PoliceProfile extends AppCompatActivity {
                     act.setText(city);
                     ratingBar.setRating(Float.parseFloat(police.getRating()));
                     ratingBar.setEnabled(false);
-
+                     mProgressDialog.hide();
 //                    name.setText();
                 }
 

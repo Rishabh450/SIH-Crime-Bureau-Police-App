@@ -77,6 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+
+
         obj_list();
 
         designation = findViewById(R.id.designation);

@@ -8,11 +8,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         app:cardCornerRadius="30dp"
-        android:layout_marginStart="7dp"
         android:backgroundTint="#E3E5E7"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="5dp"
+        android:layout_margin="10dp"
         android:layout_height="wrap_content" >
 
         <LinearLayout
@@ -223,6 +220,28 @@
                     android:id="@+id/img_case_status"
                     />
 
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Solved By : "
+                    android:layout_gravity="center_vertical"
+                    android:textSize="20sp" />
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stepSize=".1"
+                    android:id="@+id/solved_by"
+                    />
 
 
             </LinearLayout>

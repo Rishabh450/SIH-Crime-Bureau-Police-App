@@ -173,7 +173,6 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
 
                 if(menuItem.getItemId() == R.id.fir){
                     startActivity(new Intent(MainActivity.this, Beats.class));
-                    Toast.makeText(MainActivity.this, "FIR", Toast.LENGTH_SHORT).show();
                 }
                 if(menuItem.getItemId() == R.id.add_crime){
                     Intent intent = new Intent(MainActivity.this,AddCriminalActivity.class);
@@ -196,6 +195,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 if(menuItem.getItemId() == R.id.profile)
                 {
                     Intent intent = new Intent(MainActivity.this, PoliceProfile.class);
+                    intent.putExtra("user_id",FirebaseAuth.getInstance().getUid());
                     startActivity(intent);
                 }
                 if(menuItem.getItemId() == R.id.search){

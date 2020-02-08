@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -84,8 +86,25 @@ public class CriminalProfileAdapter extends RecyclerView.Adapter<CriminalProfile
             displayName = holder.mView.findViewById(R.id.criminal_name);
             BodyMark = holder.mView.findViewById(R.id.body_mark);
             DOB = holder.mView.findViewById(R.id.DOB);
+            final ImageView editDOB =  holder.mView.findViewById(R.id.edit_DOB);
+            editDOB.setVisibility(View.GONE);
             AddressOfCriminal = holder.mView.findViewById(R.id.address_of_criminal);
             Rating_of_criminal = holder.mView.findViewById(R.id.rating_of_criminal);
+
+//            mRootRef.child("PoliceUser").child(FirebaseAuth.getInstance().getUid()).child("admin").addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    if(dataSnapshot.exists())
+//                    {
+//                        editDOB.setVisibility(View.VISIBLE);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
 
 
             mRootRef.child("criminal_ref").child(currCriminal).addValueEventListener(new ValueEventListener() {
@@ -141,6 +160,7 @@ public class CriminalProfileAdapter extends RecyclerView.Adapter<CriminalProfile
             addressOfCrime = holder.mView.findViewById(R.id.crime_full_adress);
             crimeRating = holder.mView.findViewById(R.id.rating_of_crime);
             crimeStatus = holder.mView.findViewById(R.id.case_status);
+
 
             mRootRef.child("crime_ref").child(crimeList.get(position-1)).addValueEventListener(new ValueEventListener() {
                 @Override
