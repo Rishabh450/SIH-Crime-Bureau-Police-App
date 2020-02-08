@@ -274,13 +274,37 @@
 
     <string-array name="MainCrimeTypes">
         <item>Select Crime Type</item>
+        <item>Murder</item>
+        <item>Illegal Trafficking</item>
         <item>Women Related Crime</item>
         <item>Children Related Crime</item>
         <item>Business Related Crime</item>
-        <item>Property Related Crime</item>
-        <item>Illegal Trafficking</item>
-        <item>Specific Person Related Crime</item>
         <item>Others</item>
+    </string-array>
+    <string-array name="PoliceStations">
+        <item>Select Police Station</item>
+        <item>Jamshedpur</item>
+        <item>Patna</item>
+        <item>Bistupur</item>
+        <item>Ajmer</item>
+        <item>Amritsar</item>
+        <item>Jehanabad</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="PoliceDesignation">
+        <item>Select Your Designation</item>
+        <item>Director General of Police (DGP)</item>
+        <item>Special Director General of Police (SDG)</item>
+        <item>Additional Director General of Police (ADG)</item>
+        <item>Inspector General of Police (IG)</item>
+        <item>Deputy Inspector General of Police (DIG)</item>
+        <item>Senior Superintendent of Police (SSP)</item>
+        <item>Superintendent of Police (SP)</item>
+        <item>Deputy Superintendent of Police (Dy.SP)</item>
+        <item>Assistant Superintendent of Police (ASP)</item>
+        <item>Inspector</item>
+        <item>Constable</item>
     </string-array>
 
     <string-array name="SortBy">

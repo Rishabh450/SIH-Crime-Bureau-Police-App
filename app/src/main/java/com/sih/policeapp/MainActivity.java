@@ -135,11 +135,8 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
             public void idsAvailable(String userId, String registrationId) {
                 Map<String,String> mp=new HashMap<>() ;
-                mp.put("Notification",userId);
-                mp.put("Name",FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
-
-                FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(policeid).setValue(mp);
+                FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(policeid).child("Notification").setValue(userId);
                 FirebaseDatabase.getInstance().getReference().child("PoliceNotif").child(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()).setValue(userId);
 
             }
@@ -171,12 +168,18 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                     startActivity(intent);
                 }
                 if(menuItem.getItemId()==R.id.wanted_list)
-                {Intent intent = new Intent(MainActivity.this, wanted_activity.class);
+                {
+                    Intent intent = new Intent(MainActivity.this, wanted_activity.class);
                     startActivity(intent);
 
                 }
                 if(menuItem.getItemId() == R.id.updatewantedfiles){
                     updateWanted();
+                }
+                if(menuItem.getItemId() == R.id.profile)
+                {
+                    Intent intent = new Intent(MainActivity.this, PoliceProfile.class);
+                    startActivity(intent);
                 }
                 if(menuItem.getItemId() == R.id.search){
                     CropImage.activity()
@@ -187,6 +190,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 if(menuItem.getItemId() == R.id.logout){
 
                     mAuth.signOut();
+                    OneSignal.setSubscription(false);
                 }
                 return false;
             }
@@ -232,10 +236,8 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(String.valueOf(url)));
                             request.setDescription("Downloading");
                             request.setTitle(fileName);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                                request.allowScanningByMediaScanner();
-                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                            }
+                            request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                             Log.d("bhaiwa",Environment.DIRECTORY_DOWNLOADS);
                             request.setDestinationInExternalPublicDir( "HashContact/Pictures", fileName);
 
@@ -262,6 +264,9 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
 
 
                     } finally {
+
+
+
                     }
 
                 }
