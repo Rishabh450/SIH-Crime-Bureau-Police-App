@@ -41,36 +41,61 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 />
-            <EditText
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Crime eg fraud,rape,murder etc"
-                android:id="@+id/crime_type"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                />
-            <AutoCompleteTextView
+                >
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Crime eg fraud,rape,murder etc"
+                    android:id="@+id/crime_type"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/state"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:hint="Select Crime State"
-                />
-            <AutoCompleteTextView
+                >
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/state"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:hint="Select Crime State"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/district"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:hint="Select Crime District"
-                />
+                >
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/district"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:hint="Select Crime District"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
 
 
 
@@ -107,16 +132,24 @@
                 android:background="#4657AA"
                 android:layout_margin="5dp"
                 android:orientation="vertical">
-                <EditText
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:hint="Full Address of crime"
-                    android:gravity="top"
-                    android:background="#F7F7F7"
-                    android:id="@+id/crime_address"
-                    android:padding="5dp"
-                    android:layout_margin="5dp"
-                    />
+                    android:layout_height="wrap_content"
+                    >
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:hint="Full Address of crime"
+                        android:gravity="top"
+                        android:background="#F7F7F7"
+                        android:id="@+id/crime_address"
+                        android:padding="5dp"
+                        android:layout_margin="5dp"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
 
 
 

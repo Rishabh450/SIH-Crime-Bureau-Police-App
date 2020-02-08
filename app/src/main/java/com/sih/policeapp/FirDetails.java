@@ -3,6 +3,7 @@ package com.sih.policeapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -45,28 +46,10 @@ public class FirDetails extends AppCompatActivity {
 
     TextView place, subject, details;
 
-    // array lists
-    // for the spinner in the format : City_no : City , State. Eg : 144 : New Delhi , India
-    ArrayList<String> listSpinner=new ArrayList<String>();
-    // to store the city and state in the format : City , State. Eg: New Delhi , India
-    ArrayList<String> listAll=new ArrayList<String>();
-    // for listing all states
-    ArrayList<String> listState=new ArrayList<String>();
-    // for listing all cities
-    ArrayList<String> listCity=new ArrayList<String>();
-    View view;
-
-
-    Map<String , ArrayList<String>> stateDistrict;
-    Map<String , ArrayList<String>> districtLocality = new HashMap<>();
-
-
     TextView crimeType,time;
     private TextView accept,reject,viewProfile;
 
-
     int flag = 0;
-
 
     Button submit;
     String firId;
@@ -74,9 +57,6 @@ public class FirDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fir_details);
-
-        obj_list();
-
 
         firId = getIntent().getStringExtra("fir_id");
 
@@ -101,8 +81,6 @@ public class FirDetails extends AppCompatActivity {
         viewProfile = findViewById(R.id.view);
 
         setOnClicks();
-
-
 
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -194,73 +172,135 @@ public class FirDetails extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SendNotification("Message 1","heading 1","dbaa7177-7518-4398-83a6-b57ccfc0d299");
+            //    new SendNotification("Hello Nishchal!!","Fir Accepted","dbaa7177-7518-4398-83a6-b57ccfc0d299");
+
+                mRootRef.child("FIRs").child(firId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if(dataSnapshot.exists())
+                        {
+                            Map<String, String> map;
+
+                            map = (Map<String, String>) dataSnapshot.getValue();
+                            Fir fir = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
+                                    map.get("subject"), map.get("details"), String.valueOf(map.get("timeStamp")), map.get("status"),
+                                    map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
+
+                            mRootRef.child("Users").child(fir.getComplainantId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists())
+                                    {
+                                        User user = dataSnapshot.getValue(User.class);
+
+                                        assert user != null;
+                                        String s = user.getNotificationId();
+                                        new SendNotification("Hello " + user.getName() + "!!","Fir Accepted",s);
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mRootRef.child("FIRs").child(firId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                        if(dataSnapshot.exists())
+                        {
+                            Map<String, String> map;
+
+                            map = (Map<String, String>) dataSnapshot.getValue();
+
+                            Fir fir = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
+                                    map.get("subject"), map.get("details"), String.valueOf(map.get("timeStamp")), map.get("status"),
+                                    map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
+
+                            mRootRef.child("Users").child(fir.getComplainantId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists())
+                                    {
+                                        User user = dataSnapshot.getValue(User.class);
+
+                                        assert user != null;
+                                        String s = user.getNotificationId();
+                                        new SendNotification("Sorry for inconvenience " + user.getName() + "!!","Fir Rejected",s);
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mRootRef.child("FIRs").child(firId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                        if(dataSnapshot.exists())
+                        {
+                            Map<String, String> map;
+
+                            map = (Map<String, String>) dataSnapshot.getValue();
+                            Fir fir = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
+                                    map.get("subject"), map.get("details"), String.valueOf(map.get("timeStamp")), map.get("status"),
+                                    map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
+
+                            Intent intent = new Intent(FirDetails.this,UserProfile.class);
+                            intent.putExtra("user_id",fir.getComplainantId());
+                            startActivity(intent);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
     }
 
-    // Get the content of cities.json from assets directory and store it as string
-    public String getJson()
-    {
-        String json=null;
-        try
-        {
-            // Opening cities.json file
-            InputStream is = getAssets().open("cities.json");
-            // is there any content in the file
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            // read values in the byte array
-            is.read(buffer);
-            // close the stream --- very important
-            is.close();
-            // convert byte to string
-            json = new String(buffer, "UTF-8");
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-            return json;
-        }
-        return json;
-    }
 
-    // This add all JSON object's data to the respective lists
-    void obj_list()
-    {
-        // Exceptions are returned by JSONObject when the object cannot be created
-        try
-        {
-            // Convert the string returned to a JSON object
-            JSONObject jsonObject=new JSONObject(getJson());
-            // Get Json array
-            JSONArray array=jsonObject.getJSONArray("array");
-            // Navigate through an array item one by one
-            for(int i=0;i<array.length();i++)
-            {
-                // select the particular JSON data
-                JSONObject object=array.getJSONObject(i);
-                String city=object.getString("name");
-                String state=object.getString("state");
-                listCity.add(city);
-                listState.add(state);
-            }
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-    }
 }
