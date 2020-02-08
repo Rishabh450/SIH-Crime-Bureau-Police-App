@@ -37,6 +37,12 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 
 
+
+
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,6 +55,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.onesignal.OneSignal;
 import com.sih.Utils.CompareImage;
 import com.sih.policeapp.Activities.Beats;
+import com.sih.policeapp.Activities.PickLocation;
 import com.sih.policeapp.Activities.Weather;
 import com.sih.policeapp.Activities.wanted_activity;
 import com.sih.policeapp.Activities.Login;
@@ -68,7 +75,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "KABABA";
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     Toolbar toolbar;
@@ -179,15 +186,19 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                     Intent intent = new Intent(MainActivity.this,AddCriminalActivity.class);
                     startActivity(intent);
                 }
+                if(menuItem.getItemId() == R.id.picloc){
+                    Intent intent = new Intent(MainActivity.this, PickLocation.class);
+                    startActivity(intent);
+                }
                 if (menuItem.getItemId() == R.id.wanted_list) {
                     Intent intent = new Intent(MainActivity.this, wanted_activity.class);
                     startActivity(intent);
 
                 }
                 if (menuItem.getItemId() == R.id.weathe) {
-                   // picker();
-                    Intent intent = new Intent(MainActivity.this, Weather.class);
-                    startActivity(intent);
+                    picker();
+                   /* Intent intent = new Intent(MainActivity.this, Weather.class);
+                    startActivity(intent);*/
 
                 }
                 if (menuItem.getItemId() == R.id.updatewantedfiles) {
@@ -216,16 +227,16 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
     }
 
     private final static int AUTOCOMPLETE_REQUEST_CODE = 999;
+    private final static int PLACE_PICKER_REQUEST = 199;
+    public void picker() {
 
-   /* public void picker() {
-        Places.initialize(getApplicationContext(), "AIzaSyBueo4gPZC7mDkWceuBzlDX19X_anAavLI");
         List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME);
         Intent intent = new Autocomplete.IntentBuilder(
                 AutocompleteActivityMode.FULLSCREEN, placeFields)
                 .build(this);
         startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
 
-       *//* PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        /*PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
         // for activty
 
@@ -235,11 +246,10 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
             e.printStackTrace();
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
-        }*//*
+        }*/
 
     }
 
-*/
 
 
     public void updateWanted()
@@ -356,10 +366,11 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       /* if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
-                Log.i(TAG, "Place: " + place.getName() + ", " +place.getLatLng());
+
+                Log.i(TAG, "Place: " + place.getName() + ", " +place.getLatLng()+place);
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
@@ -367,6 +378,12 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
+        }
+        /*if(requestCode==PLACE_PICKER_REQUEST){
+            com.google.android.gms.location.places.Place place = PlacePicker.getPlace(this, data);
+            String placeName = String.format("Place: %s", place.getName());
+            double latitude = place.getLatLng().latitude;
+            double longitude = place.getLatLng().longitude;
         }*/
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);

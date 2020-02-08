@@ -11,6 +11,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -37,11 +38,12 @@ import java.text.ParseException;
 import java.util.List;
 
 public class Weather extends AppCompatActivity {
-    private final String apiKey="B3i0P2AdkVwylpsRcrP6IKK4lQ1ZIRi4";
+    private final String apiKey="sLe9h3rJ8i8iHO18S1pKfOK3QSayRL10";
    public LocationManager locationmanager;
    public LocationListener locationlistener;
   public   Weather  activity;
    public Location location;
+  //  https://maps.googleapis.com/maps/api/place/autocomplete/json?"Jamshe&types=geocode&sensor=false&AIzaSyDCFrm1JWEHas4IE65x1GBcUzWgmXjHW8g;
    public Context context;
   public   String result;
   public   String Current_WeatherText,CurrentIcon,Current_Pressure,Current_Prerssure_Unit,Current_Visibility,Current_Visibility_Unit,Current_Humidity,Current_Humidity_Unit,Current_IsDayTime,Current_TemperatureValue,Current_TemperatureUnit,CurrentWindSpeed,CurrentWindDirection,CurrentWindSpeed_Unit,CurrentWindDirection_Unit;
@@ -137,10 +139,18 @@ public class Weather extends AppCompatActivity {
                 }
             };
             locationmanager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            Intent intent=getIntent();
+            String code=intent.getStringExtra("code");
+            if(code.equals("1"))
+            {
+                latitude=intent.getDoubleExtra("latitude",0.0);
+                longitude=intent.getDoubleExtra("longitude",0.0);
+            }
+            else{
             locationmanager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, listener);
             Location locationlast=getLastKnownLocation();
             latitude = locationlast.getLatitude();
-            longitude = locationlast.getLongitude();
+            longitude = locationlast.getLongitude();}
             AsyncTask myasynctask =new AsyncTask();
             myasynctask.execute();
 
@@ -168,6 +178,9 @@ public class Weather extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("shuruu","haa");
+/*
+            Toast.makeText(Weather.this, "started", Toast.LENGTH_LONG).show();
+*/
             progressDialog.setTitle("Loading");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage("Fetching....");
