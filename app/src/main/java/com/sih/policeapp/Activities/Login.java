@@ -33,8 +33,14 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.sih.policeapp.MainActivity;
 import com.sih.policeapp.R;
+import com.sih.policeapp.RegisterActivity;
 
 import java.util.Arrays;
 
@@ -48,6 +54,7 @@ public class Login extends AppCompatActivity {
     SignInButton signInButton;
     Button facebook_sign_in;
     FirebaseAuth.AuthStateListener mAuthstateListner;
+    DatabaseReference mRootRef;
 
     @Override
     public void onStart() {
@@ -62,9 +69,28 @@ public class Login extends AppCompatActivity {
 //        mProgress.dismiss();
         constraintLayout=findViewById(R.id.login);
         constraintLayout.setVisibility(View.GONE);
+        mRootRef = FirebaseDatabase.getInstance().getReference().child("PoliceUser");
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null)
+        mRootRef.child(FirebaseAuth.getInstance().getUid()).child("designation").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    startActivity(new Intent(Login.this, MainActivity.class));
+                    finish();
+                }else{
+                    startActivity(new Intent(Login.this, RegisterActivity.class));
+                    finish();
+                }
+            }
 
-        startActivity(new Intent(Login.this, MainActivity.class));
-        finish();
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
 

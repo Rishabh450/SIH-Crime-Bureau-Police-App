@@ -14,9 +14,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by Shurru on 19-02-2018.
- */
 
 public class UrlConnection {
 

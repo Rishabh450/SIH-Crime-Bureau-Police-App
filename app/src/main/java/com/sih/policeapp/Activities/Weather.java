@@ -144,7 +144,6 @@ public class Weather extends AppCompatActivity {
             AsyncTask myasynctask =new AsyncTask();
             myasynctask.execute();
 
-            Toast.makeText(Weather.this, "lat" + latitude + "long" + longitude, Toast.LENGTH_LONG).show();
         }else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
         }
@@ -169,7 +168,6 @@ public class Weather extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             Log.d("shuruu","haa");
-            Toast.makeText(Weather.this, "started", Toast.LENGTH_LONG).show();
             progressDialog.setTitle("Loading");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage("Fetching....");
@@ -572,27 +570,6 @@ public class Weather extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        AlertDialog.Builder a_builder = new AlertDialog.Builder(Weather.this);
 
-        a_builder.setMessage("Do you want to Close this App !!!")
-                .setCancelable(false)
-                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }) ;
-        AlertDialog alert = a_builder.create();
-        alert.setTitle("Alert !!!");
-        alert.show();
-    }
 
 }

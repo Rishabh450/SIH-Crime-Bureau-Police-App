@@ -14,7 +14,6 @@
     <string name="details">Details</string>
     <string name="close">Close</string>
     <string name="open">Open</string>
-    <string name="title_activity_add_single_crime">AddSingleCrime</string>
     <string-array name="State_List" />
     <string-array name="india_states">
         <item>Andaman and Nicobar Islands</item>
@@ -54,7 +53,6 @@
         <item>Uttar Pradesh</item>
         <item>West Bengal</item>
     </string-array>
-
     <string-array name="india_state_codes">
         <item>AN</item>
         <item>AP</item>
@@ -285,14 +283,39 @@
 
     <string-array name="MainCrimeTypes">
         <item>Select Crime Type</item>
+        <item>Murder</item>
+        <item>Illegal Trafficking</item>
         <item>Women Related Crime</item>
         <item>Children Related Crime</item>
         <item>Business Related Crime</item>
-        <item>Property Related Crime</item>
-        <item>Illegal Trafficking</item>
-        <item>Specific Person Related Crime</item>
         <item>Others</item>
     </string-array>
+    <string-array name="PoliceStations">
+        <item>Select Police Station</item>
+        <item>Jamshedpur</item>
+        <item>Patna</item>
+        <item>Bistupur</item>
+        <item>Ajmer</item>
+        <item>Amritsar</item>
+        <item>Jehanabad</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="PoliceDesignation">
+        <item>Select Your Designation</item>
+        <item>Director General of Police (DGP)</item>
+        <item>Special Director General of Police (SDG)</item>
+        <item>Additional Director General of Police (ADG)</item>
+        <item>Inspector General of Police (IG)</item>
+        <item>Deputy Inspector General of Police (DIG)</item>
+        <item>Senior Superintendent of Police (SSP)</item>
+        <item>Superintendent of Police (SP)</item>
+        <item>Deputy Superintendent of Police (Dy.SP)</item>
+        <item>Assistant Superintendent of Police (ASP)</item>
+        <item>Inspector</item>
+        <item>Constable</item>
+    </string-array>
+
     <string-array name="SortBy">
         <item>Random</item>
         <item>Criminal Name</item>
@@ -302,13 +325,13 @@
         <item>State of crime</item>
         <item>District/City of Crime</item>
     </string-array>
-
-
     <string-array name="QueryType">
         <item>SortBy</item>
         <item>SearchBy</item>
 
     </string-array>
+
+
     <string-array name="india_banks">
         <item>ABHYUDAYA CO-OP BANK LTD</item>
         <item>ABU DHABI COMMERCIAL BANK</item>
@@ -476,5 +499,6 @@
         <item>YES BANK LTD</item>
         <item>ZILA SAHKARI BANK LTD GHAZIABAD</item>
     </string-array>
+    <string name="title_activity_add_single_crime">AddSingleCrime</string>
 
 </resources>

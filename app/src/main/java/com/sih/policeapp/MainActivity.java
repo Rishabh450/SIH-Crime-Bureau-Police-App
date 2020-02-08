@@ -2,6 +2,7 @@ package com.sih.policeapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -9,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -108,27 +110,29 @@ public class MainActivity extends AppCompatActivity {
             Log.e("ak47", "user null");
             Intent intent = new Intent(MainActivity.this, Login.class);
             startActivity(intent);
-        } else {
-            policeid = FirebaseAuth.getInstance().getUid();
+        }
+        else {
+            policeid=FirebaseAuth.getInstance().getUid();
             Log.e("ak47", "not null");
 
         }
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+authStateListener=new FirebaseAuth.AuthStateListener() {
+    @Override
+    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-                    Log.e("ak47", "user null");
-                    Intent intent = new Intent(MainActivity.this, Login.class);
-                    startActivity(intent);
-                } else {
-                    policeid = FirebaseAuth.getInstance().getUid();
-                    Log.e("ak47", "not null");
-                }
+        if(FirebaseAuth.getInstance().getCurrentUser()==null) {
+            Log.e("ak47", "user null");
+            Intent intent = new Intent(MainActivity.this, Login.class);
+            startActivity(intent);
+        }
+        else {
+            policeid=FirebaseAuth.getInstance().getUid();
+            Log.e("ak47", "not null");
+        }
 
 
-            }
-        };
+    }
+};
 
 
         OneSignal.startInit(this)
@@ -142,12 +146,9 @@ public class MainActivity extends AppCompatActivity {
         OneSignal.idsAvailable(new OneSignal.IdsAvailableHandler() {
             @Override
             public void idsAvailable(String userId, String registrationId) {
-                Map<String, String> mp = new HashMap<>();
-                mp.put("Notification", userId);
-                mp.put("Name", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                Map<String,String> mp=new HashMap<>() ;
 
-
-                FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(policeid).setValue(mp);
+                FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(policeid).child("Notification").setValue(userId);
                 FirebaseDatabase.getInstance().getReference().child("PoliceNotif").child(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()).setValue(userId);
 
             }
@@ -155,13 +156,14 @@ public class MainActivity extends AppCompatActivity {
         OneSignal.setInFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification);
 
 
+
         setUpToolBar();
         mRootRef = FirebaseDatabase.getInstance().getReference();
-        // mRootRef.child("Anshaj").child("asdf").setValue("asdfghjkl");
+       // mRootRef.child("Anshaj").child("asdf").setValue("asdfghjkl");
         navigationView = findViewById(R.id.clickable_menu);
         headerView = navigationView.inflateHeaderView(R.layout.header);
-        name = headerView.findViewById(R.id.polname);
-        email = headerView.findViewById(R.id.polid);
+        name=  headerView.findViewById(R.id.polname);
+        email=headerView.findViewById(R.id.polid);
         name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
@@ -169,12 +171,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                if (menuItem.getItemId() == R.id.fir) {
+                if(menuItem.getItemId() == R.id.fir){
                     startActivity(new Intent(MainActivity.this, Beats.class));
                     Toast.makeText(MainActivity.this, "FIR", Toast.LENGTH_SHORT).show();
                 }
-                if (menuItem.getItemId() == R.id.add_crime) {
-                    Intent intent = new Intent(MainActivity.this, AddCriminalActivity.class);
+                if(menuItem.getItemId() == R.id.add_crime){
+                    Intent intent = new Intent(MainActivity.this,AddCriminalActivity.class);
                     startActivity(intent);
                 }
                 if (menuItem.getItemId() == R.id.wanted_list) {
@@ -191,15 +193,21 @@ public class MainActivity extends AppCompatActivity {
                 if (menuItem.getItemId() == R.id.updatewantedfiles) {
                     updateWanted();
                 }
-                if (menuItem.getItemId() == R.id.search) {
+                if(menuItem.getItemId() == R.id.profile)
+                {
+                    Intent intent = new Intent(MainActivity.this, PoliceProfile.class);
+                    startActivity(intent);
+                }
+                if(menuItem.getItemId() == R.id.search){
                     CropImage.activity()
                             .setGuidelines(CropImageView.Guidelines.ON)
-                            .setAspectRatio(1, 1)
+                            .setAspectRatio(1,1)
                             .start(MainActivity.this);
                 }
                 if (menuItem.getItemId() == R.id.logout) {
 
                     mAuth.signOut();
+                    OneSignal.setSubscription(false);
                 }
                 return false;
             }
@@ -232,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 */
+
 
     public void updateWanted()
     {
@@ -272,10 +281,8 @@ public class MainActivity extends AppCompatActivity {
                             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(String.valueOf(url)));
                             request.setDescription("Downloading");
                             request.setTitle(fileName);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                                request.allowScanningByMediaScanner();
-                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                            }
+                            request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                             Log.d("bhaiwa",Environment.DIRECTORY_DOWNLOADS);
                             request.setDestinationInExternalPublicDir( "HashContact/Pictures", fileName);
 
@@ -320,7 +327,26 @@ public class MainActivity extends AppCompatActivity {
         {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }else{
-            super.onBackPressed();
+            AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
+
+            a_builder.setMessage("Do you want to Close this App !!!")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                           finish();
+                        }
+                    })
+                    .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }) ;
+            AlertDialog alert = a_builder.create();
+            alert.setTitle("Alert !!!");
+            alert.show();
+
         }
 
     }
