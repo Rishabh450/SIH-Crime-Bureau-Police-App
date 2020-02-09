@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -235,7 +236,13 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
                                                      assert police != null;
                                                      mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue(police.getPosted_city());
                                                      mRootRef.child("FIRs").child(firId).child("correspondent").setValue(police.getPolice_name());
-                                                     mRootRef.child("FIRs").child(firId).child("status").setValue("Accepted");
+                                                     mRootRef.child("FIRs").child(firId).child("status").setValue("Accepted").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                         @Override
+                                                         public void onSuccess(Void aVoid) {
+                                                             finish();
+                                                         }
+                                                     });
+
                                                  }
 
 
@@ -318,9 +325,15 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
                                                             PoliceClass police = dataSnapshot.getValue(PoliceClass.class);
                                                             mRootRef.child("FIRs").child(firId).child("reportingDate").setValue(appointmentDate.getText().toString() + " " + appointmentTime.getText().toString());
                                                             assert police != null;
-                                                            mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue(police.getPosted_city());
-                                                            mRootRef.child("FIRs").child(firId).child("correspondent").setValue(police.getPolice_name());
-                                                            mRootRef.child("FIRs").child(firId).child("status").setValue("Rejected");
+                                                            mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue("");
+                                                            mRootRef.child("FIRs").child(firId).child("correspondent").setValue("");
+                                                            mRootRef.child("FIRs").child(firId).child("status").setValue("Rejected").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    finish();
+                                                                }
+                                                            });
+
                                                         }
 
 

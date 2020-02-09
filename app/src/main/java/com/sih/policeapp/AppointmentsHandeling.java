@@ -102,7 +102,15 @@ public class AppointmentsHandeling extends AppCompatActivity {
                 appointmentsList.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
 
-                    appointmentsList.add(snapshot.getKey());
+                    String s = snapshot.child("status").getValue(String.class);
+
+                    assert s != null;
+                    if(s.equals("Pending"))
+                    {
+                        appointmentsList.add(snapshot.getKey());
+                    }
+
+
 
                 }
 

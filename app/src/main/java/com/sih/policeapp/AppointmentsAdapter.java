@@ -62,7 +62,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
         if (category.equals("FIRs")) {
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -89,7 +89,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
                         Log.i(TAG, "onDataChange: " + fir.getComplainantId());
 
-                        databaseReference.addValueEventListener(new ValueEventListener() {
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -127,7 +127,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                 public void onClick(View v) {
 
 
-                    mRootRef.child("FIRs").child(string).addValueEventListener(new ValueEventListener() {
+                    mRootRef.child("FIRs").child(string).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -179,7 +179,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                 @Override
                 public void onClick(View v) {
 
-                    mRootRef.child("FIRs").child(string).addValueEventListener(new ValueEventListener() {
+                    mRootRef.child("FIRs").child(string).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -256,7 +256,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
         } else {
 
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -275,7 +275,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
                         Log.i(TAG, "onDataChange: " + noc.getUserId());
 
-                        databaseReference.addValueEventListener(new ValueEventListener() {
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -312,7 +312,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                 public void onClick(View v) {
 
 
-                    mRootRef.child("NOC").child(string).addValueEventListener(new ValueEventListener() {
+                    mRootRef.child("NOC").child(string).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -361,7 +361,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                 public void onClick(View v) {
 
 
-                    mRootRef.child("NOC").child(string).addValueEventListener(new ValueEventListener() {
+                    mRootRef.child("NOC").child(string).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
