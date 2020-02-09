@@ -15,6 +15,7 @@ public class Noc {
 
     }
 
+
     public Noc(String surname, String name, String presentAddress, String homeAddress, String dateOfBirth, String placeOfBirth,
                String nocType, String charges, String identificationMark, String fatherName, String motherName, String spouseName,
                String userId, Long timeStamp, String status, String reportingDate, String reportingPlace,

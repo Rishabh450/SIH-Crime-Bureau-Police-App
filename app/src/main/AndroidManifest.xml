@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserProfile"></activity>
+        <activity android:name=".NOCdetails"></activity>
+        <activity android:name=".UserProfile" />
         <activity android:name=".FirDetails" />
         <activity android:name=".SplashScreen">
             <intent-filter>
