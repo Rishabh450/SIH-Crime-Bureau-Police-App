@@ -14,7 +14,9 @@
     <string name="details">Details</string>
     <string name="close">Close</string>
     <string name="open">Open</string>
-    <string name="grp"><p style="color:red;">Crime</p></string>
+    <string name="crime"><font fgcolor='#FFFF3B30'>Crime</font></string>
+    <string name="weather"><font fgcolor='#FFFF3B30'>Weather</font></string>
+    <string name="account"><font fgcolor='#FFFF3B30'>Account</font></string>
     <string-array name="State_List" />
     <string-array name="india_states">
         <item>Andaman and Nicobar Islands</item>

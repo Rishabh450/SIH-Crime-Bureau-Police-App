@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-    <item android:title="Weather">
+    <item android:title="@string/weather">
         <menu>
             <item android:id="@+id/weathe" android:title="Check Weather"
                 android:icon="@drawable/icon17"
@@ -17,7 +17,7 @@
                 app:showAsAction="always"/>
         </menu>
     </item>
-    <item android:title="Crime">
+    <item android:title="@string/crime">
         <menu>
             <item android:id="@+id/add_crime"  android:title="Add Criminal"
                 android:icon="@drawable/ic_person_add_black_24dp"
@@ -32,7 +32,7 @@
 
         </menu>
     </item>
-    <item android:title="@string/grp"
+    <item android:title="@string/account"
         >
         <menu>
             <item android:id="@+id/push_feed" app:showAsAction="always" android:title="Push Feed" android:icon="@drawable/ic_rss_feed_black_24dp"/>
