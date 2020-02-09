@@ -188,7 +188,7 @@ public class RegisterActivity extends AppCompatActivity {
                         mProgressDialog.setMessage("Please wait while we upload your data.");
                         mProgressDialog.setCanceledOnTouchOutside(false);
                         mProgressDialog.show();
-                        myRef.child(FirebaseAuth.getInstance().getUid()).setValue(mp).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        myRef.child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).setValue(mp).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 mProgressDialog.hide();

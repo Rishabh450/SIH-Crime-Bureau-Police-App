@@ -389,12 +389,15 @@ public class AddCriminalActivity extends AppCompatActivity {
                     {
                         down.setRotation(180);
                         search.setVisibility(View.GONE);
+                        cross.setVisibility(View.GONE);
                         title.setVisibility(View.VISIBLE);
                         searchEditext.setVisibility(View.GONE);
                         sortCV.setVisibility(View.VISIBLE);
                         if(query_type.getSelectedItem().toString().equals("SearchBy")){
                             searchCV.setVisibility(View.VISIBLE);
                         }
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(searchEditext.getWindowToken(), 0);
 
                     }
                     else{
@@ -403,6 +406,8 @@ public class AddCriminalActivity extends AppCompatActivity {
                         title.setVisibility(View.VISIBLE);
                         sortCV.setVisibility(View.GONE);
                         searchCV.setVisibility(View.GONE);
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(searchEditext.getWindowToken(), 0);
                     }
 
                 }
