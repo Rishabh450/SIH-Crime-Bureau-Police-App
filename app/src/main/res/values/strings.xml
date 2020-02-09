@@ -14,6 +14,7 @@
     <string name="details">Details</string>
     <string name="close">Close</string>
     <string name="open">Open</string>
+    <string name="grp"><p style="color:red;">Crime</p></string>
     <string-array name="State_List" />
     <string-array name="india_states">
         <item>Andaman and Nicobar Islands</item>

@@ -2,46 +2,57 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+    <item android:title="Weather">
+        <menu>
+            <item android:id="@+id/weathe" android:title="Check Weather"
+                android:icon="@drawable/icon17"
+                app:showAsAction="always"
+                />
+            <item android:id="@+id/picker" android:title="Pick Beats Weather"
+                android:icon="@drawable/pin"
+                app:showAsAction="always"/>
 
-   <item android:id="@+id/fir"
-       android:title="Beats"
-       android:icon="@drawable/ic_directions_car_black_24dp"
-       app:showAsAction="always"/>
- <item android:id="@+id/weathe" android:title="Check Weather"
-     android:icon="@drawable/icon17"
-     app:showAsAction="always"
-     />
-    <item android:id="@+id/picker" android:title="Pick Beats Weather"
-        android:icon="@drawable/pin"
-        app:showAsAction="always"/>
-   <item android:id="@+id/places" android:title="Places"
-       android:icon="@drawable/place_foreground"
-       app:showAsAction="always"/>
+            <item android:id="@+id/places" android:title="Places"
+                android:icon="@drawable/place_foreground"
+                app:showAsAction="always"/>
+        </menu>
+    </item>
+    <item android:title="Crime">
+        <menu>
+            <item android:id="@+id/add_crime"  android:title="Add Criminal"
+                android:icon="@drawable/ic_person_add_black_24dp"
+                app:showAsAction="always" />
+            <item android:id="@+id/wanted_list" android:title="WANTED LIST"
+                android:icon="@drawable/wantedlist"
+                app:showAsAction="always"
+                />
+            <item android:id="@+id/updatewantedfiles" android:title="Update Wanted Photos"
+                app:showAsAction="always"
+                android:icon="@drawable/ic_person_add_black_24dp"/>
 
-    <item android:id="@+id/push_feed" android:title="Push Feed"
-        android:icon="@drawable/feed_foreground"
-        app:showAsAction="always"/>
- <item android:id="@+id/add_crime" android:title="Add Criminal"
-     android:icon="@drawable/ic_person_add_black_24dp"
-     app:showAsAction="always" />
+        </menu>
+    </item>
+    <item android:title="@string/grp"
+        >
+        <menu>
+            <item android:id="@+id/push_feed" app:showAsAction="always" android:title="Push Feed" android:icon="@drawable/ic_rss_feed_black_24dp"/>
 
-    <item android:id="@+id/profile" android:title="Profile"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_perm_identity_black_24dp"/>
-    <item android:id="@+id/wanted_list" android:title="WANTED LIST"
-        android:icon="@drawable/wantedlist"
-        app:showAsAction="always"
-        />
-    <item android:id="@+id/search" android:title="Image search"
-        android:icon="@drawable/ic_search_black_24dp"
-        app:showAsAction="always"/>
-    <item android:id="@+id/updatewantedfiles" android:title="Update Wanted Photos"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_person_add_black_24dp"/>
-    <item android:id="@+id/appointment" android:title="Appointment"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_today_black_24dp"/>
-    <item android:id="@+id/logout" android:title="Logout"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_cancel_black_24dp"/>
+            <item android:id="@+id/profile" android:title="Profile"
+                app:showAsAction="always"
+                android:icon="@drawable/ic_perm_identity_black_24dp"/>
+
+
+
+
+            <item android:id="@+id/logout" android:title="Logout"
+                app:showAsAction="always"
+                android:icon="@drawable/baseline_exit_to_app_black"/>
+
+        </menu>
+    </item>
+
+
+
+
+
 </menu>

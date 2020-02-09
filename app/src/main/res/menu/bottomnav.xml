@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/fir"
+        android:title="Beats"
+        android:icon="@drawable/ic_directions_car_black_24dp"
+        app:showAsAction="always"/>
+    <item android:id="@+id/search" android:title="Image search"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="always"/>
+    <item android:id="@+id/appointment" android:title="Appointment"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_today_black_24dp"/>
+</menu>

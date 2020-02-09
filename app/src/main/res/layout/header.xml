@@ -27,6 +27,7 @@
         android:text="Anshaj Kumar"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:fontFamily="@font/proximanova"
 
         android:layout_marginStart="5dp"
         android:textSize="18dp"/>
@@ -36,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_marginStart="5dp"
+        android:fontFamily="@font/fright"
         android:text="anshajkumarsharma@gmail.com"
         android:textColor="@color/white"
         android:textSize="18dp"

@@ -87,6 +87,10 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
             vehicle=vehicle.substring(0,vehicle.indexOf(' '));}
 
         patrol = findViewById(R.id.patrol);
+        MyService mYourService = new MyService();
+
+        if(isMyServiceRunning(mYourService.getClass()))
+            patrol.setChecked(true);
         emergency=findViewById(R.id.emergency);
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -129,6 +133,8 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                     if (!isMyServiceRunning(mYourService.getClass())) {
                         startService(mServiceIntent);
                     }
+                    else
+                        stopService(mServiceIntent);
 
              /*       final DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Beats").child(vehicle).child("Location");
                     LocationManager locationManager = (LocationManager) Beats.this.getSystemService(Context.LOCATION_SERVICE);
@@ -227,7 +233,7 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                     }
 
 
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10));
+
 
                 }
             }
@@ -290,7 +296,7 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                 MarkerOptions marker = new MarkerOptions().position(sydney).title("Your current location");
                 mMap.addMarker(marker);
 
-
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 16));
 
         }
 

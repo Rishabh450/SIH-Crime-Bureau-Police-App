@@ -1,9 +1,12 @@
 package com.sih.policeapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -12,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,8 +37,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
-public class FirDetails extends AppCompatActivity {
+public class FirDetails extends AppCompatActivity implements ExampleDialog.ExampleDialogListner {
 
     DatabaseReference mRootRef;
     FirebaseUser currentUser;
@@ -45,11 +50,14 @@ public class FirDetails extends AppCompatActivity {
     TextView act,state,dist;
 
     TextView place, subject, details;
+    TextView appointmentDate,appointmentTime;
 
     TextView crimeType,time;
+    String error="";
     private TextView accept,reject,viewProfile;
 
     int flag = 0;
+    private ProgressDialog mProgressDialog;
 
     Button submit;
     String firId;
@@ -65,6 +73,12 @@ public class FirDetails extends AppCompatActivity {
         age = findViewById(R.id.complainant_age);
         gender = findViewById(R.id.complainant_gender);
         phone = findViewById(R.id.complainant_phone);
+
+        appointmentDate = findViewById(R.id.appointment_date);
+        appointmentTime = findViewById(R.id.appointment_time);
+
+
+
 
 
         state =findViewById(R.id.occurrence_state);
@@ -88,6 +102,7 @@ public class FirDetails extends AppCompatActivity {
         mRootRef.child("FIRs").child(firId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
 
                 if(dataSnapshot.exists())
                 {
@@ -145,6 +160,7 @@ public class FirDetails extends AppCompatActivity {
                                 gender.setText(d);
                                 phone.setText(e);
 
+
                             }
                         }
 
@@ -173,50 +189,94 @@ public class FirDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             //    new SendNotification("Hello Nishchal!!","Fir Accepted","dbaa7177-7518-4398-83a6-b57ccfc0d299");
+                int flag=0;
+                if(appointmentDate.getVisibility()==View.GONE || error.equals("yes"))
+                {
+                    openDialog();
+                }else{
 
-                mRootRef.child("FIRs").child(firId).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(appointmentDate.getVisibility()==View.VISIBLE && error.equals(""))
+                    {
+                        mRootRef.child("FIRs").child(firId).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        if(dataSnapshot.exists())
-                        {
-                            Map<String, String> map;
+                                if(dataSnapshot.exists())
+                                {
 
-                            map = (Map<String, String>) dataSnapshot.getValue();
-                            Fir fir = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
-                                    map.get("subject"), map.get("details"), String.valueOf(map.get("timeStamp")), map.get("status"),
-                                    map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
+                                    Map<String, String> map;
 
-                            mRootRef.child("Users").child(fir.getComplainantId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if(dataSnapshot.exists())
-                                    {
-                                        User user = dataSnapshot.getValue(User.class);
+                                    map = (Map<String, String>) dataSnapshot.getValue();
+                                    Fir fir = new Fir(map.get("complainantId"), map.get("state"), map.get("district"), map.get("place"), map.get("type"),
+                                            map.get("subject"), map.get("details"), String.valueOf(map.get("timeStamp")), map.get("status"),
+                                            map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
 
-                                        assert user != null;
-                                        String s = user.getNotificationId();
-                                        new SendNotification("Hello " + user.getName() + "!!","Fir Accepted",s);
+                                    mRootRef.child("Users").child(fir.getComplainantId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.exists())
+                                            {
+                                                User user = dataSnapshot.getValue(User.class);
 
-                                    }
+                                                assert user != null;
+                                                String s = user.getNotificationId();
+                                                new SendNotification("Hello " + user.getName() + "!!","Fir Accepted..",s);
+
+
+                                                mRootRef.child("PoliceUser").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                                                 .addListenerForSingleValueEvent(new ValueEventListener() {
+                                             @Override
+                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                 if(dataSnapshot.exists())
+                                                 {
+                                                     PoliceClass police = dataSnapshot.getValue(PoliceClass.class);
+                                                     mRootRef.child("FIRs").child(firId).child("reportingDate").setValue(appointmentDate.getText().toString() + " " + appointmentTime.getText().toString());
+                                                     assert police != null;
+                                                     mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue(police.getPosted_city());
+                                                     mRootRef.child("FIRs").child(firId).child("correspondent").setValue(police.getPolice_name());
+                                                     mRootRef.child("FIRs").child(firId).child("status").setValue("Accepted");
+                                                 }
+
+
+                                             }
+
+                                             @Override
+                                             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                             }
+                                         });
+
+
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+
                                 }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
 
-                                }
-                            });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
-                        }
-
+                            }
+                        });
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
 
-                    }
-                });
+
+
+
+
+
 
             }
         });
@@ -238,6 +298,7 @@ public class FirDetails extends AppCompatActivity {
                                     map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
 
                             mRootRef.child("Users").child(fir.getComplainantId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists())
@@ -247,6 +308,29 @@ public class FirDetails extends AppCompatActivity {
                                         assert user != null;
                                         String s = user.getNotificationId();
                                         new SendNotification("Sorry for inconvenience " + user.getName() + "!!","Fir Rejected",s);
+
+                                        mRootRef.child("PoliceUser").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        if(dataSnapshot.exists())
+                                                        {
+                                                            PoliceClass police = dataSnapshot.getValue(PoliceClass.class);
+                                                            mRootRef.child("FIRs").child(firId).child("reportingDate").setValue(appointmentDate.getText().toString() + " " + appointmentTime.getText().toString());
+                                                            assert police != null;
+                                                            mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue(police.getPosted_city());
+                                                            mRootRef.child("FIRs").child(firId).child("correspondent").setValue(police.getPolice_name());
+                                                            mRootRef.child("FIRs").child(firId).child("status").setValue("Rejected");
+                                                        }
+
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                    }
+                                                });
 
                                     }
                                 }
@@ -302,5 +386,23 @@ public class FirDetails extends AppCompatActivity {
         });
     }
 
+    private void openDialog() {
+        ExampleDialog exampleDialod = new ExampleDialog();
+        exampleDialod.show(getSupportFragmentManager(),"example dialog");
+    }
 
+
+    @Override
+    public void applyText(String a, String b) {
+        appointmentDate.setVisibility(View.VISIBLE);
+        appointmentTime.setVisibility(View.VISIBLE);
+         appointmentTime.setText(b); if(!b.equals("")) appointmentTime.setError(null); else appointmentTime.setError("Enter again");
+         appointmentDate.setText(a); if(!a.equals("")) appointmentDate.setError(null); else appointmentDate.setError("Enter again");
+         if(!a.equals("") && !b.equals(""))
+         {
+             error = "";
+         }else{
+             error="yes";
+         }
+    }
 }

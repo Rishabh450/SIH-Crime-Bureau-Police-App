@@ -1,6 +1,7 @@
 package com.sih.policeapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,7 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -77,6 +79,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth.AuthStateListener authStateListener;
     String userno;
     FirebaseAuth mAuth;
+    BottomNavigationView bottomNavigationView;
     NavigationView navigationView;
     DatabaseReference mRootRef;
     String policeid;
@@ -111,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("ak47", "on Start Ends");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,14 +168,13 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 Map<String,String> mp=new HashMap<>() ;
 
                 FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(policeid).child("Notification").setValue(userId);
-                FirebaseDatabase.getInstance().getReference().child("PoliceNotif").child(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()).setValue(userId);
+                FirebaseDatabase.getInstance().getReference().child("PoliceNotif").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())).setValue(userId);
 
             }
         });
         OneSignal.setInFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification);
 
-
-
+        bottomNavigationView=findViewById(R.id.bottomnav);
         setUpToolBar();
         mRootRef = FirebaseDatabase.getInstance().getReference();
        // mRootRef.child("Anshaj").child("asdf").setValue("asdfghjkl");
@@ -181,9 +187,53 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 .placeholder(R.drawable.avtar)
                 .into(pp);
         email=headerView.findViewById(R.id.polid);
-        name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-        email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        final ImageView circleImageView = headerView.findViewById(R.id.pphoto);
 
+        mRootRef.child("PoliceUser").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    PoliceClass policeClass = dataSnapshot.getValue(PoliceClass.class);
+                    assert policeClass != null;
+                    name.setText(policeClass.getPolice_name());
+                    email.setText(policeClass.getEmail_id());
+                    Picasso.with(getApplicationContext())
+                            .load(policeClass.getProfile_pic())
+                            .placeholder(R.drawable.avtar)
+                            .into(circleImageView);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        if(menuItem.getItemId() == R.id.search){
+            CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1,1)
+                    .start(MainActivity.this);
+        }
+
+        if(menuItem.getItemId() == R.id.appointment){
+
+            Intent intent = new Intent(MainActivity.this, AppointmentsHandeling.class);
+            intent.putExtra("user_id",FirebaseAuth.getInstance().getUid());
+            startActivity(intent);
+
+        }
+        if(menuItem.getItemId() == R.id.fir){
+            startActivity(new Intent(MainActivity.this, Beats.class));
+        }
+        return false;
+    }
+});
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -194,9 +244,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 if(menuItem.getItemId() == R.id.push_feed){
                     startActivity(new Intent(MainActivity.this, PushFeed.class));
                 }
-                if(menuItem.getItemId() == R.id.fir){
-                    startActivity(new Intent(MainActivity.this, Beats.class));
-                }
+
                 if(menuItem.getItemId() == R.id.picker){
                     Intent intent = new Intent(MainActivity.this, PickLocation .class);
                     startActivity(intent);
@@ -243,25 +291,14 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                     startActivity(intent);
                 }
 
-                if(menuItem.getItemId() == R.id.search){
-                    CropImage.activity()
-                            .setGuidelines(CropImageView.Guidelines.ON)
-                            .setAspectRatio(1,1)
-                            .start(MainActivity.this);
-                }
 
-                if(menuItem.getItemId() == R.id.appointment){
-
-                    Intent intent = new Intent(MainActivity.this, AppointmentsHandeling.class);
-                    intent.putExtra("user_id",FirebaseAuth.getInstance().getUid());
-                    startActivity(intent);
-
-                }
 
                 if (menuItem.getItemId() == R.id.logout) {
 
                     mAuth.signOut();
                     OneSignal.setSubscription(false);
+                    finish();
+
                 }
                 return false;
             }
@@ -470,13 +507,18 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                     for (File f : yourDir.listFiles()) {
                         if (f.isFile())
                         {
+                            String uri = f.getAbsoluteFile().toString();
+
+                            Log.i(TAG, "onActivityResult13522: " + uri);
 
 
-                            CompareImage example=new CompareImage(this,file,f,fileno);
+                            CompareImage example=new CompareImage(this,file,f,fileno ,uri);
 
 
 
                                 example.execute();
+
+
 
 
 

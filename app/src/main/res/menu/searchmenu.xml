@@ -14,4 +14,7 @@ android:id="@+id/settings"
         app:showAsAction="ifRoom"
 
         />
+    <item android:id="@+id/appointment" android:title="Appointment"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_today_black_24dp"/>
 </menu>

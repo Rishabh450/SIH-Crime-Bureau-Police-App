@@ -3,6 +3,7 @@ package com.sih.policeapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,7 @@ public class UserProfile extends AppCompatActivity {
     private static final String TAG = "AccountFragment";
     String gender = "";
     int flag = 0;
+    private ProgressDialog mProgressDialog;
     View view;
     RadioButton lastButton;
     RadioButton radioButton,radioButton2,radioButton3;
@@ -58,6 +60,9 @@ public class UserProfile extends AppCompatActivity {
         aadhaar = findViewById(R.id.edit_aadhaar);
         radioGroup = findViewById(R.id.radioGroup);
         lastButton = findViewById(R.id.radio_others);
+
+
+
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -117,6 +122,8 @@ public class UserProfile extends AppCompatActivity {
                     phone.setText(phones);
                     fax.setText(faxs);
                     aadhaar.setText(aadhaars);
+
+
                 }
             }
 
@@ -128,4 +135,5 @@ public class UserProfile extends AppCompatActivity {
 
 
     }
+
 }

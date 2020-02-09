@@ -14,11 +14,27 @@
         android:layout_width="402dp"
         android:layout_height="401dp"
         android:background="@drawable/signin"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/signin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.505" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="285dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginBottom="77dp"
+        android:src="@drawable/alert"
+        app:layout_constraintBottom_toTopOf="@+id/signin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/signin"
