@@ -3,7 +3,9 @@
    <item android:id="@+id/fir" android:title="Beats" />
  <item android:id="@+id/weathe" android:title="My Weather" />
     <item android:id="@+id/FIR" android:title="FIR" />
- <item android:id="@+id/add_crime" android:title="Add Criminal" />
+   <item android:id="@+id/push_feed" android:title="Push Feed"/>
+
+   <item android:id="@+id/add_crime" android:title="Add Criminal" />
     <item android:id="@+id/picker" android:title="Pick Beats Weather" />
     <item android:id="@+id/profile" android:title="Profile" />
     <item android:id="@+id/wanted_list" android:title="WANTED"/>
