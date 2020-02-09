@@ -38,6 +38,7 @@ public class SplashScreen extends AppCompatActivity {
         DatabaseReference mRootRef ;
         mRootRef = FirebaseDatabase.getInstance().getReference().child("PoliceUser");
         if(FirebaseAuth.getInstance().getCurrentUser()!=null)
+        {
             mRootRef.child(FirebaseAuth.getInstance().getUid()).child("designation").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -56,6 +57,12 @@ public class SplashScreen extends AppCompatActivity {
 
                 }
             });
+        }
+        else{
+            startActivity(new Intent(SplashScreen.this, Login.class));
+            finish();
+        }
+
 
 
 
