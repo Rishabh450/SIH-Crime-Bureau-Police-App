@@ -3,71 +3,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/back"
     android:layout_height="match_parent"
     tools:context=".AddCriminalActivity">
+
     <LinearLayout
+        android:id="@+id/cv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/cv">
+
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:elevation="4dp"
-            >
+            android:elevation="4dp">
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Criminals List"
-                android:textSize="25sp"
-                android:id="@+id/title"
                 android:layout_marginLeft="25dp"
                 android:gravity="center_vertical"
+                android:text="Criminals List"
                 android:textColor="#0C0C0C"
+                android:textSize="25sp"
 
                 />
+
             <EditText
+                android:id="@+id/search_editText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Search"
-                android:id="@+id/search_editText"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="50dp"
+                android:hint="Search"
                 android:visibility="gone"
 
                 />
 
             <ImageView
+                android:id="@+id/search"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:id="@+id/search"
                 android:layout_marginEnd="25dp"
                 android:src="@drawable/ic_search_black_24dp" />
+
             <ImageView
+                android:id="@+id/CROSS"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:id="@+id/CROSS"
                 android:layout_marginEnd="25dp"
                 android:rotation="45"
-                android:visibility="gone"
-                android:src="@drawable/ic_add_black_24dp" />
+                android:src="@drawable/ic_add_black_24dp"
+                android:visibility="gone" />
+
             <ImageView
+                android:id="@+id/down"
                 android:layout_width="25dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:id="@+id/down"
                 android:src="@drawable/ic_arrow_drop_down_black_24dp" />
 
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
             android:id="@+id/sort_cv"
-         >
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,43 +80,41 @@
                 android:orientation="horizontal">
 
                 <Spinner
+                    android:id="@+id/query_type"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/query_type"
-                    android:layout_marginStart="8dp"
-                    />
+                    android:layout_marginStart="8dp" />
+
                 <Spinner
+                    android:id="@+id/spinner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/spinner"
-                    android:layout_marginEnd="20dp"
                     android:layout_marginStart="10dp"
-                    />
+                    android:layout_marginEnd="20dp" />
 
 
             </LinearLayout>
 
 
-
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
             android:id="@+id/searchCV"
-             >
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <AutoCompleteTextView
+                    android:id="@+id/stateOrDistrict"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
                     android:layout_marginStart="15dp"
+                    android:layout_weight="4"
                     android:hint="Type here...."
-                    android:id="@+id/stateOrDistrict"
 
                     />
 
@@ -120,13 +123,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="end"
-                  android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_search_black_24dp" />
 
 
-
             </LinearLayout>
-
 
 
         </androidx.cardview.widget.CardView>
@@ -140,23 +141,22 @@
         android:id="@+id/criminal_list_RV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/back"
         android:layout_below="@+id/cv"
         />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/noMatchesFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:id="@+id/noMatchesFound"
-        app:cardCornerRadius="10dp"
-        android:layout_centerHorizontal="true"
-        >
-     <TextView
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_margin="10dp"
+        app:cardCornerRadius="10dp">
 
-         android:text="No Mathes Found......"
-         />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+
+            android:text="No Mathes Found......" />
 
     </androidx.cardview.widget.CardView>
 

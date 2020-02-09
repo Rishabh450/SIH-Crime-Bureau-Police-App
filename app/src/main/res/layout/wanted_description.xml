@@ -5,9 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/darker_gray"
-    app:cardCornerRadius="5dp"
+android:layout_marginRight="10dp"
     app:contentPadding="6dp"
     android:padding="23dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="20dp"
+    android:layout_marginStart="7dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="7dp"
     >
     <FrameLayout
         android:background="@drawable/cardedge"

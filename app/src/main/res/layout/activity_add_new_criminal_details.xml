@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddNewCriminalDetails">
+    tools:context=".AddNewCriminalDetails"
+    android:background="@drawable/backgroundfinal"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,6 +26,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
+                android:background="@color/white"
                 android:id="@+id/new_criminal_pic" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -34,6 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Criminal's Name"
+                    android:textColorHint="@color/white"
                     android:id="@+id/criminal_name"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
@@ -56,6 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Date Of Birth"
+                        android:textColorHint="@color/white"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
                         android:layout_marginStart="5dp"
@@ -95,6 +100,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
                         android:hint="Criminal's Address"
+                       android:textColorHint="@color/red"
                         android:gravity="top"
                         android:id="@+id/address_of_criminal"
                         android:background="#F7F7F7"
@@ -117,6 +123,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Body Mark"
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
                     android:id="@+id/body_mark"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
@@ -142,6 +150,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Crime eg fraud,rape,murder etc"
                     android:id="@+id/crime_type"
+                    android:textColorHint="@color/white"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:layout_marginStart="5dp"
@@ -262,6 +271,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/rating_of_crime2"
+
+                android:theme="@style/RatingBar"
+
                 android:layout_gravity="center_horizontal"
                 android:stepSize="1"
                 android:numStars="5"
