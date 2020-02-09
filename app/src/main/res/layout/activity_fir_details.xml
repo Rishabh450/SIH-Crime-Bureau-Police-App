@@ -193,6 +193,23 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:visibility="gone"
+                android:hint="Appointment Date"
+                android:id="@+id/appointment_date"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:visibility="gone"
+                android:hint="Appointment Time"
+                android:id="@+id/appointment_time"
+                />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"

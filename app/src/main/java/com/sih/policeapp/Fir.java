@@ -5,7 +5,7 @@ import java.util.Map;
 public class Fir {
 
     private String complainantId, state, district, place, type, subject, details,ts;
-    private String status, reportingDate, reportingPlace, correspondent;
+    private String status, reportingDate , reportingPlace , correspondent;
     private Map<String, String> timeStamp;
 
     public Fir() {

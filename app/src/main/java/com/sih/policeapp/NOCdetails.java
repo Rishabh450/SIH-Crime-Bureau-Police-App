@@ -121,7 +121,6 @@ public class NOCdetails extends AppCompatActivity {
                         fatherName.setText(fatheName);
                         motherName.setText(motheName);
 
-                        mProgressDialog.hide();
 
                     }else{
                         spinner.setText("Re-registering Vehicle");
