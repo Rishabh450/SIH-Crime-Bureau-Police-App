@@ -213,12 +213,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                     intent.putExtra("user_id",FirebaseAuth.getInstance().getUid());
                     startActivity(intent);
                 }
-                if(menuItem.getItemId() == R.id.FIR)
-                {
-                    Intent intent = new Intent(MainActivity.this, NOCdetails.class);
-                    intent.putExtra("noc_id","-M-YQm2YJBU63WWfuTab");
-                    startActivity(intent);
-                }
+
                 if(menuItem.getItemId() == R.id.search){
                     CropImage.activity()
                             .setGuidelines(CropImageView.Guidelines.ON)
@@ -358,6 +353,8 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }else{
             AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
+
+
 
             a_builder.setMessage("Do you want to Close this App !!!")
                     .setCancelable(false)

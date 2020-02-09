@@ -6,7 +6,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -38,7 +37,7 @@ import java.text.ParseException;
 import java.util.List;
 
 public class Weather extends AppCompatActivity {
-    private final String apiKey="Z7aBUvOc4pucyDApV4QR5RatGow6RAaM";
+    private final String apiKey="QWxXcehScGuNsZ5GxitAdMKtAiTA01ku";
    public LocationManager locationmanager;
    public LocationListener locationlistener;
   public   Weather  activity;

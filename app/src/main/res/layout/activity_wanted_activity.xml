@@ -4,13 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+android:orientation="vertical"
+    android:background="#28222a"
     tools:context=".Activities.wanted_activity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WANTED"
+        android:textAlignment="center"
+        android:textColor="#c51010"
+        android:textSize="45dp"
+        android:background="@color/backgroundYellow"
+        android:shadowColor="@color/white"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rview"
         android:layout_width="409dp"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
+        android:padding="23dp"
+        android:paddingEnd="12dp"
+
         />
 </LinearLayout>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/police2"
+    android:background="@color/colorTransparentBlack"
     android:id="@+id/header"
     android:layout_height="140dp">
 
@@ -16,7 +16,6 @@
         <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/police"
             />
     </androidx.cardview.widget.CardView>
 
@@ -27,6 +26,7 @@
         android:text="Anshaj Kumar"
         android:textColor="@color/white"
         android:textStyle="bold"
+
         android:layout_marginStart="5dp"
         android:textSize="18dp"/>
 
