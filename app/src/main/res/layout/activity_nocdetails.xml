@@ -49,16 +49,7 @@
                         android:hint="Name"
                          />
 
-                    <TextView
-                        android:textSize="20sp"
-                        android:paddingStart="6dp"
-                        android:paddingEnd="6dp"
-                        android:id="@+id/nocSurname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:hint="Surname"
-                     />
+
 
 
 

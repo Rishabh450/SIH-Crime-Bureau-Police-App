@@ -3,6 +3,7 @@ package com.sih.policeapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -50,6 +51,7 @@ public class FirDetails extends AppCompatActivity {
     private TextView accept,reject,viewProfile;
 
     int flag = 0;
+    private ProgressDialog mProgressDialog;
 
     Button submit;
     String firId;
@@ -65,6 +67,9 @@ public class FirDetails extends AppCompatActivity {
         age = findViewById(R.id.complainant_age);
         gender = findViewById(R.id.complainant_gender);
         phone = findViewById(R.id.complainant_phone);
+
+
+
 
 
         state =findViewById(R.id.occurrence_state);
@@ -88,6 +93,7 @@ public class FirDetails extends AppCompatActivity {
         mRootRef.child("FIRs").child(firId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
 
                 if(dataSnapshot.exists())
                 {
@@ -144,6 +150,7 @@ public class FirDetails extends AppCompatActivity {
                                 age.setText(c);
                                 gender.setText(d);
                                 phone.setText(e);
+
 
                             }
                         }

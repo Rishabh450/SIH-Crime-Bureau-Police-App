@@ -3,6 +3,7 @@ package com.sih.policeapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +40,7 @@ public class NOCdetails extends AppCompatActivity {
     private TextView accept,reject,viewProfile;
 
     String[] type = {"Passport", "Re-registering Vehicle"};
+    private ProgressDialog mProgressDialog;
 
      private  DatabaseReference mRootRef;
 
@@ -49,7 +52,6 @@ public class NOCdetails extends AppCompatActivity {
         setContentView(R.layout.activity_nocdetails);
         nocID = getIntent().getStringExtra("noc_id");
 
-        surname = findViewById(R.id.nocSurname);
         name = findViewById(R.id.nocName);
         presentAddress = findViewById(R.id.nocPresentAddress);
         homeAddress = findViewById(R.id.nocHomeAddress);
@@ -71,6 +73,8 @@ public class NOCdetails extends AppCompatActivity {
         reject = findViewById(R.id.reject);
         viewProfile = findViewById(R.id.view);
 
+
+
         mRootRef = FirebaseDatabase.getInstance().getReference();
 
         setOnClicks();
@@ -88,15 +92,13 @@ public class NOCdetails extends AppCompatActivity {
                     String stats, reportngDate, reporingPlace, corresondent;
                     Long timeStamp;
 
-                    nam = noc.getName();
-                    surnam = noc.getSurname();
-                    presentAddres = noc.getPresentAddress();
-                    homeAddres = noc.getHomeAddress();
-                    dateOfBirt = noc.getDateOfBirth();
-                    placeOfBirt=noc.getPlaceOfBirth();
+                    nam           ="Name  : " + noc.getName() + " " + noc.getSurname();
+                    presentAddres ="Present Address :" + noc.getPresentAddress();
+                    homeAddres    ="Home Address    :" + noc.getHomeAddress();
+                    dateOfBirt    ="DOB   : " + noc.getDateOfBirth();
+                    placeOfBirt   ="Place of Birth :" + noc.getPlaceOfBirth();
 
                     name.setText(nam);
-                    surname.setText(surnam);
                     presentAddress.setText(presentAddres);
                     homeAddress.setText(homeAddres);
                     dateOfBirth.setText(dateOfBirt);
@@ -119,21 +121,20 @@ public class NOCdetails extends AppCompatActivity {
                         fatherName.setText(fatheName);
                         motherName.setText(motheName);
 
-
+                        mProgressDialog.hide();
 
                     }else{
                         spinner.setText("Re-registering Vehicle");
                         passport.setVisibility(View.GONE);
                         vehicle.setVisibility(View.VISIBLE);
 
-                        rNumber = noc.getRcNumber();
-                        icNuber = noc.getIcNumber();
-                        etNmber = noc.getEtNumber();
+                        rNumber = "RC Number : " + noc.getRcNumber();
+                        icNuber = "IC Number : " + noc.getIcNumber();
+                        etNmber = "ET Number : " + noc.getEtNumber();
 
                         rcNumber.setText(rNumber);
                         icNumber.setText(icNuber);
                         etNumber.setText(etNmber);
-
 
 
                     }
@@ -173,7 +174,7 @@ public class NOCdetails extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.exists()) {
                                         User user = dataSnapshot.getValue(User.class);
-
+                                        Toast.makeText(NOCdetails.this, "NOC Accepted!!..", Toast.LENGTH_SHORT).show();
                                         assert user != null;
                                         String s = user.getNotificationId();
                                         new SendNotification("Hello " + user.getName() + "!!", "NOC Accepted", s);
@@ -219,6 +220,7 @@ public class NOCdetails extends AppCompatActivity {
 
                                         assert user != null;
                                         String s = user.getNotificationId();
+                                        Toast.makeText(NOCdetails.this, "NOC Rejected!!", Toast.LENGTH_SHORT).show();
                                         new SendNotification("Sorry for inconvenience " + user.getName() + "!!", "NOC Rejected", s);
 
                                     }
@@ -270,7 +272,6 @@ public class NOCdetails extends AppCompatActivity {
             }
         });
     }
-
 
 }
 
