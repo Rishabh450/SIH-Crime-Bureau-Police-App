@@ -227,7 +227,7 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                     }
 
 
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10));
+
 
                 }
             }
@@ -290,7 +290,7 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                 MarkerOptions marker = new MarkerOptions().position(sydney).title("Your current location");
                 mMap.addMarker(marker);
 
-
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 16));
 
         }
 

@@ -1,10 +1,12 @@
 package com.sih.policeapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +37,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class FirDetails extends AppCompatActivity implements ExampleDialog.ExampleDialogListner {
 
@@ -208,20 +212,42 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
                                             map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
 
                                     mRootRef.child("Users").child(fir.getComplainantId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             if(dataSnapshot.exists())
                                             {
                                                 User user = dataSnapshot.getValue(User.class);
 
-
-
                                                 assert user != null;
-                                                mRootRef.child("FIRs").child(firId).child("correspondent").setValue(user.getName());
-                                                mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue(user.getName());
-                                                mRootRef.child("FIRs").child(firId).child("reportingDate").setValue(user.getName());
                                                 String s = user.getNotificationId();
-                                                new SendNotification("Hello " + user.getName() + "!!","Fir Accepted",s);
+                                                new SendNotification("Hello " + user.getName() + "!!","Fir Accepted..",s);
+
+
+                                                mRootRef.child("PoliceUser").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                                                 .addListenerForSingleValueEvent(new ValueEventListener() {
+                                             @Override
+                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                 if(dataSnapshot.exists())
+                                                 {
+                                                     PoliceClass police = dataSnapshot.getValue(PoliceClass.class);
+                                                     mRootRef.child("FIRs").child(firId).child("reportingDate").setValue(appointmentDate.getText().toString() + " " + appointmentTime.getText().toString());
+                                                     assert police != null;
+                                                     mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue(police.getPosted_city());
+                                                     mRootRef.child("FIRs").child(firId).child("correspondent").setValue(police.getPolice_name());
+                                                     mRootRef.child("FIRs").child(firId).child("status").setValue("Accepted");
+                                                 }
+
+
+                                             }
+
+                                             @Override
+                                             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                             }
+                                         });
+
+
 
                                             }
                                         }
@@ -272,6 +298,7 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
                                     map.get("reportingDate"), map.get("reportingPlace"), map.get("correspondent"));
 
                             mRootRef.child("Users").child(fir.getComplainantId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists())
@@ -281,6 +308,29 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
                                         assert user != null;
                                         String s = user.getNotificationId();
                                         new SendNotification("Sorry for inconvenience " + user.getName() + "!!","Fir Rejected",s);
+
+                                        mRootRef.child("PoliceUser").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        if(dataSnapshot.exists())
+                                                        {
+                                                            PoliceClass police = dataSnapshot.getValue(PoliceClass.class);
+                                                            mRootRef.child("FIRs").child(firId).child("reportingDate").setValue(appointmentDate.getText().toString() + " " + appointmentTime.getText().toString());
+                                                            assert police != null;
+                                                            mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue(police.getPosted_city());
+                                                            mRootRef.child("FIRs").child(firId).child("correspondent").setValue(police.getPolice_name());
+                                                            mRootRef.child("FIRs").child(firId).child("status").setValue("Rejected");
+                                                        }
+
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                    }
+                                                });
 
                                     }
                                 }

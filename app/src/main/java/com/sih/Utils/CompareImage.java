@@ -3,10 +3,13 @@ package com.sih.Utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.sih.policeapp.CriminalProfile;
 
 import org.json.JSONObject;
 
@@ -33,13 +36,15 @@ public class CompareImage extends AsyncTask<Void, Void, Void>
     Context context;
     File file,file2;
     long fileno,curr;
+    String uri;
 
-    public CompareImage(Context context, File file, File file2,long fileno) {
+    public CompareImage(Context context, File file, File file2,long fileno , String uri) {
         this.context = context;
         this.file = file;
         this.file2 = file2;
         pdLoading = new ProgressDialog(context);
         this.fileno=fileno;
+        this.uri = uri;
 
     }
 
@@ -216,12 +221,25 @@ public class CompareImage extends AsyncTask<Void, Void, Void>
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
         Log.d("confidencekitna"," "+confidence);
-        if(confidence>0.0&&confidence<70)
-            Toast.makeText(context,"Match:"+confidence+"%",Toast.LENGTH_SHORT).show();
-        else if(confidence<75)
-            Toast.makeText(context,"Probable close relative found",Toast.LENGTH_SHORT).show();
-        else if(confidence>=75)
+//        if(confidence>0.0&&confidence<70)
+//            Toast.makeText(context,"Match:"+confidence+"%",Toast.LENGTH_SHORT).show();
+//        else if(confidence<75)
+//            Toast.makeText(context,"Probable close relative found",Toast.LENGTH_SHORT).show();
+//        else
+            if(confidence>=75)
+        {
             Toast.makeText(context,"You are found",Toast.LENGTH_SHORT).show();
+            String f = file2.getAbsolutePath();
+
+            String filename = f.substring(f.lastIndexOf('/')+1 , f.lastIndexOf('.'));
+            Log.i("yucsdfya", "onActivityResult1352256: " + uri +" " + filename);
+
+            Intent intent = new Intent(context, CriminalProfile.class);
+            intent.putExtra("curr_criminal",filename);
+            context.startActivity(intent);
+
+        }
+
         else
             Toast.makeText(context,"Timeout",Toast.LENGTH_SHORT).show();
         //            //this method will be running on UI thread

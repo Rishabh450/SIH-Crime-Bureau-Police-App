@@ -465,13 +465,18 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                     for (File f : yourDir.listFiles()) {
                         if (f.isFile())
                         {
+                            String uri = f.getAbsoluteFile().toString();
+
+                            Log.i(TAG, "onActivityResult13522: " + uri);
 
 
-                            CompareImage example=new CompareImage(this,file,f,fileno);
+                            CompareImage example=new CompareImage(this,file,f,fileno ,uri);
 
 
 
                                 example.execute();
+
+
 
 
 
