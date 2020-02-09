@@ -154,7 +154,7 @@ public class MyService extends Service implements SensorEventListener {
         }
         else
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, locationListener);
-       startForeground(10,new Notification());
+      // startForeground(10,new Notification());
     }
 
     @Override
