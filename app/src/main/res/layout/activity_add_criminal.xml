@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/backgrounddfinal"
     android:layout_height="match_parent"
     tools:context=".AddCriminalActivity">
     <LinearLayout
@@ -23,9 +24,10 @@
                 android:text="Criminals List"
                 android:textSize="25sp"
                 android:id="@+id/title"
+                android:fontFamily="@font/fright"
                 android:layout_marginLeft="25dp"
                 android:gravity="center_vertical"
-                android:textColor="#0C0C0C"
+                android:textColor="@color/red"
 
                 />
             <EditText
@@ -139,6 +141,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/criminal_list_RV"
         android:layout_width="match_parent"
+        android:background="@drawable/backgrounddfinal"
         android:layout_height="match_parent"
         android:layout_below="@+id/cv"
         />
@@ -170,7 +173,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
-        app:srcCompat="@drawable/ic_add_black_24dp"
+        android:backgroundTint="@color/duskyellow"
+        app:srcCompat="@drawable/add_prof1"
         tools:ignore="VectorDrawableCompat"
         android:focusable="true" />
 

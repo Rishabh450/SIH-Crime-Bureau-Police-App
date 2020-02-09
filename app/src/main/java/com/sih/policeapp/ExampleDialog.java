@@ -151,7 +151,7 @@ public class ExampleDialog extends AppCompatDialogFragment implements
 
                             }
                             else{
-                                hr = String.valueOf(hourOfDay-12);
+                                hr = String.valueOf(hourOfDay);
                                 min = String.valueOf(minute);
 
                                 if(hr.length()==1) hr = "0" + hr;

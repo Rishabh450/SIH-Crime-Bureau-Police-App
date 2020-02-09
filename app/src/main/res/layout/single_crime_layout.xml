@@ -5,12 +5,7 @@
     android:layout_width="match_parent"
     android:layout_marginBottom="10dp"
     android:layout_height="wrap_content">
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        app:cardCornerRadius="30dp"
-        android:backgroundTint="#E3E5E7"
-        android:layout_margin="10dp"
-        android:layout_height="wrap_content" >
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,9 +24,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="#417CB8"
 
-                    android:backgroundTint="#D70EE0E0"
+
                     app:cardCornerRadius="10dp">
 
                     <TextView
@@ -39,6 +33,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/proximanova"
                         android:id="@+id/crime_count"
                         android:text="Crime Number"
                         android:textSize="22dp" />
@@ -48,24 +43,18 @@
 
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="6dp"
-                android:background="#CC000000" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/proximanova"
                 android:text="Crime Type : "
                 android:id="@+id/main_crime_type"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -73,26 +62,25 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:text="Crime : "
+                android:textStyle="bold"
+                android:fontFamily="@font/proximanova"
                 android:id="@+id/crime_type"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:text="State: "
+                android:textStyle="bold"
+                android:fontFamily="@font/proximanova"
                 android:id="@+id/state"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,13 +88,12 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:text="City/District : "
+                android:textStyle="bold"
                 android:id="@+id/district"
+                android:fontFamily="@font/proximanova"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,17 +101,18 @@
                 android:layout_marginBottom="4dp"
                 android:text="Date of Crime : "
                 android:id="@+id/DOC"
+                android:textStyle="bold"
+                android:fontFamily="@font/proximanova"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/proximanova"
                 android:text="Full Address of Crime :  "
 
                 android:textSize="20sp" />
@@ -138,7 +126,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#4657AA"
+                android:background="@drawable/backgraedit"
                 android:layout_margin="5dp"
                 android:orientation="vertical">
                 <TextView
@@ -147,8 +135,9 @@
                     android:hint="Full Address of crime"
                     android:textSize="18sp"
                     android:gravity="top"
+                    android:textStyle="bold"
                     android:id="@+id/crime_full_adress"
-                    android:background="#F7F7F7"
+
                     android:padding="5dp"
                     android:layout_margin="5dp"
                     />
@@ -156,10 +145,7 @@
 
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -167,15 +153,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
+
+                    android:fontFamily="@font/proximanova"
                     android:text="Crime Rating : "
+                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:textSize="20sp" />
                 <RatingBar
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:stepSize="0.1"
                     android:layout_height="wrap_content"
-                    android:stepSize=".1"
+                    android:theme="@style/RatingBar"
+                    android:numStars="5"
                     android:id="@+id/rating_of_crime"
                     />
 
@@ -184,10 +173,7 @@
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
 
 
             <LinearLayout
@@ -200,14 +186,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="4dp"
+                    android:textStyle="bold"
                     android:layout_weight="1"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
+
                     android:textColor="#C59E3C"
                     android:focusable="false"
+                    android:fontFamily="@font/proximanova"
                     android:text="Case Status : "
                     android:textSize="18sp"
-                    android:paddingLeft="5dp"
+
                     android:id="@+id/case_status"
                     android:layout_marginEnd="5dp"
                     />
@@ -225,21 +212,24 @@
 
             </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
+
+                    android:fontFamily="@font/proximanova"
                     android:text="Solved By : "
+                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:textSize="20sp" />
                 <RatingBar
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:stepSize=".1"
+
+                    android:theme="@style/RatingBar"
                     android:id="@+id/solved_by"
                     />
 
@@ -253,14 +243,17 @@
 
 
 
-    </androidx.cardview.widget.CardView>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/add_crime"
-        android:backgroundTint="#F35F92"
         android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:textAllCaps="false"
+        android:background="@drawable/corner"
+        android:fontFamily="@font/proximanova"
+        android:textColor="@color/white"
         android:layout_marginBottom="40dp"
         android:layout_gravity="center_horizontal"
         android:text="Add new crime" />

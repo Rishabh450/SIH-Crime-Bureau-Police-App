@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/backgrounddfinal"
     android:layout_height="match_parent"
     tools:context=".AddNewCriminalDetails">
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,6 +38,8 @@
                     android:hint="Criminal's Name"
                     android:id="@+id/criminal_name"
                     android:paddingStart="5dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/backgraedit"
                     android:paddingEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
@@ -55,6 +59,8 @@
                         android:hint="Date Of Birth"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
+                        android:textStyle="bold"
+                        android:background="@drawable/backgraedit"
                         android:layout_marginStart="5dp"
                         android:layout_weight="1"
                         android:focusable="false"
@@ -77,7 +83,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#4657AA"
                 android:layout_margin="5dp"
                 android:orientation="vertical">
                 <com.google.android.material.textfield.TextInputLayout
@@ -89,8 +94,10 @@
                         android:layout_height="180dp"
                         android:hint="Criminal's Address"
                         android:gravity="top"
+                        android:textStyle="bold"
+
+                        android:background="@drawable/backgraedit"
                         android:id="@+id/address_of_criminal"
-                        android:background="#F7F7F7"
                         android:padding="5dp"
                         android:layout_margin="5dp"
                         />
@@ -112,6 +119,8 @@
                     android:hint="Body Mark"
                     android:id="@+id/body_mark"
                     android:paddingStart="5dp"
+                    android:textStyle="bold"
+                    android:background="@drawable/backgraedit"
                     android:paddingEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
@@ -136,7 +145,9 @@
                     android:hint="Crime eg fraud,rape,murder etc"
                     android:id="@+id/crime_type"
                     android:paddingStart="5dp"
+                    android:textStyle="bold"
                     android:paddingEnd="5dp"
+                    android:background="@drawable/backgraedit"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     />
@@ -154,8 +165,10 @@
                     android:id="@+id/state"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
+                    android:textStyle="bold"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
+                    android:background="@drawable/backgraedit"
                     android:hint="Select Crime State"
                     />
 
@@ -171,7 +184,9 @@
                     android:id="@+id/district"
                     android:layout_marginStart="5dp"
                     android:paddingStart="5dp"
+                    android:background="@drawable/backgraedit"
                     android:layout_marginEnd="5dp"
+                    android:textStyle="bold"
                     android:hint="Select Crime District"
                     />
 
@@ -194,8 +209,10 @@
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:focusable="false"
+                    android:background="@drawable/backgraedit"
                     android:id="@+id/DOC"
                     android:paddingStart="5dp"
+                    android:textStyle="bold"
                     android:paddingEnd="5dp"
                     android:layout_marginEnd="5dp"
                     />
@@ -213,7 +230,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#4657AA"
                 android:layout_margin="5dp"
                 android:orientation="vertical">
                 <com.google.android.material.textfield.TextInputLayout
@@ -226,7 +242,8 @@
                         android:hint="Full Address of crime"
                         android:gravity="top"
                         android:id="@+id/crime_address"
-                        android:background="#F7F7F7"
+                        android:textStyle="bold"
+                        android:background="@drawable/backgraedit"
                         android:padding="5dp"
                         android:layout_margin="5dp"
                         />
@@ -257,6 +274,7 @@
                 android:id="@+id/rating_of_crime2"
                 android:layout_gravity="center_horizontal"
                 android:stepSize="1"
+                android:theme="@style/RatingBar"
                 android:numStars="5"
                 />
 
@@ -266,7 +284,8 @@
                 android:text="Add Criminal"
                 android:id="@+id/add_criminal"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="#F35F92"
+                android:background="@drawable/corner"
+                android:padding="10dp"
                 android:layout_marginBottom="40dp"
                 android:layout_gravity="center_horizontal"
                 />

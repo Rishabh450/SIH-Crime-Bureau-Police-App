@@ -53,11 +53,7 @@ public class PoliceProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_police_profile);
 
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setTitle("Loading");
-        mProgressDialog.setMessage("Please wait....");
-        mProgressDialog.setCanceledOnTouchOutside(false);
-        mProgressDialog.show();
+
         circleImageView  = findViewById(R.id.police_profile_pic);
         name = findViewById(R.id.police_name);
         EmailID = findViewById(R.id.email_ID);
@@ -128,7 +124,7 @@ public class PoliceProfile extends AppCompatActivity {
                     ratingBar.setRating(Float.parseFloat(police.getRating()));
                     ratingBar.setEnabled(false);
                     phoneNumber.setText(pn);
-                     mProgressDialog.hide();
+
 //                    name.setText();
                 }
 

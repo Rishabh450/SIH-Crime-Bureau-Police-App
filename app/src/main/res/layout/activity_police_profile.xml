@@ -5,39 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PoliceProfile">
+<ImageView
+    android:layout_width="fill_parent"
+    android:src="@drawable/backgrounddfinal"
+    android:alpha="0.5"
+    android:layout_height="fill_parent"></ImageView>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:padding="5dp"
-        android:layout_alignParentTop="true">
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="100dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="105dp"
+                app:cardCornerRadius="52.5dp"
+
+                android:backgroundTint="@android:color/black"
+                android:layout_gravity="center_horizontal"
+
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="15dp"
+                android:layout_height="105dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:src="@drawable/background1"
                 android:layout_height="100dp"
-                android:layout_gravity="center_horizontal"
                 android:id="@+id/police_profile_pic" />
+            </androidx.cardview.widget.CardView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Police's Name"
                 android:id="@+id/police_name"
+                android:fontFamily="@font/fright"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:background="@drawable/backgraedit"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:textSize="20sp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,13 +55,14 @@
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/fright"
+                android:background="@drawable/backgraedit"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,14 +70,14 @@
                 android:id="@+id/email_ID"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/fright"
                 android:textSize="20sp"
+                android:background="@drawable/backgraedit"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
 
 
 
@@ -79,32 +89,34 @@
                 android:layout_marginTop="8dp"
                 android:layout_margin="5dp"
                 android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/fright"
+                android:paddingTop="20dp"
+                android:background="@drawable/backgraedit"
                 android:layout_marginStart="10dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:hint="Designation"
                 android:layout_marginBottom="5dp"
                 />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/policeStation"
                 android:layout_marginTop="5dp"
+                android:paddingTop="20dp"
                 android:textSize="20sp"
+                android:fontFamily="@font/fright"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:hint="PoliceStation"
+                android:textStyle="bold"
+                android:background="@drawable/backgraedit"
                 android:layout_margin="5dp"
                 android:layout_marginBottom="8dp"
                 />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
 
 
             <TextView
@@ -112,25 +124,29 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/posted_city"
                 android:layout_marginTop="5dp"
+                android:background="@drawable/backgraedit"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="5dp"
+                android:fontFamily="@font/fright"
+                android:paddingTop="20dp"
+                android:textStyle="bold"
                 android:layout_marginEnd="5dp"
                 android:textSize="20sp"
                 android:hint="Posted city"
                 />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Police Station Cheif"
                     android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/fright"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
                     />
@@ -145,6 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:id="@+id/YES"
+                        android:fontFamily="@font/proximanova"
                         android:layout_marginEnd="10dp"
                         android:text="YES"
                         />
@@ -152,6 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/NO"
+                        android:fontFamily="@font/proximanova"
                         android:text="NO"
                         />
                 </RadioGroup>
@@ -159,16 +177,12 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -178,21 +192,20 @@
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
                     android:text="Rating : "
+                    android:textStyle="bold"
+                    android:fontFamily="@font/fright"
                     android:layout_gravity="center_vertical"
                     android:textSize="20sp" />
                 <RatingBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:stepSize=".1"
+
                     android:id="@+id/rating_of_police"
                     />
 
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CC000000" />
 
 
 
@@ -205,16 +218,18 @@
                 android:layout_height="wrap_content"
                 android:text="Edit"
                 android:id="@+id/edit"
+                android:textAllCaps="false"
+                android:textColor="@color/darkgrey"
                 android:layout_marginTop="25dp"
-                android:backgroundTint="#F35F92"
                 android:layout_marginBottom="40dp"
+                android:background="@drawable/corner"
+                android:fontFamily="@font/proximanova"
                 android:layout_gravity="center_horizontal"
                 />
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
-    </ScrollView>
 
 
 
