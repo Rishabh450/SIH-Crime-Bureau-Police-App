@@ -345,6 +345,8 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
         }else{
             AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
 
+
+
             a_builder.setMessage("Do you want to Close this App !!!")
                     .setCancelable(false)
                     .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
