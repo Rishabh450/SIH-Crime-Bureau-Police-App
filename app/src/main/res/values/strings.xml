@@ -303,7 +303,7 @@
 
     <string-array name="PoliceDesignation">
         <item>Select Your Designation</item>
-        <item>Director General of Police (DGP)</item>
+        <item>Director General of Police (DGP)</item>a
         <item>Special Director General of Police (SDG)</item>
         <item>Additional Director General of Police (ADG)</item>
         <item>Inspector General of Police (IG)</item>
