@@ -8,6 +8,21 @@ public class User {
     public User() {
     }
 
+    public User(String name, String email, String imageURL, String userId, String gender, String fathername, String address, String age, String pincode, String phone, String fax, String aadhaar, String notificationId) {
+        this.name = name;
+        this.email = email;
+        this.imageURL = imageURL;
+        this.userId = userId;
+        this.gender = gender;
+        this.fathername = fathername;
+        this.address = address;
+        this.age = age;
+        this.pincode = pincode;
+        this.phone = phone;
+        this.fax = fax;
+        this.aadhaar = aadhaar;
+        this.notificationId = notificationId;
+    }
 
     public User(String name, String email, String imageURL, String userId) {
         this.name = name;
@@ -15,6 +30,7 @@ public class User {
         this.imageURL = imageURL;
         this.userId = userId;
     }
+
 
 
     public User(String name, String email, String imageURL, String userId, String gender, String age, String fathername, String address,
@@ -33,22 +49,7 @@ public class User {
         this.aadhaar = aadhaar;
     }
 
-    public User(String name, String email, String imageURL, String userId, String gender, String fathername, String address,
-                String age, String pincode, String phone, String fax, String aadhaar, String notificationId) {
-        this.name = name;
-        this.email = email;
-        this.imageURL = imageURL;
-        this.userId = userId;
-        this.gender = gender;
-        this.fathername = fathername;
-        this.address = address;
-        this.age = age;
-        this.pincode = pincode;
-        this.phone = phone;
-        this.fax = fax;
-        this.aadhaar = aadhaar;
-        this.notificationId = notificationId;
-    }
+
 
     public String getGender() {
         return gender;
