@@ -13,7 +13,7 @@
      />
     <item android:id="@+id/picker" android:title="Pick Beats Weather" />
 
-    <item android:id="@+id/push_feed" android:title="Push Feed"/>
+    <item android:id="@+id/push_feed" android:title="Push Feed" android:icon="@drawable/ic_rss_feed_black_24dp"/>
  <item android:id="@+id/add_crime" android:title="Add Criminal"
      android:icon="@drawable/ic_person_add_black_24dp"
      app:showAsAction="always" />
@@ -36,5 +36,5 @@
         android:icon="@drawable/ic_today_black_24dp"/>
     <item android:id="@+id/logout" android:title="Logout"
         app:showAsAction="always"
-        android:icon="@drawable/ic_cancel_black_24dp"/>
+        android:icon="@drawable/baseline_exit_to_app_black"/>
 </menu>

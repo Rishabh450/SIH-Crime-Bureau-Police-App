@@ -1,6 +1,7 @@
 package com.sih.policeapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +56,7 @@ import com.sih.policeapp.Activities.PushFeed;
 import com.sih.policeapp.Activities.Weather;
 import com.sih.policeapp.Activities.wanted_activity;
 import com.sih.policeapp.Activities.Login;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -67,6 +70,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -101,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("ak47", "on Start Ends");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +158,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 Map<String,String> mp=new HashMap<>() ;
 
                 FirebaseDatabase.getInstance().getReference().child("PoliceUser").child(policeid).child("Notification").setValue(userId);
-                FirebaseDatabase.getInstance().getReference().child("PoliceNotif").child(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()).setValue(userId);
+                FirebaseDatabase.getInstance().getReference().child("PoliceNotif").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())).setValue(userId);
 
             }
         });
@@ -166,8 +173,30 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
         headerView = navigationView.inflateHeaderView(R.layout.header);
         name=  headerView.findViewById(R.id.polname);
         email=headerView.findViewById(R.id.polid);
-        name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-        email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        final ImageView circleImageView = headerView.findViewById(R.id.profile_pic);
+
+        mRootRef.child("PoliceUser").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid())).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    PoliceClass policeClass = dataSnapshot.getValue(PoliceClass.class);
+                    assert policeClass != null;
+                    name.setText(policeClass.getPolice_name());
+                    email.setText(policeClass.getEmail_id());
+                    Picasso.with(getApplicationContext())
+                            .load(policeClass.getProfile_pic())
+                            .placeholder(R.drawable.avtar)
+                            .into(circleImageView);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
