@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/place_background"/>
+    <foreground android:drawable="@drawable/place_foreground"/>
+</adaptive-icon>

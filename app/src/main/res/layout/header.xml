@@ -15,6 +15,7 @@
 
         <ImageView
             android:layout_width="70dp"
+            android:id="@+id/pphoto"
             android:layout_height="70dp"
             />
     </androidx.cardview.widget.CardView>

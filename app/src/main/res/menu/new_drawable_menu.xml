@@ -11,9 +11,16 @@
      android:icon="@drawable/icon17"
      app:showAsAction="always"
      />
-    <item android:id="@+id/picker" android:title="Pick Beats Weather" />
+    <item android:id="@+id/picker" android:title="Pick Beats Weather"
+        android:icon="@drawable/pin"
+        app:showAsAction="always"/>
+   <item android:id="@+id/places" android:title="Places"
+       android:icon="@drawable/place_foreground"
+       app:showAsAction="always"/>
 
-    <item android:id="@+id/push_feed" android:title="Push Feed"/>
+    <item android:id="@+id/push_feed" android:title="Push Feed"
+        android:icon="@drawable/feed_foreground"
+        app:showAsAction="always"/>
  <item android:id="@+id/add_crime" android:title="Add Criminal"
      android:icon="@drawable/ic_person_add_black_24dp"
      app:showAsAction="always" />

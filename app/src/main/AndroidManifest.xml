@@ -11,6 +11,7 @@
 
     <application
         android:allowBackup="false"
+        android:name="com.sih.Utils.ConfigClass"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -86,7 +87,7 @@
         <activity
             android:name=".Activities.Login"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-
+        <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

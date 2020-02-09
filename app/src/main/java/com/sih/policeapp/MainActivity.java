@@ -18,6 +18,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -28,6 +29,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,12 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 
 
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,12 +56,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.onesignal.OneSignal;
 import com.sih.Utils.CompareImage;
+import com.sih.Utils.NotificationOpenedHandler;
 import com.sih.policeapp.Activities.Beats;
 import com.sih.policeapp.Activities.PickLocation;
 import com.sih.policeapp.Activities.PushFeed;
 import com.sih.policeapp.Activities.Weather;
 import com.sih.policeapp.Activities.wanted_activity;
 import com.sih.policeapp.Activities.Login;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -138,7 +148,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
 
 
         OneSignal.startInit(this)
-
+                .setNotificationOpenedHandler(new NotificationOpenedHandler(this))
 
                 .unsubscribeWhenNotificationsAreDisabled(false)
                 .init();
@@ -165,6 +175,11 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
         navigationView = findViewById(R.id.clickable_menu);
         headerView = navigationView.inflateHeaderView(R.layout.header);
         name=  headerView.findViewById(R.id.polname);
+        ImageView pp=headerView.findViewById(R.id.pphoto);
+        Picasso.with(this)
+                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl())
+                .placeholder(R.drawable.avtar)
+                .into(pp);
         email=headerView.findViewById(R.id.polid);
         name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
@@ -207,6 +222,20 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                     Intent intent = new Intent(MainActivity.this, AddCriminalActivity.class);
                     startActivity(intent);
                 }
+                if(menuItem.getItemId() == R.id.places)
+                {
+                    Places.initialize(getApplicationContext(), "AIzaSyDCFrm1JWEHas4IE65x1GBcUzWgmXjHW8g");
+
+                    final List<Place.Field> fields = Arrays.asList(Place.Field.NAME,Place.Field.LAT_LNG);
+
+
+                            Intent intent = new Autocomplete.IntentBuilder(
+                                    AutocompleteActivityMode.FULLSCREEN, fields).setCountry("IN")
+                                    .build(MainActivity.this);
+                            startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+
+                }
+
                 if(menuItem.getItemId() == R.id.profile)
                 {
                     Intent intent = new Intent(MainActivity.this, PoliceProfile.class);
@@ -383,10 +412,15 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       /* if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
-                Log.i(TAG, "Place: " + place.getName() + ", " +place.getLatLng());
+                Log.i("PaagalKamal", "Place: " + place.getName() + ", " +place.getLatLng());
+                Intent intent =new Intent(MainActivity.this,Weather.class);
+                intent.putExtra("code","1");
+                intent.putExtra("latitude",place.getLatLng().latitude);
+                intent.putExtra("longitude",place.getLatLng().longitude);
+                startActivity(intent);
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 Status status = Autocomplete.getStatusFromIntent(data);
@@ -394,7 +428,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
             } else if (resultCode == RESULT_CANCELED) {
                 // The user canceled the operation.
             }
-        }*/
+        }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
@@ -470,6 +504,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
         mDrawerLayout = findViewById(R.id.drawer);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
