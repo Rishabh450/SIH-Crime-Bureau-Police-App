@@ -3,7 +3,31 @@ package com.sih.policeapp;
 public class PoliceClass {
 
     String profile_pic,email_id,rating, designation,crimeSolved,policeStationId,posted_city,Notification,police_name,psHead;
+    String phoneNumber;
 
+    public PoliceClass(String profile_pic, String email_id, String rating, String designation, String crimeSolved,
+                       String policeStationId, String posted_city, String notification, String police_name,
+                       String psHead, String phoneNumber) {
+        this.profile_pic = profile_pic;
+        this.email_id = email_id;
+        this.rating = rating;
+        this.designation = designation;
+        this.crimeSolved = crimeSolved;
+        this.policeStationId = policeStationId;
+        this.posted_city = posted_city;
+        Notification = notification;
+        this.police_name = police_name;
+        this.psHead = psHead;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public PoliceClass(String profile_pic, String email_id, String rating, String disignation, String policeStationId, String posted_city, String notification, String police_name, String psHead) {
         this.profile_pic = profile_pic;

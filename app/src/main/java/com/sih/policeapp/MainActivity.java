@@ -261,6 +261,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 if (menuItem.getItemId() == R.id.logout) {
 
                     mAuth.signOut();
+                    finish();
                     OneSignal.setSubscription(false);
                 }
                 return false;

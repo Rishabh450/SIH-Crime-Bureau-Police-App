@@ -37,7 +37,7 @@ public class PoliceProfile extends AppCompatActivity {
     private TextView name,EmailID,policeName;
     private TextView designation,policeStationID;
     private TextView policeID;
-    private TextView act;
+    private TextView act,phoneNumber;
     private ArrayList<String> listCity=new ArrayList<String>();
     private ArrayAdapter<CharSequence> adapter;
     private RadioGroup radioGroup;
@@ -67,6 +67,7 @@ public class PoliceProfile extends AppCompatActivity {
         policeStationID = findViewById(R.id.policeStation);
         ratingBar = findViewById(R.id.rating_of_police);
         edit = findViewById(R.id.edit);
+        phoneNumber = findViewById(R.id.phone_number);
 
         userID = getIntent().getStringExtra("user_id");
 
@@ -100,6 +101,7 @@ public class PoliceProfile extends AppCompatActivity {
                     String ps = police.getPoliceStationId();
                     String email = "Email: " +police.getEmail_id();
                     String city = "Posting: " + police.getPosted_city();
+                    String pn = "Phone    :" + police.getPhoneNumber();
                     String radio;
 
                     radio = police.getPsHead();
@@ -125,6 +127,7 @@ public class PoliceProfile extends AppCompatActivity {
                     act.setText(city);
                     ratingBar.setRating(Float.parseFloat(police.getRating()));
                     ratingBar.setEnabled(false);
+                    phoneNumber.setText(pn);
                      mProgressDialog.hide();
 //                    name.setText();
                 }

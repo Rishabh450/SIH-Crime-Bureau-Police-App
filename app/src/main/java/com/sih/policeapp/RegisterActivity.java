@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = "RegisterActivity";
 
     private CircleImageView circleImageView;
-    private EditText name,EmailID,policeName;
+    private EditText name,EmailID,policeName,policeNumber;
     private Spinner designation,policeStationID;
     private String policeID;
     private AutoCompleteTextView act;
@@ -72,6 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
         act = findViewById(R.id.posted_city);
         radioGroup = findViewById(R.id.radio_button_group);
         proceed = findViewById(R.id.proceed);
+        policeNumber =findViewById(R.id.phone_number);
 
 
 
@@ -150,6 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mp.put("policeStationId",policeStationID.getSelectedItem().toString().trim());
                     mp.put("posted_city",act.getText().toString().trim());
                     mp.put("rating","2");
+                    mp.put("phoneNumber",policeNumber.getText().toString().trim());
                     int id = radioGroup.getCheckedRadioButtonId();
                     radioButton = findViewById(id);
                     mp.put("psHead",radioButton.getText().toString());
@@ -181,6 +183,13 @@ public class RegisterActivity extends AppCompatActivity {
                     }else{
                         flag=1;
                         act.setError("Enter Valid City");
+                    }
+                    if(policeNumber.getText().toString().trim().equals("") || policeNumber.getText().toString().trim().length()!=10)
+                    {
+                        policeNumber.setError("Check Again...");
+                        flag=1;
+                    }else{
+                        policeNumber.setError(null);
                     }
                     if(flag==0)
                     {

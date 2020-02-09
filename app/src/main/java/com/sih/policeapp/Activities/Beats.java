@@ -104,6 +104,7 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
                             String key=ds.getValue(String.class);
                             SendNotification sendNotification=new SendNotification("Under Emergency",vehicle,key);
 
+
                         }
                     }
 
@@ -112,6 +113,8 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
 
                     }
                 });
+                DatabaseReference mUserRef=FirebaseDatabase.getInstance().getReference().child("PoliceUser");
+
 
             }
         });
