@@ -9,6 +9,8 @@
     <color name="orange">#F57C00</color>
     <color name="colorWhite">#ffffff</color>
     <color name="backgroundYellow">#c91d1f14</color>
+    <color name="GreyTransparent">#55A0A0A0</color>
+
     <color name="colorTransparentWhite">#e1dddd</color>
     <color name="colorTransparentBlack">#ad030000</color>
     <color name="colorTranparentBlue">#dc1a1e36</color>

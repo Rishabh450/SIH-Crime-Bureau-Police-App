@@ -49,6 +49,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.onesignal.OneSignal;
 import com.sih.Utils.CompareImage;
 import com.sih.policeapp.Activities.Beats;
+import com.sih.policeapp.Activities.PickLocation;
+import com.sih.policeapp.Activities.PushFeed;
 import com.sih.policeapp.Activities.Weather;
 import com.sih.policeapp.Activities.wanted_activity;
 import com.sih.policeapp.Activities.Login;
@@ -174,8 +176,14 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 if(menuItem.getItemId() == R.id.fir){
                     startActivity(new Intent(MainActivity.this, Beats.class));
                 }
-                if(menuItem.getItemId() == R.id.add_crime){
-                    Intent intent = new Intent(MainActivity.this,AddCriminalActivity.class);
+                if(menuItem.getItemId() == R.id.push_feed){
+                    startActivity(new Intent(MainActivity.this, PushFeed.class));
+                }
+                if(menuItem.getItemId() == R.id.fir){
+                    startActivity(new Intent(MainActivity.this, Beats.class));
+                }
+                if(menuItem.getItemId() == R.id.picker){
+                    Intent intent = new Intent(MainActivity.this, PickLocation .class);
                     startActivity(intent);
                 }
                 if (menuItem.getItemId() == R.id.wanted_list) {
@@ -186,6 +194,7 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 if (menuItem.getItemId() == R.id.weathe) {
                    // picker();
                     Intent intent = new Intent(MainActivity.this, Weather.class);
+                    intent.putExtra("code","2");
                     startActivity(intent);
 
                 }
@@ -193,18 +202,18 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 if (menuItem.getItemId() == R.id.updatewantedfiles) {
                     updateWanted();
                 }
+                if(menuItem.getItemId() == R.id.add_crime)
+                {
+                    Intent intent = new Intent(MainActivity.this, AddCriminalActivity.class);
+                    startActivity(intent);
+                }
                 if(menuItem.getItemId() == R.id.profile)
                 {
                     Intent intent = new Intent(MainActivity.this, PoliceProfile.class);
                     intent.putExtra("user_id",FirebaseAuth.getInstance().getUid());
                     startActivity(intent);
                 }
-                if(menuItem.getItemId() == R.id.FIR)
-                {
-                    Intent intent = new Intent(MainActivity.this, NOCdetails.class);
-                    intent.putExtra("noc_id","-M-YQm2YJBU63WWfuTab");
-                    startActivity(intent);
-                }
+
                 if(menuItem.getItemId() == R.id.search){
                     CropImage.activity()
                             .setGuidelines(CropImageView.Guidelines.ON)
@@ -344,6 +353,8 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }else{
             AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
+
+
 
             a_builder.setMessage("Do you want to Close this App !!!")
                     .setCancelable(false)

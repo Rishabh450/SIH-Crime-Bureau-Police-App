@@ -46,7 +46,8 @@ public class SplashScreen extends AppCompatActivity {
                     {
                         startActivity(new Intent(SplashScreen.this, MainActivity.class));
                         finish();
-                    }else{
+                    }else
+                    {
                         startActivity(new Intent(SplashScreen.this, RegisterActivity.class));
                         finish();
                     }
@@ -64,10 +65,13 @@ public class SplashScreen extends AppCompatActivity {
         }
 
 
+        }
+
+
 
 
 
 
     }
 
-}
+

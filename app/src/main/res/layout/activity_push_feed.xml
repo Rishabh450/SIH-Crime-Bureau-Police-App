@@ -1,0 +1,122 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/backgrounddfinal"
+    android:layout_height="match_parent"
+    tools:context=".Activities.PushFeed">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+
+
+                    <EditText
+                        android:id="@+id/feed_upload_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+
+
+                        android:background="@drawable/backgraedit"
+                        android:gravity="top"
+                        android:hint="Write a caption..."
+
+
+                        android:textColor="@android:color/black"
+
+                        >
+
+                    </EditText>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="300dp"
+                android:layout_marginTop="20dp"
+                android:elevation="10dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:focusable="true"
+                android:visibility="gone"
+                android:id="@+id/feedcard"
+
+                android:layout_gravity="center"
+                android:layout_height="300dp"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:id="@+id/post_image_display"
+                    android:layout_height="match_parent">
+
+                </ImageView>
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:elevation="10dp"
+                android:background="@drawable/corner"
+
+                android:clickable="true"
+                android:id="@+id/add_image_to_post"
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="false"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:focusable="true"
+                android:textColor="@android:color/white"
+                android:text="Add image from gallery"
+                android:textStyle="bold"
+                android:drawablePadding="10dp"
+                android:layout_height="60dp">
+
+            </Button>
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:elevation="10dp"
+                android:textColor="@android:color/white"
+                android:text="Crop image"
+                android:id="@+id/cropimage"
+                android:clickable="true"
+                android:background="@drawable/corner"
+
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:focusable="true"
+                android:drawablePadding="10dp"
+                android:layout_height="60dp">
+
+            </Button>
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:elevation="10dp"
+                android:background="@drawable/corner"
+
+                android:textColor="@android:color/white"
+                android:text="Upload"
+                android:id="@+id/upload_feed"
+                android:clickable="true"
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:focusable="true"
+                android:drawablePadding="10dp"
+                android:layout_height="60dp">
+
+            </Button>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

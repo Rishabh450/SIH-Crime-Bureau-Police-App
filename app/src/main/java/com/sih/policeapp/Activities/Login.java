@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -60,6 +62,15 @@ public class Login extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        image=findViewById(R.id.redlight);
+        Animation animation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible
+        animation.setDuration(1000); //1 second duration for each animation cycle
+        animation.setInterpolator(new LinearInterpolator());
+        animation.setRepeatCount(Animation.INFINITE); //repeating indefinitely
+        animation.setRepeatMode(Animation.REVERSE); //animation will start from end point once ended.
+        image.startAnimation(animation); //to start animation
+
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null) {
             sendToMainActicity();

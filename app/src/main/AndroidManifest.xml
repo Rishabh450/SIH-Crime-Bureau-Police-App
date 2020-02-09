@@ -17,8 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NOCdetails"></activity>
+        <activity android:name=".Activities.PushFeed"></activity>
         <activity android:name=".UserProfile" />
+        <activity android:name=".Activities.PickLocation" />
+        <activity android:name=".NOCdetails"></activity>
         <activity android:name=".FirDetails" />
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -28,6 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AppointmentsHandeling" />
+
         <activity android:name=".Activities.Weather" />
         <activity android:name=".Activities.wanted_activity" />
         <activity android:name=".RegisterActivity" />
