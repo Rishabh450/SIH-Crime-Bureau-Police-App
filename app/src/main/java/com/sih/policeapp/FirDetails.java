@@ -84,7 +84,7 @@ public class FirDetails extends AppCompatActivity {
 
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
-
+        if(firId != null)
         mRootRef.child("FIRs").child(firId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

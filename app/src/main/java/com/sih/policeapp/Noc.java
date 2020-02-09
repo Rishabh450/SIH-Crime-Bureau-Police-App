@@ -9,15 +9,16 @@ public class Noc {
     String surname, name, presentAddress, homeAddress, dateOfBirth, placeOfBirth, nocType, charges, identificationMark, fatherName, motherName
             ,spouseName, rcNumber, icNumber, etNumber, userId, ts;
     String status, reportingDate, reportingPlace, correspondent;
-    Map<String, String> timeStamp;
+    Long timeStamp;
 
     public Noc() {
 
     }
 
+
     public Noc(String surname, String name, String presentAddress, String homeAddress, String dateOfBirth, String placeOfBirth,
                String nocType, String charges, String identificationMark, String fatherName, String motherName, String spouseName,
-               String userId, Map<String, String> timeStamp, String status, String reportingDate, String reportingPlace,
+               String userId, Long timeStamp, String status, String reportingDate, String reportingPlace,
                String correspondent) {
         this.surname = surname;
         this.name = name;
@@ -40,7 +41,7 @@ public class Noc {
     }
 
     public Noc(String surname, String name, String presentAddress, String homeAddress, String dateOfBirth, String placeOfBirth,
-               String nocType, String rcNumber, String icNumber, String etNumber, String userId, Map<String, String> timeStamp
+               String nocType, String rcNumber, String icNumber, String etNumber, String userId, Long timeStamp
             , String status, String reportingDate, String reportingPlace, String correspondent) {
         this.surname = surname;
         this.name = name;
@@ -224,11 +225,11 @@ public class Noc {
         this.etNumber = etNumber;
     }
 
-    public Map<String, String> getTimeStamp() {
+    public Long getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Map<String, String> timeStamp) {
+    public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
     }
 

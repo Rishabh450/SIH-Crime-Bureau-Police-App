@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirDetails">
+    tools:context=".NOCdetails">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -12,26 +13,134 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="General Information"
+                        android:textSize="22sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#CC000000" />
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Name"
+                         />
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocSurname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Surname"
+                     />
+
+
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocPresentAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Present Address(Full)"
+                      />
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocHomeAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Home Address(Full)"
+                         />
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocDateOfBirth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:focusable="false"
+                        android:hint="Date of Birth" />
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocPlaceOfBirth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Place of Birth(Full)"
+                       />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:textSize="24sp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:hint="nocType"
+                android:gravity="center_horizontal"
+                android:textColor="#C7731D"
+                android:text="nocType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nocSpinner"
+                android:layout_marginTop="10dp"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
-                android:layout_margin="8dp">
+                android:layout_marginTop="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="5dp">
+                    android:layout_margin="10dp"
+                    android:id="@+id/nocPassport">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Complainant Details"
-                        android:textSize="25sp"/>
+                        android:text="Other Details"
+                        android:textSize="22sp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -39,65 +148,74 @@
                         android:background="#CC000000"/>
 
                     <TextView
+                        android:textSize="20sp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocCharges"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:hint="Full Name"
-                        android:id="@+id/complainant_name"/>
+                        android:layout_marginTop="8dp"
+                        android:hint="Have you ever been charged with police case?"
+                         />
 
                     <TextView
+                        android:textSize="20sp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocIdentificationMark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:hint="E-mail"
-                        android:id="@+id/complainant_email"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:hint="Phone : "
-                        android:id="@+id/complainant_phone"/>
+                        android:layout_marginTop="8dp"
+                        android:hint="Identification Mark"
+                      />
 
                     <TextView
+                        android:textSize="20sp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocFatherName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:hint="Age"
-                        android:id="@+id/complainant_age"/>
+                        android:layout_marginTop="8dp"
+                        android:hint="Father's Name"
+                         />
 
                     <TextView
+                        android:textSize="20sp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocMotherName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Mother's Name"
+                        />
+
+                    <TextView
                         android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:hint="Gender"
-                        android:id="@+id/complainant_gender"/>
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocSpouseName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Spouse's Name"
+                        />
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                android:layout_margin="8dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/nocVehicle"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Place of Occurrence"
-                        android:textSize="25sp" />
+                        android:text="Other Details"
+                        android:textSize="22sp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -105,90 +223,37 @@
                         android:background="#CC000000"/>
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:hint="State"
-                        android:maxLines="10"
-                        android:id="@+id/occurrence_state"/>
-
-                    <TextView
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocRC"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Registration Certificate Number"
+                         />
+
+                    <TextView
                         android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:hint="District"
-                        android:maxLines="10"
-                        android:id="@+id/occurrence_district"/>
-
-                    <TextView
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocInsuranceCertificate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="Insurance Certificate Number"
+                         />
+
+                    <TextView
                         android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:hint="Place of Occurrence"
-                        android:id="@+id/occurrence_place"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                android:layout_margin="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:orientation="vertical">
-
-                    <TextView
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:id="@+id/nocEmissionTest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Complain Details"
-                        android:textSize="25sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#CC000000"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:hint="Crime Type"
-                        android:textSize="20dp"
-                        android:id="@+id/crime_type"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:hint="Subject"
-                        android:inputType="textMultiLine"
-                        android:id="@+id/complain_subject"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:layout_marginTop="10dp"
-                        android:hint="Details"
-                        android:inputType="textMultiLine"
-                        android:id="@+id/complain_details"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20dp"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/time_of_occurrence"
-                        android:text="Time" />
+                        android:layout_marginTop="8dp"
+                        android:hint="Emission Test Certificate"
+                         />
 
                 </LinearLayout>
 
@@ -261,8 +326,9 @@
             </LinearLayout>
 
 
+
         </LinearLayout>
 
     </ScrollView>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

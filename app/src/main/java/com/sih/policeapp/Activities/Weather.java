@@ -38,7 +38,7 @@ import java.text.ParseException;
 import java.util.List;
 
 public class Weather extends AppCompatActivity {
-    private final String apiKey="B3i0P2AdkVwylpsRcrP6IKK4lQ1ZIRi4";
+    private final String apiKey="Z7aBUvOc4pucyDApV4QR5RatGow6RAaM";
    public LocationManager locationmanager;
    public LocationListener locationlistener;
   public   Weather  activity;
@@ -142,7 +142,7 @@ public class Weather extends AppCompatActivity {
             Intent intent =getIntent();
             String code=intent.getStringExtra("code");
             if(code.equals("1")){
-                latitude=intent.getDoubleExtra("latiutde",0.0);
+                latitude=intent.getDoubleExtra("latitude",0.0);
                 longitude=intent.getDoubleExtra("longitude",0.0);
             }
             else{

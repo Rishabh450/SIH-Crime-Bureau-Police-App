@@ -215,8 +215,8 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 }
                 if(menuItem.getItemId() == R.id.FIR)
                 {
-                    Intent intent = new Intent(MainActivity.this, FirDetails.class);
-                    intent.putExtra("fir_id","-M-ZDeO0AaibjMcRBTdy");
+                    Intent intent = new Intent(MainActivity.this, NOCdetails.class);
+                    intent.putExtra("noc_id","-M-YQm2YJBU63WWfuTab");
                     startActivity(intent);
                 }
                 if(menuItem.getItemId() == R.id.search){
