@@ -1,6 +1,7 @@
 package com.sih.policeapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -160,11 +161,13 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                user = dataSnapshot.getValue(User.class);
-                                holder.FIRorNoc.setText("NOC");
-                                holder.name.setText(user.getName());
-                                holder.crimeType.setText(noc.getNocType());
-                                holder.crime.setVisibility(View.GONE);
+                                if(dataSnapshot.exists()) {
+                                    user = dataSnapshot.getValue(User.class);
+                                    holder.FIRorNoc.setText("NOC");
+                                    holder.name.setText(user.getName());
+                                    holder.crimeType.setText(noc.getNocType());
+                                    holder.crime.setVisibility(View.GONE);
+                                }
 
                             }
 
@@ -186,6 +189,23 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(category.equals("FIRs")) {
+
+                    Intent intent = new Intent(mContext, FirDetails.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("fir_id", string);
+                    mContext.startActivity(intent);
+
+                }
 
             }
         });
