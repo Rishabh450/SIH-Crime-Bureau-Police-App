@@ -41,6 +41,21 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:id="@+id/phone_number"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="20sp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CC000000" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Email ID"
                 android:id="@+id/email_ID"
                 android:paddingStart="5dp"

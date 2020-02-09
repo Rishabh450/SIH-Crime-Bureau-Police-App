@@ -296,6 +296,7 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
                 if (menuItem.getItemId() == R.id.logout) {
 
                     mAuth.signOut();
+                    finish();
                     OneSignal.setSubscription(false);
                     finish();
 
