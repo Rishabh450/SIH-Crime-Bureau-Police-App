@@ -11,6 +11,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -136,11 +137,19 @@ public class Weather extends AppCompatActivity {
 
                 }
             };
+
             locationmanager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            Intent intent =getIntent();
+            String code=intent.getStringExtra("code");
+            if(code.equals("1")){
+                latitude=intent.getDoubleExtra("latiutde",0.0);
+                longitude=intent.getDoubleExtra("longitude",0.0);
+            }
+            else{
             locationmanager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, listener);
             Location locationlast=getLastKnownLocation();
             latitude = locationlast.getLatitude();
-            longitude = locationlast.getLongitude();
+            longitude = locationlast.getLongitude();}
             AsyncTask myasynctask =new AsyncTask();
             myasynctask.execute();
 

@@ -49,6 +49,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.onesignal.OneSignal;
 import com.sih.Utils.CompareImage;
 import com.sih.policeapp.Activities.Beats;
+import com.sih.policeapp.Activities.PickLocation;
 import com.sih.policeapp.Activities.Weather;
 import com.sih.policeapp.Activities.wanted_activity;
 import com.sih.policeapp.Activities.Login;
@@ -174,8 +175,11 @@ authStateListener=new FirebaseAuth.AuthStateListener() {
                 if(menuItem.getItemId() == R.id.fir){
                     startActivity(new Intent(MainActivity.this, Beats.class));
                 }
-                if(menuItem.getItemId() == R.id.add_crime){
-                    Intent intent = new Intent(MainActivity.this,AddCriminalActivity.class);
+                if(menuItem.getItemId() == R.id.fir){
+                    startActivity(new Intent(MainActivity.this, Beats.class));
+                }
+                if(menuItem.getItemId() == R.id.picker){
+                    Intent intent = new Intent(MainActivity.this, PickLocation .class);
                     startActivity(intent);
                 }
                 if (menuItem.getItemId() == R.id.wanted_list) {
