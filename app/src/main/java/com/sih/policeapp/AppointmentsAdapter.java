@@ -307,6 +307,122 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
             });
 
 
+            holder.accept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    mRootRef.child("NOC").child(string).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.exists()) {
+                                Noc noc = dataSnapshot.getValue(Noc.class);
+
+                                assert noc != null;
+                                mRootRef.child("Users").child(noc.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            User user = dataSnapshot.getValue(User.class);
+
+                                            assert user != null;
+                                            String s = user.getNotificationId();
+                                            new SendNotification("Hello " + user.getName() + "!!", "NOC Accepted", s);
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                }
+            });
+
+
+
+            holder.reject.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    mRootRef.child("NOC").child(string).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.exists()) {
+                                Noc noc = dataSnapshot.getValue(Noc.class);
+
+                                assert noc != null;
+                                mRootRef.child("Users").child(noc.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.exists()) {
+                                            User user = dataSnapshot.getValue(User.class);
+
+                                            assert user != null;
+                                            String s = user.getNotificationId();
+                                            new SendNotification("Sorry for inconvenience " + user.getName() + "!!", "NOC Rejected", s);
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+                }
+            });
+
+
+
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+
+
+                    Intent intent = new Intent(mContext, NOCdetails.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("noc_id", string);
+                    mContext.startActivity(intent);
+
+
+                }
+            });
+
+
+
         }
 
     }
