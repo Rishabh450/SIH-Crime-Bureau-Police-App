@@ -103,14 +103,69 @@ public class AppointmentsHandeling extends AppCompatActivity {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
 
                     String s = snapshot.child("status").getValue(String.class);
+                    String s1 = snapshot.child("type").getValue(String.class);
 
                     assert s != null;
-                    if(s.equals("Pending"))
+                    assert s1 != null;
+                    if(s.equals("Pending") && s1.equals("Murder"))
                     {
                         appointmentsList.add(snapshot.getKey());
                     }
 
+                }
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
+                    String s = snapshot.child("status").getValue(String.class);
+                    String s1 = snapshot.child("type").getValue(String.class);
+
+                    assert s != null;
+                    assert s1 != null;
+
+                    if(s.equals("Pending") && s1.equals("Illegal Trafficking"))
+                    {
+                        appointmentsList.add(snapshot.getKey());
+                    }
+
+                }
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    String s = snapshot.child("status").getValue(String.class);
+                    String s1 = snapshot.child("type").getValue(String.class);
+
+                    assert s != null;
+                    assert s1 != null;
+                    if(s.equals("Pending") && s1.equals("Women Related Crime"))
+                    {
+                        appointmentsList.add(snapshot.getKey());
+                    }
+
+                }
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    String s = snapshot.child("status").getValue(String.class);
+                    String s1 = snapshot.child("type").getValue(String.class);
+
+                    assert s != null;
+                    assert s1 != null;
+
+                    if(s.equals("Pending") && s1.equals("Children Related Crime"))
+                    {
+                        appointmentsList.add(snapshot.getKey());
+                    }
+
+                }
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    String s = snapshot.child("status").getValue(String.class);
+                    String s1 = snapshot.child("type").getValue(String.class);
+
+                    assert s != null;
+                    assert s1 != null;
+
+                    if(s.equals("Pending") && s1.equals("Business Related Crime"))
+                    {
+                        appointmentsList.add(snapshot.getKey());
+                    }
 
                 }
 

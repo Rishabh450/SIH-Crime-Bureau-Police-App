@@ -1,10 +1,12 @@
 package com.sih.policeapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +17,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,8 +30,9 @@ import com.sih.Utils.SendNotification;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public class NOCdetails extends AppCompatActivity {
+public class NOCdetails extends AppCompatActivity implements ExampleDialog.ExampleDialogListner {
     private static final String TAG = "NOCdetails";
 
     String nocID;
@@ -43,6 +48,9 @@ public class NOCdetails extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
 
      private  DatabaseReference mRootRef;
+    TextView appointmentDate,appointmentTime;
+    String error = "";
+
 
     int flag = 0;
 
@@ -75,11 +83,16 @@ public class NOCdetails extends AppCompatActivity {
 
 
 
+        appointmentDate = findViewById(R.id.appointment_date);
+        appointmentTime = findViewById(R.id.appointment_time);
+
+
+
         mRootRef = FirebaseDatabase.getInstance().getReference();
 
         setOnClicks();
 
-        mRootRef.child("NOC").child(nocID).addValueEventListener(new ValueEventListener() {
+        mRootRef.child("NOC").child(nocID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
@@ -158,95 +171,204 @@ public class NOCdetails extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //    new SendNotification("Hello Nishchal!!","Fir Accepted","dbaa7177-7518-4398-83a6-b57ccfc0d299");
 
-                mRootRef.child("NOC").child(nocID).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final int[] notif = {1};
 
-                        if (dataSnapshot.exists()) {
-                            Noc noc = dataSnapshot.getValue(Noc.class);
+                int flag=0;
+                if(appointmentDate.getVisibility()==View.GONE || error.equals("yes"))
+                {
+                    openDialog();
+                }else{
 
-                            assert noc != null;
-                            mRootRef.child("Users").child(noc.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.exists()) {
-                                        User user = dataSnapshot.getValue(User.class);
-                                        Toast.makeText(NOCdetails.this, "NOC Accepted!!..", Toast.LENGTH_SHORT).show();
-                                        assert user != null;
-                                        String s = user.getNotificationId();
-                                        new SendNotification("Hello " + user.getName() + "!!", "NOC Accepted", s);
+                    if(appointmentDate.getVisibility()==View.VISIBLE && error.equals(""))
+                    {
+                        mRootRef.child("NOC").child(nocID).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                    }
+                                if(dataSnapshot.exists())
+                                {
+
+                                    Noc noc = dataSnapshot.getValue(Noc.class);
+
+                                    assert noc != null;
+                                    mRootRef.child("Users").child(noc.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.exists())
+                                            {
+                                                final User user = dataSnapshot.getValue(User.class);
+
+                                                assert user != null;
+                                                final String s = user.getNotificationId();
+
+
+                                                mRootRef.child("NOC").child(nocID).child("status").setValue("Accepted").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        if(notif[0] ==1)
+                                                        {
+                                                            new SendNotification("Hello " + user.getName() + "!!","NOC Accepted..",s);
+                                                            notif[0] =0;
+                                                        }
+
+                                                        finish();
+                                                    }
+                                                });
+
+
+
+                                                mRootRef.child("PoliceUser").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                if(dataSnapshot.exists())
+                                                                {
+                                                                    PoliceClass police = dataSnapshot.getValue(PoliceClass.class);
+                                                                    mRootRef.child("NOC").child(nocID).child("reportingDate").setValue(appointmentDate.getText().toString() + " " + appointmentTime.getText().toString());
+                                                                    assert police != null;
+                                                                    mRootRef.child("NOC").child(nocID).child("reportingPlace").setValue(police.getPosted_city());
+                                                                    mRootRef.child("NOC").child(nocID).child("correspondent").setValue(police.getPolice_name());
+
+
+                                                                }
+
+
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                            }
+                                                        });
+
+
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+
                                 }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
 
-                                }
-                            });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
-                        }
-
+                            }
+                        });
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                }
 
             }
         });
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mRootRef.child("NOC").child(nocID).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final int[] notif = {1};
 
-                        if (dataSnapshot.exists()) {
-                            Noc noc = dataSnapshot.getValue(Noc.class);
+                int flag=0;
 
-                            assert noc != null;
-                            mRootRef.child("Users").child(noc.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.exists()) {
-                                        User user = dataSnapshot.getValue(User.class);
 
-                                        assert user != null;
-                                        String s = user.getNotificationId();
-                                        Toast.makeText(NOCdetails.this, "NOC Rejected!!", Toast.LENGTH_SHORT).show();
-                                        new SendNotification("Sorry for inconvenience " + user.getName() + "!!", "NOC Rejected", s);
+                        mRootRef.child("NOC").child(nocID).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                    }
+                                if(dataSnapshot.exists())
+                                {
+
+                                    Noc noc = dataSnapshot.getValue(Noc.class);
+
+                                    assert noc != null;
+                                    mRootRef.child("Users").child(noc.getUserId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.exists())
+                                            {
+                                                final User user = dataSnapshot.getValue(User.class);
+
+                                                assert user != null;
+                                                final String s = user.getNotificationId();
+
+
+                                                mRootRef.child("NOC").child(nocID).child("status").setValue("Rejected").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        if(notif[0] ==1)
+                                                        {
+                                                            new SendNotification("Sorry for inconvenience " + user.getName() + "!!","NOC Rejected..",s);
+                                                            notif[0] =0;
+                                                        }
+
+                                                        finish();
+                                                    }
+                                                });
+
+
+
+                                                mRootRef.child("PoliceUser").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                if(dataSnapshot.exists())
+                                                                {
+                                                                    PoliceClass police = dataSnapshot.getValue(PoliceClass.class);
+                                                                    mRootRef.child("NOC").child(nocID).child("reportingDate").setValue(appointmentDate.getText().toString() + " " + appointmentTime.getText().toString());
+                                                                    assert police != null;
+                                                                    mRootRef.child("NOC").child(nocID).child("reportingPlace").setValue(police.getPosted_city());
+                                                                    mRootRef.child("NOC").child(nocID).child("correspondent").setValue(police.getPolice_name());
+
+
+                                                                }
+
+
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                            }
+                                                        });
+
+
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+
                                 }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
 
-                                }
-                            });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
-                        }
-
+                            }
+                        });
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
-            }
+
         });
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mRootRef.child("NOC").child(nocID).addValueEventListener(new ValueEventListener() {
+                mRootRef.child("NOC").child(nocID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -272,5 +394,23 @@ public class NOCdetails extends AppCompatActivity {
         });
     }
 
+    private void openDialog() {
+        ExampleDialog exampleDialod = new ExampleDialog();
+        exampleDialod.show(getSupportFragmentManager(),"example dialog");
+    }
+
+    @Override
+    public void applyText(String a, String b) {
+        appointmentDate.setVisibility(View.VISIBLE);
+        appointmentTime.setVisibility(View.VISIBLE);
+        appointmentTime.setText(b); if(!b.equals("")) appointmentTime.setError(null); else appointmentTime.setError("Enter again");
+        appointmentDate.setText(a); if(!a.equals("")) appointmentDate.setError(null); else appointmentDate.setError("Enter again");
+        if(!a.equals("") && !b.equals(""))
+        {
+            error = "";
+        }else{
+            error="yes";
+        }
+    }
 }
 

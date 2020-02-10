@@ -55,61 +55,28 @@
                android:paddingEnd="5dp"
                />
            <LinearLayout
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
                android:layout_gravity="center_horizontal"
                android:orientation="horizontal">
+
+
                <LinearLayout
-                   android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                    android:layout_height="wrap_content"
+                   android:layout_marginStart="0dp"
                    android:background="@drawable/corner"
-                   android:orientation="horizontal">
+                   android:orientation="vertical">
                    <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="Accept"
-                       android:textSize="18sp"
-                       android:textColor="@color/white"
-                       android:id="@+id/accept"
-                       android:layout_marginStart="9dp"
-                       android:layout_marginEnd="9dp"
-                       android:layout_marginTop="4dp"
-                       android:layout_marginBottom="4dp"
-                       />
-               </LinearLayout>
-               <LinearLayout
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginStart="40dp"
-                   android:background="@drawable/corner"
-                   android:orientation="horizontal">
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="Reject"
-                       android:textSize="18sp"
-                       android:textColor="@color/white"
-                       android:layout_marginStart="9dp"
-                       android:id="@+id/reject"
-                       android:layout_marginEnd="9dp"
-                       android:layout_marginTop="4dp"
-                       android:layout_marginBottom="4dp"
-                       />
-               </LinearLayout>
-               <LinearLayout
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginStart="40dp"
-                   android:background="@drawable/corner"
-                   android:orientation="horizontal">
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent"
                        android:text="View Details"
                        android:textSize="18sp"
                        android:textColor="@color/white"
                        android:layout_marginStart="9dp"
+                       android:gravity="center_horizontal"
                        android:id="@+id/view"
+                       android:layout_gravity="center_horizontal"
                        android:layout_marginEnd="9dp"
                        android:layout_marginTop="4dp"
                        android:layout_marginBottom="4dp"
