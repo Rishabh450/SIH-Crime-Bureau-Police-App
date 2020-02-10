@@ -189,6 +189,8 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                final int[] notif = {1};
             //    new SendNotification("Hello Nishchal!!","Fir Accepted","dbaa7177-7518-4398-83a6-b57ccfc0d299");
                 int flag=0;
                 if(appointmentDate.getVisibility()==View.GONE || error.equals("yes"))
@@ -218,11 +220,25 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             if(dataSnapshot.exists())
                                             {
-                                                User user = dataSnapshot.getValue(User.class);
+                                                final User user = dataSnapshot.getValue(User.class);
 
                                                 assert user != null;
-                                                String s = user.getNotificationId();
-                                                new SendNotification("Hello " + user.getName() + "!!","Fir Accepted..",s);
+                                                final String s = user.getNotificationId();
+
+
+                                                mRootRef.child("FIRs").child(firId).child("status").setValue("Accepted").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        if(notif[0] ==1)
+                                                        {
+                                                            new SendNotification("Hello " + user.getName() + "!!","Fir Accepted..",s);
+                                                            notif[0] =0;
+                                                        }
+
+                                                        finish();
+                                                    }
+                                                });
+
 
 
                                                 mRootRef.child("PoliceUser").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
@@ -236,12 +252,7 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
                                                      assert police != null;
                                                      mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue(police.getPosted_city());
                                                      mRootRef.child("FIRs").child(firId).child("correspondent").setValue(police.getPolice_name());
-                                                     mRootRef.child("FIRs").child(firId).child("status").setValue("Accepted").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                         @Override
-                                                         public void onSuccess(Void aVoid) {
-                                                             finish();
-                                                         }
-                                                     });
+
 
                                                  }
 
@@ -290,6 +301,8 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                final int[] notif = {1};
                 mRootRef.child("FIRs").child(firId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -310,11 +323,25 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if(dataSnapshot.exists())
                                     {
-                                        User user = dataSnapshot.getValue(User.class);
+                                        final User user = dataSnapshot.getValue(User.class);
 
                                         assert user != null;
-                                        String s = user.getNotificationId();
-                                        new SendNotification("Sorry for inconvenience " + user.getName() + "!!","Fir Rejected",s);
+                                        final String s = user.getNotificationId();
+
+                                        mRootRef.child("FIRs").child(firId).child("status").setValue("Rejected")
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        if(notif[0] ==1)
+                                                        {
+                                                            new SendNotification("Sorry for inconvenience " + user.getName() + "!!","Fir Rejected",s);
+                                                            notif[0] =0;
+                                                        }
+
+                                                        finish();
+                                                    }
+                                                });
+
 
                                         mRootRef.child("PoliceUser").child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
                                                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -325,14 +352,10 @@ public class FirDetails extends AppCompatActivity implements ExampleDialog.Examp
                                                             PoliceClass police = dataSnapshot.getValue(PoliceClass.class);
                                                             mRootRef.child("FIRs").child(firId).child("reportingDate").setValue(appointmentDate.getText().toString() + " " + appointmentTime.getText().toString());
                                                             assert police != null;
-                                                            mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue("");
-                                                            mRootRef.child("FIRs").child(firId).child("correspondent").setValue("");
-                                                            mRootRef.child("FIRs").child(firId).child("status").setValue("Rejected").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void aVoid) {
-                                                                    finish();
-                                                                }
-                                                            });
+                                                            mRootRef.child("FIRs").child(firId).child("reportingPlace").setValue(police.getPosted_city());
+                                                            mRootRef.child("FIRs").child(firId).child("correspondent").setValue(police.getPolice_name());
+
+
 
                                                         }
 
