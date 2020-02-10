@@ -3,7 +3,7 @@
     package="com.sih.policeapp">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -11,18 +11,18 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:allowBackup="false"
         android:name="com.sih.Utils.ConfigClass"
+        android:allowBackup="false"
         android:icon="@drawable/logo_icon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo_icon"
-
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.PushFeed"></activity>
+        <activity android:name=".ComplaintActivity"></activity>
+        <activity android:name=".Activities.PushFeed" />
         <activity android:name=".UserProfile" />
         <activity android:name=".Activities.PickLocation" />
-        <activity android:name=".NOCdetails"></activity>
+        <activity android:name=".NOCdetails" />
         <activity android:name=".FirDetails" />
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -32,7 +32,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".AppointmentsHandeling" />
-
         <activity android:name=".Activities.Weather" />
         <activity android:name=".Activities.wanted_activity" />
         <activity android:name=".RegisterActivity" />
@@ -64,8 +63,10 @@
                 <action android:name="com.sih.policeapp.LONGRUNSERVICE" />
             </intent-filter>
         </service>
-        <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE" />
 
+        <meta-data
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -91,7 +92,10 @@
         <activity
             android:name=".Activities.Login"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE" />
+
+        <meta-data
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

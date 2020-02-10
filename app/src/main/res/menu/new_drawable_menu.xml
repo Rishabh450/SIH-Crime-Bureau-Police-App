@@ -35,6 +35,13 @@
     <item android:title="@string/account"
         >
         <menu>
+
+            <item android:id="@+id/complain" android:title="Complaint Box"
+                app:showAsAction="always"
+                android:icon="@drawable/complaint_foreground"/>
+
+
+
             <item android:id="@+id/push_feed" app:showAsAction="always" android:title="Push Feed" android:icon="@drawable/ic_rss_feed_black_24dp"/>
 
             <item android:id="@+id/profile" android:title="Profile"

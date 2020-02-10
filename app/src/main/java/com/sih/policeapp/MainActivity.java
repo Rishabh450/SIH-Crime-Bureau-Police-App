@@ -237,6 +237,9 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                if(menuItem.getItemId() == R.id.complain){
+                    startActivity(new Intent(MainActivity.this, ComplaintActivity.class));
+                }
 
                 if(menuItem.getItemId() == R.id.fir){
                     startActivity(new Intent(MainActivity.this, Beats.class));
