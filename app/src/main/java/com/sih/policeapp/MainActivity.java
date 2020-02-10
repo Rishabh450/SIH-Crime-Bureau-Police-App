@@ -239,6 +239,7 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 if(menuItem.getItemId() == R.id.complain){
                     startActivity(new Intent(MainActivity.this, ComplaintActivity.class));
+
                 }
 
                 if(menuItem.getItemId() == R.id.fir){
@@ -252,11 +253,7 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
                     Intent intent = new Intent(MainActivity.this, PickLocation .class);
                     startActivity(intent);
                 }
-                if (menuItem.getItemId() == R.id.wanted_list) {
-                    Intent intent = new Intent(MainActivity.this, wanted_activity.class);
-                    startActivity(intent);
 
-                }
                 if (menuItem.getItemId() == R.id.weathe) {
                    // picker();
                     Intent intent = new Intent(MainActivity.this, Weather.class);
@@ -275,15 +272,15 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
                 }
                 if(menuItem.getItemId() == R.id.places)
                 {
-                    Places.initialize(getApplicationContext(), "AIzaSyDCFrm1JWEHas4IE65x1GBcUzWgmXjHW8g");
+                    Places.initialize(getApplicationContext(), "AIzaSyCKfDqMoXqMHhdABi_PYUXzJtBEKb-i4Hk");
 
                     final List<Place.Field> fields = Arrays.asList(Place.Field.NAME,Place.Field.LAT_LNG);
 
 
                             Intent intent = new Autocomplete.IntentBuilder(
-                                    AutocompleteActivityMode.FULLSCREEN, fields).setCountry("IN")
+                                    AutocompleteActivityMode.FULLSCREEN, fields)
                                     .build(MainActivity.this);
-                            startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+                            startActivityForResult(intent, 999);
 
                 }
 
@@ -310,7 +307,7 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
 
     }
 
-    private final static int AUTOCOMPLETE_REQUEST_CODE = 999;
+    int AUTOCOMPLETE_REQUEST_CODE = 999;
 
    /* public void picker() {
         Places.initialize(getApplicationContext(), "AIzaSyBueo4gPZC7mDkWceuBzlDX19X_anAavLI");
@@ -454,6 +451,8 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            Log.i("PaagalKamal", "Place: ");
+
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
                 Log.i("PaagalKamal", "Place: " + place.getName() + ", " +place.getLatLng());

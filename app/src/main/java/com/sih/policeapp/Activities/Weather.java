@@ -37,7 +37,7 @@ import java.text.ParseException;
 import java.util.List;
 
 public class Weather extends AppCompatActivity {
-    private final String apiKey="QWxXcehScGuNsZ5GxitAdMKtAiTA01ku";
+    private final String apiKey="e2iCyGHmRW40N7efVBLnztbRdOs9kZO3";
    public LocationManager locationmanager;
    public LocationListener locationlistener;
   public   Weather  activity;

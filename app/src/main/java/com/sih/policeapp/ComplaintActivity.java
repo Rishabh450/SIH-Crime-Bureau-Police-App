@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,7 +45,13 @@ public class ComplaintActivity extends AppCompatActivity {
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+        recyclerView.setLayoutManager(layoutManager);
+
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("PoliceUser").child(currentUser.getUid());
+
+        mComplaint = new ArrayList<>();
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -54,7 +61,14 @@ public class ComplaintActivity extends AppCompatActivity {
 
                     PoliceClass policeClass = dataSnapshot.getValue(PoliceClass.class);
 
+                    assert policeClass != null;
                     myLevel = policeClass.getDesignation();
+
+
+                    readComplaint(myLevel);
+                    complaintAdapter = new ComplaintAdapter(getApplicationContext(), mComplaint);
+                    recyclerView.setAdapter(complaintAdapter);
+
 
                 }
 
@@ -66,39 +80,37 @@ public class ComplaintActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-
-        recyclerView.setLayoutManager(layoutManager);
 
 
-        if (currentUser != null) {
 
-            mComplaint = new ArrayList<>();
-
-            readComplaint();
-            complaintAdapter = new ComplaintAdapter(getApplicationContext(), mComplaint);
-            recyclerView.setAdapter(complaintAdapter);
-
-
-        }
+//        if (currentUser != null) {
+//
+//            mComplaint = new ArrayList<>();
+//
+//            readComplaint();
+//            complaintAdapter = new ComplaintAdapter(getApplicationContext(), mComplaint);
+//            recyclerView.setAdapter(complaintAdapter);
+//
+//
+//        }
 
 
     }
 
-    private void readComplaint() {
+    private void readComplaint(final String myLevel) {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Complainbox");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                mComplaint.clear();
                 if (dataSnapshot.exists()) {
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                         Complaint complaint = snapshot.getValue(Complaint.class);
-
+                        Log.d("levelwamaa",complaint.getLevel()+" "+getId(myLevel));
                         if (getId(complaint.getLevel()) < getId(myLevel)) {
 
                             mComplaint.add(complaint);

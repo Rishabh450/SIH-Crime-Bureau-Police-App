@@ -22,10 +22,7 @@
             <item android:id="@+id/add_crime"  android:title="Add Criminal"
                 android:icon="@drawable/ic_person_add_black_24dp"
                 app:showAsAction="always" />
-            <item android:id="@+id/wanted_list" android:title="WANTED LIST"
-                android:icon="@drawable/wantedlist"
-                app:showAsAction="always"
-                />
+
             <item android:id="@+id/updatewantedfiles" android:title="Update Wanted Photos"
                 app:showAsAction="always"
                 android:icon="@drawable/ic_person_add_black_24dp"/>

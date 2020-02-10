@@ -246,6 +246,40 @@ public class Beats extends AppCompatActivity implements OnMapReadyCallback,Googl
 
             }
         });
+        DatabaseReference userbeat = FirebaseDatabase.getInstance().getReference("UserBeats");
+        userbeat.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot vehicle : dataSnapshot.getChildren()) {
+
+                    String location = vehicle.getValue(String.class);
+                    Log.d("locationfro", location.substring(0, location.indexOf('|')));
+                    Log.d("locationfro", location.substring(location.lastIndexOf('|') + 1));
+                    double lat = Double.parseDouble(location.substring(0, location.indexOf('|')));
+                    double lon = Double.parseDouble(location.substring(location.lastIndexOf('|') + 1));
+                    // LatLng sydney = new LatLng( Double.parseDouble(location.substring(0,location.indexOf('|'))) ,Double.parseDouble(location.substring(location.lastIndexOf('|')+1)) );
+                    LatLng sydney = new LatLng(lat, lon);
+
+                    final MarkerOptions marker = new MarkerOptions().position(sydney).title(vehicle.getKey());
+                    //  Drawable i=;
+                    final Bitmap bitmap = drawableToBitmap(getDrawable(R.drawable.person_foreground));
+
+                        marker.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+                        mMap.addMarker(marker);
+
+
+
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
